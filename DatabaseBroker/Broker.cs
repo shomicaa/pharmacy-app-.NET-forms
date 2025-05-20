@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Domain;
 
 namespace DatabaseBroker
 {
@@ -21,5 +22,29 @@ namespace DatabaseBroker
 
         public void Commit() => transaction.Commit();
         public void Rollback() => transaction.Rollback();
+
+        public int Create(IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+        public void Save(IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<IEntity> GetAll(IEntity entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
