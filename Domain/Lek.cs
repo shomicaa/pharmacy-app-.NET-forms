@@ -12,7 +12,7 @@ namespace Domain
         public string Naziv { get; set; }
         public DateTime RokTrajanja { get; set; }
         public int Kolicina { get; set; }
-        public string ZemljaPorekla { get; set; }
+        public ZemljaPorekla ZemljaPorekla { get; set; }
         public double Cena { get; set; }
     }
 }

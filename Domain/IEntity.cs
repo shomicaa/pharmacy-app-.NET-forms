@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace Domain
         object SelectValues { get; }
         string UpdateValues { get; }
         public string InsertValues { get; }
+
+        IEntity ReadObjectRow(SqlDataReader reader);
     }
 }
