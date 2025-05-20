@@ -1,10 +1,19 @@
+using View.FormControllers;
+
 namespace View
 {
-    public partial class Form1 : Form
+    public partial class FrmLogin : Form
     {
-        public Form1()
+        private LoginController loginController;
+        public FrmLogin()
         {
             InitializeComponent();
+            loginController = new LoginController();
+        }
+
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            loginController.Login(this);
         }
     }
 }
