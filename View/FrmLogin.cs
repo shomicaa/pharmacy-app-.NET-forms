@@ -15,5 +15,10 @@ namespace View
         {
             loginController.Login(this);
         }
+
+        private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Communication.Instance.Close();
+        }
     }
 }

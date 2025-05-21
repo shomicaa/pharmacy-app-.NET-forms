@@ -7,6 +7,10 @@ using System.Diagnostics;
 using Common;
 using View.Exceptions;
 using Microsoft.VisualBasic.ApplicationServices;
+using ApplicationLogic;
+using Domain;
+using Operation = Common.Operation;
+using Response = Common.Response;
 
 namespace Server
 {
@@ -111,6 +115,81 @@ namespace Server
 
             switch (request.Operation)
             {
+                // obrisi cases
+                case Operation.ObrisiFarmaceuta:
+                    Controller.Instance.ObrisiFarmaceut((Farmaceut)request.RequestObject);
+                    break;
+                case Operation.ObrisiKorisnika:
+                    Controller.Instance.ObrisiKorisnik((Korisnik)request.RequestObject);
+                    break;
+                case Operation.ObrisiLek:
+                    Controller.Instance.ObrisiLek((Lek)request.RequestObject);
+                    break;
+                case Operation.ObrisiLokaciju:
+                    Controller.Instance.ObrisiLokacija((Lokacija)request.RequestObject);
+                    break;
+                case Operation.ObrisiPromoKod:
+                    Controller.Instance.ObrisiPromoKod((PromoKod)request.RequestObject);
+                    break;
+                // promeni cases
+                case Operation.PromeniFarmaceuta:
+                    Controller.Instance.PromeniFarmaceut((Farmaceut)request.RequestObject);
+                    break;
+                case Operation.PromeniKorisnika:
+                    Controller.Instance.PromeniKorisnik((Korisnik)request.RequestObject);
+                    break;
+                case Operation.PromeniLek:
+                    Controller.Instance.PromeniLek((Lek)request.RequestObject);
+                    break;
+                case Operation.PromeniLokaciju:
+                    Controller.Instance.PromeniLokacija((Lokacija)request.RequestObject);
+                    break;
+                case Operation.PromeniPromoKod:
+                    Controller.Instance.PromeniPromoKod((PromoKod)request.RequestObject);
+                    break;
+                case Operation.PromeniRacun:
+                    Controller.Instance.PromeniRacun((Racun)request.RequestObject);
+                    break;
+                // getAll cases
+                case Operation.UcitajFarmaceute:
+                    Response<List<Farmaceut>> responseFarmaceuti = new Response<List<Farmaceut>>();
+                    responseFarmaceuti.Result = Controller.Instance.UcitajFarmaceute();
+                    break;
+                case Operation.UcitajKorisnike:
+                    Response<List<Korisnik>> responseKorisnici = new Response<List<Korisnik>>();
+                    responseKorisnici.Result = Controller.Instance.UcitajKorisnike();
+                    break;
+                case Operation.UcitajLekove:
+                    Response<List<Lek>> responseLekovi = new Response<List<Lek>>();
+                    responseLekovi.Result = Controller.Instance.UcitajLekove();
+                    break;
+                case Operation.UcitajLokacije:
+                    Response<List<Lokacija>> responseLokacije = new Response<List<Lokacija>>();
+                    responseLokacije.Result = Controller.Instance.UcitajLokacije();
+                    break;
+                case Operation.UcitajPromoKodove:
+                    Response<List<PromoKod>> responsePromoKodovi = new Response<List<PromoKod>>();
+                    responsePromoKodovi.Result = Controller.Instance.UcitajPromoKodove();
+                    break;
+                case Operation.UcitajRacune:
+                    Response<List<Racun>> responseRacuni = new Response<List<Racun>>();
+                    responseRacuni.Result = Controller.Instance.UcitajRacune();
+                    break;
+                case Operation.Login:
+
+                    (Response<Farmaceut> responseFarmaceut, Farmaceut farmaceut) = DeserializeTupleDomain<Farmaceut>(request);
+
+                    responseFarmaceut.Result = Controller.Instance.Login(farmaceut);
+
+                    if (responseFarmaceut.Result == null)
+                    {
+                        responseFarmaceut.IsSuccessful = false;
+                        responseFarmaceut.Message = "User doesn't exist!";
+                    }
+
+                    string jsonResponseUser = JsonSerializer.Serialize(responseFarmaceut, JsonOptions);
+                    writer.WriteLine(jsonResponseUser);
+                    break;
                 default:
 
                     break;

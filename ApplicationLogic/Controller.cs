@@ -37,6 +37,13 @@ namespace ApplicationLogic
         }
         #endregion
 
+        public Farmaceut Login(Farmaceut farmaceut)
+        {
+            PrijaviFarmaceutSO so = new PrijaviFarmaceutSO();
+            so.ExecuteTemplate(farmaceut);
+            return so.Result;
+        }
+
         #region delete methods
         public void ObrisiFarmaceut(Farmaceut farmaceut)
         {

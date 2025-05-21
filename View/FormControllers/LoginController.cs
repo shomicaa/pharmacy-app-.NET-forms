@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualBasic.ApplicationServices;
+﻿using Domain;
+using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,17 +42,17 @@ namespace View.FormControllers
             }
             #endregion
 
-            User user = new User
+            Farmaceut farmaceut = new Farmaceut()
             {
-                Username = username,
-                Password = password,
+                KorisnickoIme = username,
+                Lozinka = password,
             };
 
             try
             {
-                User currentUser = Communication.Instance.Login(user);
+                Farmaceut trenutniFarmaceut = Communication.Instance.Login(farmaceut);
 
-                if (currentUser != null)
+                if (trenutniFarmaceut != null)
                 {
                     frmLogin.DialogResult = DialogResult.OK;
                     frmLogin.Close();

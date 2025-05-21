@@ -91,6 +91,7 @@
             Margin = new Padding(4);
             Name = "FrmLogin";
             Text = "FrmLogin";
+            FormClosed += FrmLogin_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
