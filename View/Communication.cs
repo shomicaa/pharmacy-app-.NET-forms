@@ -60,7 +60,7 @@ namespace View
         {
             try
             {
-                if (socket == null || !socket.Connected)
+                if (socket == null || !IsConnected)
                 {
                     socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     socket.Connect("127.0.0.1", 9999);
@@ -96,6 +96,7 @@ namespace View
         {
             try
             {
+                Connect();
                 Request<T> request = new Request<T>
                 {
                     Operation = operation,

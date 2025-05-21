@@ -9,6 +9,7 @@ namespace SystemOperations.FarmaceutOperations
 {
     public class PretraziFarmaceutSO : SystemOperationBase
     {
+        public Farmaceut Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
             throw new NotImplementedException();

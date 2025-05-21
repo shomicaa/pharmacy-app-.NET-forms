@@ -115,6 +115,24 @@ namespace Server
 
             switch (request.Operation)
             {
+                case Operation.Login:
+
+                    (Response<Farmaceut> responseFarmaceut, Farmaceut farmaceut) = DeserializeTupleDomain<Farmaceut>(request);
+
+                    responseFarmaceut.Result = Controller.Instance.Login(farmaceut);
+
+                    if (responseFarmaceut.Result == null)
+                    {
+                        responseFarmaceut.IsSuccessful = false;
+                        responseFarmaceut.Message = "User doesn't exist!";
+                    }
+
+                    string jsonResponseUser = JsonSerializer.Serialize(responseFarmaceut, JsonOptions);
+                    writer.WriteLine(jsonResponseUser);
+                    break;
+                case Operation.End:
+                    end = true;
+                    break;
                 // obrisi cases
                 case Operation.ObrisiFarmaceuta:
                     Controller.Instance.ObrisiFarmaceut((Farmaceut)request.RequestObject);
@@ -174,24 +192,52 @@ namespace Server
                 case Operation.UcitajRacune:
                     Response<List<Racun>> responseRacuni = new Response<List<Racun>>();
                     responseRacuni.Result = Controller.Instance.UcitajRacune();
+                    break;             
+                // kreiraj/ubaci cases
+                case Operation.KreirajFarmaceuta:
+                    Controller.Instance.KreirajFarmaceut((Farmaceut)request.RequestObject);
                     break;
-                case Operation.Login:
-
-                    (Response<Farmaceut> responseFarmaceut, Farmaceut farmaceut) = DeserializeTupleDomain<Farmaceut>(request);
-
-                    responseFarmaceut.Result = Controller.Instance.Login(farmaceut);
-
-                    if (responseFarmaceut.Result == null)
-                    {
-                        responseFarmaceut.IsSuccessful = false;
-                        responseFarmaceut.Message = "User doesn't exist!";
-                    }
-
-                    string jsonResponseUser = JsonSerializer.Serialize(responseFarmaceut, JsonOptions);
-                    writer.WriteLine(jsonResponseUser);
+                case Operation.KreirajKorisnika:
+                    Controller.Instance.KreirajKorisnik((Korisnik)request.RequestObject);
+                    break;
+                case Operation.KreirajLek:
+                    Controller.Instance.KreirajLek((Lek)request.RequestObject);
+                    break;
+                case Operation.UbaciLokaciju:
+                    Controller.Instance.UbaciLokacija((Lokacija)request.RequestObject);
+                    break;
+                case Operation.KreirajPromoKod:
+                    Controller.Instance.KreirajPromoKod((PromoKod)request.RequestObject);
+                    break;
+                case Operation.KreirajRacun:
+                    Controller.Instance.KreirajRacun((Racun)request.RequestObject);
+                    break;
+                // pretrazi cases
+                case Operation.PretraziFarmaceuta:
+                    Response<Farmaceut> responsePretraziFarmaceut = new Response<Farmaceut>();
+                    responsePretraziFarmaceut.Result = Controller.Instance.PretraziFarmaceut();
+                    break;
+                case Operation.PretraziKorisnika:
+                    Response<Korisnik> responsePretraziKorisnik = new Response<Korisnik>();
+                    responsePretraziKorisnik.Result = Controller.Instance.PretraziKorisnik();
+                    break;
+                case Operation.PretraziLek:
+                    Response<Lek> responsePretraziLek = new Response<Lek>();
+                    responsePretraziLek.Result = Controller.Instance.PretraziLek();
+                    break;
+                case Operation.PretraziLokaciju:
+                    Response<Lokacija> responsePretraziLokacija = new Response<Lokacija>();
+                    responsePretraziLokacija.Result = Controller.Instance.PretraziLokacija();
+                    break;
+                case Operation.PretraziPromoKod:
+                    Response<PromoKod> responsePretraziPromoKod = new Response<PromoKod>();
+                    responsePretraziPromoKod.Result = Controller.Instance.PretraziPromoKod();
+                    break;
+                case Operation.PretraziRacun:
+                    Response<Racun> responsePretraziRacun = new Response<Racun>();
+                    responsePretraziRacun.Result = Controller.Instance.PretraziRacun();
                     break;
                 default:
-
                     break;
 
             }

@@ -9,6 +9,8 @@ namespace View
         {
             InitializeComponent();
             loginController = new LoginController();
+            txtUsername.Text = "shomica";
+            txtPassword.Text = "milos123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
@@ -18,7 +20,7 @@ namespace View
 
         private void FrmLogin_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Communication.Instance.Close();
+            loginController.Close();
         }
     }
 }

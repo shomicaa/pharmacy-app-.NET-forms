@@ -9,6 +9,7 @@ namespace SystemOperations.LekOperations
 {
     public class PretraziLekSO : SystemOperationBase
     {
+        public Lek Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
             throw new NotImplementedException();

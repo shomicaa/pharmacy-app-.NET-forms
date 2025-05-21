@@ -146,5 +146,76 @@ namespace ApplicationLogic
         }
         #endregion
 
+        #region kreiraj/ubaci methods
+        public void KreirajFarmaceut(Farmaceut farmaceut)
+        {
+            KreirajFarmaceutSO so = new KreirajFarmaceutSO();
+            so.ExecuteTemplate(farmaceut);
+        }
+        public void KreirajKorisnik(Korisnik korisnik)
+        {
+            KreirajKorisnikSO so = new KreirajKorisnikSO();
+            so.ExecuteTemplate(korisnik);
+        }
+        public void KreirajLek(Lek farmaceut)
+        {
+            KreirajFarmaceutSO so = new KreirajFarmaceutSO();
+            so.ExecuteTemplate(farmaceut);
+        }
+        public void UbaciLokacija(Lokacija lokacija)
+        {
+            UbaciLokacijaSO so = new UbaciLokacijaSO();
+            so.ExecuteTemplate(lokacija);
+        }
+        public void KreirajPromoKod(PromoKod promoKod)
+        {
+            KreirajPromoKodSO so = new KreirajPromoKodSO();
+            so.ExecuteTemplate(promoKod);
+        }
+        public void KreirajRacun(Racun racun)
+        {
+            KreirajRacunSO so = new KreirajRacunSO();
+            so.ExecuteTemplate(racun);
+        }
+        #endregion
+
+        #region pretrazi methods
+        public Farmaceut PretraziFarmaceut()
+        {
+            PretraziFarmaceutSO so = new PretraziFarmaceutSO();
+            so.ExecuteTemplate(new Farmaceut());
+            return so.Result;
+        }
+        public Korisnik PretraziKorisnik()
+        {
+            PretraziKorisnikSO so = new PretraziKorisnikSO();
+            so.ExecuteTemplate(new Korisnik());
+            return so.Result;
+        }
+        public Lek PretraziLek()
+        {
+            PretraziLekSO so = new PretraziLekSO();
+            so.ExecuteTemplate(new Lek());
+            return so.Result;
+        }
+        public Lokacija PretraziLokacija()
+        {
+            PretraziLokacijaSO so = new PretraziLokacijaSO();
+            so.ExecuteTemplate(new Lek());
+            return so.Result;
+        }
+        public PromoKod PretraziPromoKod()
+        {
+            PretraziPromoKodSO so = new PretraziPromoKodSO();
+            so.ExecuteTemplate(new PromoKod());
+            return so.Result;
+        }
+        public Racun PretraziRacun()
+        {
+            PretraziRacunSO so = new PretraziRacunSO();
+            so.ExecuteTemplate(new Racun());
+            return so.Result;
+        }
+        #endregion
     }
 }

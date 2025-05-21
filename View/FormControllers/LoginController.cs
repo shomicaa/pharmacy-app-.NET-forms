@@ -12,8 +12,15 @@ namespace View.FormControllers
 {
     public class LoginController
     {
+        internal void Close()
+        {
+            Communication.Instance.Close();
+        }
+
         internal void Login(FrmLogin frmLogin)
         {
+            frmLogin.TxtUsername.Text = "shomica";
+            frmLogin.TxtPassword.Text = "milos123";
             string username = frmLogin.TxtUsername.Text;
             string password = frmLogin.TxtPassword.Text;
             #region username/password check
