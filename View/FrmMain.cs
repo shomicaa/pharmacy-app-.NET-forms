@@ -16,5 +16,30 @@ namespace View
         {
             InitializeComponent();
         }
+
+        private void lblKorisnik_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblRacun_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblLek_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblLokacija_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblPromoKod_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
