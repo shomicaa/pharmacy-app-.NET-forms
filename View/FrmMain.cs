@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,39 +8,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using View.FormControllers;
 
 namespace View
 {
     public partial class FrmMain : Form
     {
+        private MainController mainController;
+        public bool IsKorisnikActive { get; set; }
+        public bool IsRacunActive { get; set; }
+        public bool IsLekActive { get; set; }
+        public bool IsLokacijaActive { get; set; }
+        public bool IsPromoKodActive { get; set; }
         public FrmMain()
         {
             InitializeComponent();
+            mainController = new MainController(this);
+            Init();
         }
 
-        private void lblKorisnik_Click(object sender, EventArgs e)
+        private void Init()
         {
-
-        }
-
-        private void lblRacun_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblLek_Click(object sender, EventArgs e)
-        {
+            mainController.Init();
 
         }
 
-        private void lblLokacija_Click(object sender, EventArgs e)
+        public void SetPanel(UserControl userControl)
         {
-
-        }
-
-        private void lblPromoKod_Click(object sender, EventArgs e)
-        {
-
+            panelMain.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(userControl);
         }
     }
 }
