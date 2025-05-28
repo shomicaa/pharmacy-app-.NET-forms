@@ -55,10 +55,10 @@ namespace ApplicationLogic
             ObrisiKorisnikSO so = new ObrisiKorisnikSO();
             so.ExecuteTemplate(korisnik);
         }
-        public void ObrisiLek(Lek farmaceut)
+        public void ObrisiLek(Lek lek)
         {
-            ObrisiFarmaceutSO so = new ObrisiFarmaceutSO();
-            so.ExecuteTemplate(farmaceut);
+            ObrisiLekSO so = new ObrisiLekSO();
+            so.ExecuteTemplate(lek);
         }
         public void ObrisiLokacija(Lokacija lokacija)
         {
@@ -129,7 +129,7 @@ namespace ApplicationLogic
         public List<Lokacija> UcitajLokacije()
         {
             UcitajSveLokacijeSO so = new UcitajSveLokacijeSO();
-            so.ExecuteTemplate(new Lek());
+            so.ExecuteTemplate(new Lokacija());
             return so.Result;
         }
         public List<PromoKod> UcitajPromoKodove()
@@ -157,10 +157,10 @@ namespace ApplicationLogic
             KreirajKorisnikSO so = new KreirajKorisnikSO();
             so.ExecuteTemplate(korisnik);
         }
-        public void KreirajLek(Lek farmaceut)
+        public void KreirajLek(Lek lek)
         {
-            KreirajFarmaceutSO so = new KreirajFarmaceutSO();
-            so.ExecuteTemplate(farmaceut);
+            KreirajLekSO so = new KreirajLekSO();
+            so.ExecuteTemplate(lek);
         }
         public void UbaciLokacija(Lokacija lokacija)
         {

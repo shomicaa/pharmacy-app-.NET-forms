@@ -83,5 +83,9 @@
         private Button btnStart;
         private Button btnStop;
         private Label lblServerStatus;
+
+        public Button BtnStart { get => btnStart; set => btnStart = value; }
+        public Button BtnStop { get => btnStop; set => btnStop = value; }
+        public Label LblServerStatus { get => lblServerStatus; set => lblServerStatus = value; }
     }
 }

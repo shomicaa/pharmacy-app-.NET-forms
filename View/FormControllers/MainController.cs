@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using View.UserControls;
 
 namespace View.FormControllers
 {
@@ -176,7 +177,6 @@ namespace View.FormControllers
         {
             form.Lbl1.Text = "Svi Korisnici";
             form.Lbl2.Text = "Dodaj Korisnika";
-            form.Lbl3.Text = "Pretraži Korisnika";
         }
         private void UpdateRacunBoardLabels()
         {
@@ -232,13 +232,10 @@ namespace View.FormControllers
             switch (labelNumber)
             {
                 case 1:
-                    // Call UcitajSveKorisnike operation
+                    SetPanel(new UCKorisnici());
                     break;
                 case 2:
-                    // Call DodajKorisnika operation
-                    break;
-                case 3:
-                    // Call PretraziKorisnika operation
+                    SetPanel(new UCUnosKorisnika());
                     break;
             }
         }
@@ -261,5 +258,13 @@ namespace View.FormControllers
             form.IsLokacijaActive = false;
             form.IsPromoKodActive = false;
         }
+
+        public void SetPanel(UserControl userControl)
+        {
+            form.PanelMain.Controls.Clear();
+            userControl.Dock = DockStyle.Fill;
+            form.PanelMain.Controls.Add(userControl);
+        }
+
     }
 }
