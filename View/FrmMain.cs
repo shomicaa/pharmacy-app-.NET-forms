@@ -20,6 +20,7 @@ namespace View
         public bool IsLekActive { get; set; }
         public bool IsLokacijaActive { get; set; }
         public bool IsPromoKodActive { get; set; }
+
         public FrmMain()
         {
             InitializeComponent();
@@ -27,17 +28,8 @@ namespace View
             Init();
         }
 
-        private void Init()
-        {
-            mainController.Init();
+        private void Init() => mainController.Init();
 
-        }
-
-        public void SetPanel(UserControl userControl)
-        {
-            panelMain.Controls.Clear();
-            userControl.Dock = DockStyle.Fill;
-            panelMain.Controls.Add(userControl);
-        }
+        public void SetPanel(UserControl userControl) => mainController.SetPanel(userControl);
     }
 }

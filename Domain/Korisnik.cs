@@ -26,9 +26,9 @@ namespace Domain
 
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string UpdateValues => $"Ime = '{Ime}', Prezime = '{Prezime}', Email = '{Email}', KontaktTelefon = '{KontaktTelefon}'";
 
-        public string InsertValues => $"'{Ime}','{Prezime}', '{Email}', {KontaktTelefon}, '{DatumUclanjenja:ddMMyyyy}', {GodineClanstva}, {IdPromoKod}";
+        public string InsertValues => $"'{Ime}','{Prezime}', '{Email}', '{KontaktTelefon}', '{DatumUclanjenja:ddMMyyyy}', {GodineClanstva}, {IdPromoKod}";
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

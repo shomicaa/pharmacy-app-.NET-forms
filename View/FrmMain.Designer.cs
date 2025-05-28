@@ -57,7 +57,7 @@
             panelBoard.Dock = DockStyle.Left;
             panelBoard.Location = new Point(0, 0);
             panelBoard.Name = "panelBoard";
-            panelBoard.Size = new Size(143, 622);
+            panelBoard.Size = new Size(143, 659);
             panelBoard.TabIndex = 0;
             // 
             // lbl3
@@ -180,7 +180,7 @@
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(143, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(992, 54);
+            panelHeader.Size = new Size(1091, 54);
             panelHeader.TabIndex = 1;
             // 
             // panelMain
@@ -188,14 +188,14 @@
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(143, 54);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(992, 568);
+            panelMain.Size = new Size(1091, 605);
             panelMain.TabIndex = 2;
             // 
             // FrmMain
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1135, 622);
+            ClientSize = new Size(1234, 659);
             Controls.Add(panelMain);
             Controls.Add(panelHeader);
             Controls.Add(panelBoard);

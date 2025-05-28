@@ -25,7 +25,7 @@ namespace Domain
 
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string UpdateValues => $"UkupnaVrednost = {UkupnaVrednost}, IznosPoreza = {IznosPoreza}, UkupnaVrednostSaPorezom = {UkupnaVrednostSaPorezom}, DatumIzdavanja = '{DatumIzdavanja:ddMMyyyy}', IdFarmaceut = {IdFarmaceut}, IdKorisnik = {IdKorisnik}";
 
         public string InsertValues => $"{UkupnaVrednost}, {IznosPoreza}, {UkupnaVrednostSaPorezom}, '{DatumIzdavanja:ddMMyyyy}', {IdFarmaceut}, {IdKorisnik}";
 

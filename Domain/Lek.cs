@@ -24,7 +24,7 @@ namespace Domain
 
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string UpdateValues => $"Naziv = '{Naziv}', RokTrajanja = '{RokTrajanja:ddMMyyyy}', Kolicina = {Kolicina}, ZemljaPorekla = {ZemljaPorekla}, Cena = {Cena}";
 
         public string InsertValues => $"'{Naziv}', '{RokTrajanja:ddMMyyyy}', {Kolicina}, {(int)ZemljaPorekla}, {Cena}";
 

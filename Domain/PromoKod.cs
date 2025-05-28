@@ -21,7 +21,7 @@ namespace Domain
 
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string UpdateValues => $"IznosPopusta = {IznosPopusta}, DatumIsteka = '{DatumIsteka:ddMMyyyy}'";
 
         public string InsertValues => $"{IznosPopusta}, '{DatumIsteka:ddMMyyyy}'";
 

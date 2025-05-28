@@ -124,7 +124,11 @@ namespace View
             throw new SystemOperationException(response.Message);
         }
 
-        // methode
+
+        #region ALL REQUESTS
+
+        // code inside request methods couldve been less redundant, yet generics are used for performance
+
         internal Farmaceut Login(Farmaceut farmaceut)
         {
             SendRequest<Farmaceut>(Operation.Login, farmaceut);
@@ -142,7 +146,7 @@ namespace View
             SendRequest<List<Racun>>(Operation.UcitajRacune);
             return HandleResponse<List<Racun>>();
         }
-        internal List<Korisnik> UcitajKorisnik()
+        internal List<Korisnik> UcitajKorisnike()
         {
             SendRequest<List<Korisnik>>(Operation.UcitajKorisnike);
             return HandleResponse<List<Korisnik>>();
@@ -322,9 +326,6 @@ namespace View
 
             }
         }
-
+        #endregion
     }
-
-
-
 }

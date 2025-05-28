@@ -21,7 +21,7 @@ namespace Domain
 
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string UpdateValues => $"AdresaLokacije = '{AdresaLokacije}', Opstina = '{Opstina}'";
 
         public string InsertValues => $"'{AdresaLokacije}', '{Opstina}'";
 

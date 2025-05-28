@@ -11,6 +11,8 @@ namespace Common
     {
         Login,
 
+        // farmaceut        korisnik          lek           lokacija         promo kod         racun
+
         UcitajFarmaceute, UcitajKorisnike, UcitajLekove, UcitajLokacije, UcitajPromoKodove, UcitajRacune,
 
         ObrisiFarmaceuta, ObrisiKorisnika, ObrisiLek, ObrisiLokaciju, ObrisiPromoKod,
