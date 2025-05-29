@@ -16,14 +16,31 @@ namespace Domain
         public DateTime DatumIsteka { get; set; }
 
         public string TableName => "PromoKod";
-
-        public string WhereCondition => $"Id={IdPromoKod}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"IznosPopusta = {IznosPopusta}, DatumIsteka = '{DatumIsteka:ddMMyyyy}'";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@IznosPopusta"] = IznosPopusta,
+            ["@DatumIsteka"] = DatumIsteka
+        };
 
-        public string InsertValues => $"{IznosPopusta}, '{DatumIsteka:ddMMyyyy}'";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdPromoKod,
+            ["@IznosPopusta"] = IznosPopusta,
+            ["@DatumIsteka"] = DatumIsteka
+        };
+
+        public string GetUpdateQuery() =>
+            "SET IznosPopusta = @IznosPopusta, DatumIsteka = @DatumIsteka WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdPromoKod };
+        public string GetDeleteCondition() => "Id = @Id";
+
+        public string GetSearchCondition() => "Id = @kw";
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = int.Parse(SearchKeyword) };
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

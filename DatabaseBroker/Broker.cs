@@ -25,19 +25,40 @@ namespace DatabaseBroker
 
         public int Create(IEntity entity)
         {
-            string query = $"insert into {entity.TableName} output inserted.id values ({entity.InsertValues})";
+            var insertParams = entity.GetInsertParameters();
+            string columns = string.Join(", ", insertParams.Keys.Select(k => k.TrimStart('@')));
+            string paramNames = string.Join(", ", insertParams.Keys);
+
+            string query = $"INSERT INTO {entity.TableName} ({columns}) OUTPUT inserted.Id VALUES ({paramNames})";
+
             SqlCommand command = new SqlCommand(query, connection, transaction);
+            foreach (var param in insertParams)
+            {
+                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+            }
+
             object insertedId = command.ExecuteScalar();
-            if(!(insertedId is int))
+            if (!(insertedId is int))
             {
                 throw new Exception("Database error!");
             }
             return (int)insertedId;
         }
+
         public void Save(IEntity entity)
         {
-            string query = $"insert into {entity.TableName} values ({entity.InsertValues})";
+            var insertParams = entity.GetInsertParameters();
+            string columns = string.Join(", ", insertParams.Keys.Select(k => k.TrimStart('@')));
+            string paramNames = string.Join(", ", insertParams.Keys);
+
+            string query = $"INSERT INTO {entity.TableName} ({columns}) VALUES ({paramNames})";
+
             SqlCommand command = new SqlCommand(query, connection, transaction);
+            foreach (var param in insertParams)
+            {
+                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+            }
+
             if (command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Database error!");
@@ -46,8 +67,15 @@ namespace DatabaseBroker
 
         public void Update(IEntity entity)
         {
-            string query = $"update {entity.TableName} set {entity.UpdateValues} where {entity.WhereCondition}";
+            string query = $"UPDATE {entity.TableName} {entity.GetUpdateQuery()}";
             SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            var updateParams = entity.GetUpdateParameters();
+            foreach (var param in updateParams)
+            {
+                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+            }
+
             if (command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Database error!");
@@ -56,8 +84,14 @@ namespace DatabaseBroker
 
         public void Delete(IEntity entity)
         {
-            string query = $"delete from {entity.TableName} where {entity.WhereCondition}";
+            string query = $"DELETE FROM {entity.TableName} WHERE {entity.GetDeleteCondition()}";
             SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var param in entity.GetDeleteParameters())
+            {
+                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+            }
+
             if (command.ExecuteNonQuery() != 1)
             {
                 throw new Exception("Database error!");
@@ -68,7 +102,7 @@ namespace DatabaseBroker
         {
             List<IEntity> result = new List<IEntity>();
             SqlCommand command = new SqlCommand("", connection, transaction);
-            command.CommandText = $"select {entity.SelectValues} from {entity.TableName} ";
+            command.CommandText = $"select {entity.SelectValues} from {entity.TableName}";
             using (SqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
@@ -79,5 +113,29 @@ namespace DatabaseBroker
             }
             return result;
         }
+        
+        // search bar get method
+        public List<IEntity> GetSpecific(IEntity entity)
+        {
+            List<IEntity> results = new List<IEntity>();
+            SqlCommand command = new SqlCommand("", connection, transaction);
+            command.CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetSearchCondition()}";
+
+            foreach (var pair in entity.GetSearchParameters())
+            {
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+            }
+
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    IEntity rowObject = entity.ReadObjectRow(reader);
+                    results.Add(rowObject);
+                }
+            }
+            return results;
+        }
+
     }
 }

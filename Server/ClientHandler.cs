@@ -104,6 +104,13 @@ namespace Server
             T t = JsonSerializer.Deserialize<T>(element);
             return new Tuple<Response<T>, T>(responseT, t);
         }
+        public Tuple<Response<List<T>>, T> DeserializeTupleListDomain<T>(Request request)
+        {
+            Response<List<T>> responseT = new Response<List<T>>();
+            var element = (JsonElement)request.RequestObject;
+            T t = JsonSerializer.Deserialize<T>(element);
+            return new Tuple<Response<List<T>>, T>(responseT, t);
+        }
 
         public void SendResponse<T>(Response<T> result, string errorMessage)
         {
@@ -123,16 +130,25 @@ namespace Server
             funkcija(entity);
             SendResponse(response, errorMessage);
         }
+
         public void MakeResponse<T>(Func<T> pretraziFunkcija, string errorMessage)
         {
             Response<T> response = new Response<T>();
             response.Result = pretraziFunkcija();
             SendResponse(response, errorMessage);
         }
+
         public void MakeResponse<T>(Func<List<T>> ucitajFunkcija, string errorMessage)
         {
             Response<List<T>> response = new Response<List<T>>();
             response.Result = ucitajFunkcija();
+            SendResponse(response, errorMessage);
+        }
+
+        public void MakeResponseList<T>(Request request, Func<T,List<T>> ucitajFunkcija, string errorMessage)
+        {
+            (Response<List<T>> response, T entity) = DeserializeTupleListDomain<T>(request);
+            response.Result = ucitajFunkcija(entity);
             SendResponse(response, errorMessage);
         }
 
@@ -208,41 +224,43 @@ namespace Server
                     break;             
                 // kreiraj/ubaci cases
                 case Operation.KreirajFarmaceuta:
-                    Controller.Instance.KreirajFarmaceut((Farmaceut)request.RequestObject);
+                    MakeResponse<int>(Controller.Instance.KreirajFarmaceut, "Greska pri kreiranju farmaceuta");
                     break;
                 case Operation.KreirajKorisnika:
-                    Controller.Instance.KreirajKorisnik((Korisnik)request.RequestObject);
+                    MakeResponse<int>(Controller.Instance.KreirajKorisnik, "Greska pri kreiranju korisnika");
                     break;
                 case Operation.KreirajLek:
-                    Controller.Instance.KreirajLek((Lek)request.RequestObject);
+                    MakeResponse<int>(Controller.Instance.KreirajLek, "Greska pri kreiranju leka");
                     break;
                 case Operation.UbaciLokaciju:
+                    Response<Lek> response = new Response<Lek>();
                     Controller.Instance.UbaciLokacija((Lokacija)request.RequestObject);
+                    SendResponse(response, "Greska pri ubacivanju lokacije u bazu");
                     break;
                 case Operation.KreirajPromoKod:
-                    Controller.Instance.KreirajPromoKod((PromoKod)request.RequestObject);
+                    MakeResponse<int>(Controller.Instance.KreirajPromoKod, "Greska pri kreiranju promo koda");
                     break;
                 case Operation.KreirajRacun:
-                    Controller.Instance.KreirajRacun((Racun)request.RequestObject);
+                    MakeResponse<int>(Controller.Instance.KreirajRacun, "Greska pri kreiranju racuna");
                     break;
                 // pretrazi cases
                 case Operation.PretraziFarmaceuta:
-                    MakeResponse(Controller.Instance.PretraziFarmaceut, "Greska pri vracanju odabranog farmaceuta");
+                    MakeResponseList<Farmaceut>(request, Controller.Instance.PretraziFarmaceut, "Greska pri vracanju farmaceuta");
                     break;
                 case Operation.PretraziKorisnika:
-                    MakeResponse(Controller.Instance.PretraziKorisnik, "Greska pri vracanju odabranog korisnika");
+                    MakeResponseList<Korisnik>(request, Controller.Instance.PretraziKorisnik, "Greska pri vracanju korisnika");
                     break;
                 case Operation.PretraziLek:
-                    MakeResponse(Controller.Instance.PretraziLek, "Greska pri vracanju odabranog leka");
+                    MakeResponseList<Lek>(request, Controller.Instance.PretraziLek, "Greska pri vracanju leka");
                     break;
                 case Operation.PretraziLokaciju:
-                    MakeResponse(Controller.Instance.PretraziLokacija, "Greska pri vracanju odabrane lokacije");
+                    MakeResponseList<Lokacija>(request, Controller.Instance.PretraziLokacija, "Greska pri vracanju lokacije");
                     break;
                 case Operation.PretraziPromoKod:
-                    MakeResponse(Controller.Instance.PretraziPromoKod, "Greska pri vracanju odabranog promo koda");
+                    MakeResponseList<PromoKod>(request, Controller.Instance.PretraziPromoKod, "Greska pri vracanju promo koda");
                     break;
                 case Operation.PretraziRacun:
-                    MakeResponse(Controller.Instance.PretraziRacun, "Greska pri vracanju odabranog racuna");
+                    MakeResponseList<Racun>(request, Controller.Instance.PretraziRacun, "Greska pri vracanju racuna");
                     break;
                 default:
                     break;

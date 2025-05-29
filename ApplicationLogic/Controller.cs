@@ -147,73 +147,78 @@ namespace ApplicationLogic
         #endregion
 
         #region kreiraj/ubaci methods
-        public void KreirajFarmaceut(Farmaceut farmaceut)
+        public int KreirajFarmaceut()
         {
             KreirajFarmaceutSO so = new KreirajFarmaceutSO();
-            so.ExecuteTemplate(farmaceut);
+            so.ExecuteTemplate(new Farmaceut());
+            return so.Result;
         }
-        public void KreirajKorisnik(Korisnik korisnik)
+        public int KreirajKorisnik()
         {
             KreirajKorisnikSO so = new KreirajKorisnikSO();
-            so.ExecuteTemplate(korisnik);
+            so.ExecuteTemplate(new Korisnik());
+            return so.Result;
         }
-        public void KreirajLek(Lek lek)
+        public int KreirajLek()
         {
             KreirajLekSO so = new KreirajLekSO();
-            so.ExecuteTemplate(lek);
+            so.ExecuteTemplate(new Lek());
+            return so.Result;
         }
         public void UbaciLokacija(Lokacija lokacija)
         {
             UbaciLokacijaSO so = new UbaciLokacijaSO();
             so.ExecuteTemplate(lokacija);
         }
-        public void KreirajPromoKod(PromoKod promoKod)
+        public int KreirajPromoKod()
         {
             KreirajPromoKodSO so = new KreirajPromoKodSO();
-            so.ExecuteTemplate(promoKod);
+            so.ExecuteTemplate(new PromoKod());
+            return so.Result;
         }
-        public void KreirajRacun(Racun racun)
+        public int KreirajRacun()
         {
             KreirajRacunSO so = new KreirajRacunSO();
-            so.ExecuteTemplate(racun);
+            so.ExecuteTemplate(new Racun());
+            return so.Result;
         }
         #endregion
 
         #region pretrazi methods
-        public Farmaceut PretraziFarmaceut()
+        public List<Farmaceut> PretraziFarmaceut(Farmaceut farmaceut)
         {
             PretraziFarmaceutSO so = new PretraziFarmaceutSO();
-            so.ExecuteTemplate(new Farmaceut());
+            so.ExecuteTemplate(farmaceut);
             return so.Result;
         }
-        public Korisnik PretraziKorisnik()
+        public List<Korisnik> PretraziKorisnik(Korisnik korisnik)
         {
             PretraziKorisnikSO so = new PretraziKorisnikSO();
-            so.ExecuteTemplate(new Korisnik());
+            so.ExecuteTemplate(korisnik);
             return so.Result;
         }
-        public Lek PretraziLek()
+        public List<Lek> PretraziLek(Lek lek)
         {
             PretraziLekSO so = new PretraziLekSO();
-            so.ExecuteTemplate(new Lek());
+            so.ExecuteTemplate(lek);
             return so.Result;
         }
-        public Lokacija PretraziLokacija()
+        public List<Lokacija> PretraziLokacija(Lokacija lokacija)
         {
             PretraziLokacijaSO so = new PretraziLokacijaSO();
-            so.ExecuteTemplate(new Lek());
+            so.ExecuteTemplate(lokacija);
             return so.Result;
         }
-        public PromoKod PretraziPromoKod()
+        public List<PromoKod> PretraziPromoKod(PromoKod promoKod)
         {
             PretraziPromoKodSO so = new PretraziPromoKodSO();
-            so.ExecuteTemplate(new PromoKod());
+            so.ExecuteTemplate(promoKod);
             return so.Result;
         }
-        public Racun PretraziRacun()
+        public List<Racun> PretraziRacun(Racun racun)
         {
             PretraziRacunSO so = new PretraziRacunSO();
-            so.ExecuteTemplate(new Racun());
+            so.ExecuteTemplate(racun);
             return so.Result;
         }
         #endregion

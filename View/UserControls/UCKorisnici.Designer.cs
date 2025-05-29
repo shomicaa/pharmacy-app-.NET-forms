@@ -95,6 +95,7 @@
             btnPretrazi.TabIndex = 4;
             btnPretrazi.Text = "Pretraži";
             btnPretrazi.UseVisualStyleBackColor = true;
+            btnPretrazi.Click += btnPretrazi_Click;
             // 
             // btnPrikaziKorisnike
             // 

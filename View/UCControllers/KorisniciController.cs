@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -41,10 +42,8 @@ namespace View.UCControllers
                         uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
 
                         uc.DgvKorisnici.Columns["TableName"].Visible = false;
-                        uc.DgvKorisnici.Columns["WhereCondition"].Visible = false;
                         uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
-                        uc.DgvKorisnici.Columns["UpdateValues"].Visible = false;
-                        uc.DgvKorisnici.Columns["InsertValues"].Visible = false;
+                        uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
 
                         uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
                         uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -148,6 +147,61 @@ namespace View.UCControllers
             {
                 MessageBox.Show("Sistem ne može da promeni odabranog korisnika.\n" + ex.Message);
 
+            }
+        }
+
+        internal void Pretrazi()
+        {
+            if (string.IsNullOrEmpty(uc.TxtImePrezime.Text))
+            {
+                UcitajKorisnike();
+                return;
+            }
+
+            try
+            {
+                Korisnik korisnik = new Korisnik
+                {
+                    SearchKeyword = uc.TxtImePrezime.Text
+                };
+
+                List<Korisnik> korisnici = Communication.Instance.PretraziKorisnika(korisnik);
+
+                if (korisnici == null || korisnici.Count == 0)
+                {
+                    MessageBox.Show("Sistem ne može da nađe korisnike po zadatoj vrednosti!");
+                    uc.TxtImePrezime.Text = "";
+                }
+                else
+                {
+                    uc.DgvKorisnici.DataSource = new BindingList<Korisnik>(korisnici);
+                    uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+
+                    uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
+                    uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
+                    uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
+
+                    uc.DgvKorisnici.Columns["TableName"].Visible = false;
+                    uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
+                    uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
+
+                    uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
+                    uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
+                    uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
+
+                    uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
+                    uc.TxtImePrezime.Text = "";
+                }
+            }
+            catch (NullReferenceException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sistem ne može da pretraži korisnike.\n" + ex.Message);
             }
         }
     }

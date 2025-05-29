@@ -11,7 +11,7 @@ namespace SystemOperations.LokacijaOperations
     {
         protected override void Execute(IEntity entity)
         {
-            throw new NotImplementedException();
+            repository.Save(entity);
         }
     }
 }

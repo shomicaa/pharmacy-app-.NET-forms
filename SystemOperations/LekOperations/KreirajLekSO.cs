@@ -9,9 +9,11 @@ namespace SystemOperations.LekOperations
 {
     public class KreirajLekSO : SystemOperationBase
     {
+        public int Result { get; set; }
+
         protected override void Execute(IEntity entity)
         {
-            throw new NotImplementedException();
+            Result = repository.Create(entity);
         }
     }
 }

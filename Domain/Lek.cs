@@ -19,14 +19,41 @@ namespace Domain
         public double Cena { get; set; }
 
         public string TableName => "Lek";
-
-        public string WhereCondition => $"Id={IdLek}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"Naziv = '{Naziv}', RokTrajanja = '{RokTrajanja:ddMMyyyy}', Kolicina = {Kolicina}, ZemljaPorekla = {ZemljaPorekla}, Cena = {Cena}";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@Naziv"] = Naziv,
+            ["@RokTrajanja"] = RokTrajanja,
+            ["@Kolicina"] = Kolicina,
+            ["@ZemljaPorekla"] = (int)ZemljaPorekla,
+            ["@Cena"] = Cena
+        };
 
-        public string InsertValues => $"'{Naziv}', '{RokTrajanja:ddMMyyyy}', {Kolicina}, {(int)ZemljaPorekla}, {Cena}";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdLek,
+            ["@Naziv"] = Naziv,
+            ["@RokTrajanja"] = RokTrajanja,
+            ["@Kolicina"] = Kolicina,
+            ["@ZemljaPorekla"] = (int)ZemljaPorekla,
+            ["@Cena"] = Cena
+        };
+
+        public string GetUpdateQuery() =>
+            "SET Naziv = @Naziv, RokTrajanja = @RokTrajanja, Kolicina = @Kolicina, ZemljaPorekla = @ZemljaPorekla, Cena = @Cena " +
+            "WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdLek };
+        public string GetDeleteCondition() => "Id = @Id";
+
+
+        public string GetSearchCondition() => "Naziv LIKE @kw";
+
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = SearchKeyword + "%" };
+
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

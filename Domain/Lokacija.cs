@@ -16,14 +16,31 @@ namespace Domain
         public string Opstina { get; set; }
 
         public string TableName => "Lokacija";
-
-        public string WhereCondition => $"Id={IdLokacija}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"AdresaLokacije = '{AdresaLokacije}', Opstina = '{Opstina}'";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@AdresaLokacije"] = AdresaLokacije,
+            ["@Opstina"] = Opstina
+        };
 
-        public string InsertValues => $"'{AdresaLokacije}', '{Opstina}'";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdLokacija,
+            ["@AdresaLokacije"] = AdresaLokacije,
+            ["@Opstina"] = Opstina
+        };
+
+        public string GetUpdateQuery() =>
+            "SET AdresaLokacije = @AdresaLokacije, Opstina = @Opstina WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdLokacija };
+        public string GetDeleteCondition() => "Id = @Id";
+
+        public string GetSearchCondition() => "Id = @kw";
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = int.Parse(SearchKeyword) };
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

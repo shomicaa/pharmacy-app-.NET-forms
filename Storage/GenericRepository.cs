@@ -53,6 +53,10 @@ namespace Storage
         {
             return broker.GetAll(entity);
         }
- 
+
+        public List<IEntity> GetSpecific(IEntity entity)
+        {
+            return broker.GetSpecific(entity);
+        }
     }
 }

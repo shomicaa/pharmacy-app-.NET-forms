@@ -16,14 +16,45 @@ namespace Domain
         public string Lozinka { get; set; }
 
         public string TableName => "Farmaceut";
-
-        public string WhereCondition => $"Id={IdFarmaceut}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"Ime = '{Ime}', Prezime = '{Prezime}', Email = '{Email}', KontaktTelefon = '{KontaktTelefon}', DatumZaposlenja = '{DatumZaposlenja:ddMMyyyy}', KorisnickoIme ='{KorisnickoIme}', Lozinka = '{Lozinka}'";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@Ime"] = Ime,
+            ["@Prezime"] = Prezime,
+            ["@Email"] = Email,
+            ["@KontaktTelefon"] = KontaktTelefon,
+            ["@DatumZaposlenja"] = DatumZaposlenja,
+            ["@KorisnickoIme"] = KorisnickoIme,
+            ["@Lozinka"] = Lozinka
+        };
 
-        public string InsertValues => $"'{Ime}','{Prezime}', '{Email}', '{KontaktTelefon}', '{DatumZaposlenja:ddMMyyyy}', '{KorisnickoIme}', '{Lozinka}'";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdFarmaceut,
+            ["@Ime"] = Ime,
+            ["@Prezime"] = Prezime,
+            ["@Email"] = Email,
+            ["@KontaktTelefon"] = KontaktTelefon,
+            ["@DatumZaposlenja"] = DatumZaposlenja,
+            ["@KorisnickoIme"] = KorisnickoIme,
+            ["@Lozinka"] = Lozinka
+        };
+
+        public string GetUpdateQuery() =>
+            "SET Ime = @Ime, Prezime = @Prezime, Email = @Email, KontaktTelefon = @KontaktTelefon, " +
+            "DatumZaposlenja = @DatumZaposlenja, KorisnickoIme = @KorisnickoIme, Lozinka = @Lozinka " +
+            "WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdFarmaceut };
+        public string GetDeleteCondition() => "Id = @Id";
+
+        public string GetSearchCondition() =>
+            "Ime + ' ' + Prezime LIKE @kw";
+
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = SearchKeyword + "%" };
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

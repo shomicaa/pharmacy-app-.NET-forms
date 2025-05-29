@@ -21,14 +21,45 @@ namespace Domain
         public int IdPromoKod { get; set; }
 
         public string TableName => "Korisnik";
-
-        public string WhereCondition => $"Id={IdKorisnik}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"Ime = '{Ime}', Prezime = '{Prezime}', Email = '{Email}', KontaktTelefon = '{KontaktTelefon}'";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@Ime"] = Ime,
+            ["@Prezime"] = Prezime,
+            ["@Email"] = Email,
+            ["@KontaktTelefon"] = KontaktTelefon,
+            ["@DatumUclanjenja"] = DatumUclanjenja,
+            ["@GodineClanstva"] = GodineClanstva,
+            ["@IdPromoKod"] = IdPromoKod
+        };
 
-        public string InsertValues => $"'{Ime}','{Prezime}', '{Email}', '{KontaktTelefon}', '{DatumUclanjenja:ddMMyyyy}', {GodineClanstva}, {IdPromoKod}";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdKorisnik,
+            ["@Ime"] = Ime,
+            ["@Prezime"] = Prezime,
+            ["@Email"] = Email,
+            ["@KontaktTelefon"] = KontaktTelefon,
+            ["@DatumUclanjenja"] = DatumUclanjenja,
+            ["@GodineClanstva"] = GodineClanstva,
+            ["@IdPromoKod"] = IdPromoKod
+        };
+
+        public string GetUpdateQuery() =>
+            "SET Ime = @Ime, Prezime = @Prezime, Email = @Email, KontaktTelefon = @KontaktTelefon, " +
+            "DatumUclanjenja = @DatumUclanjenja, GodineClanstva = @GodineClanstva, IdPromoKod = @IdPromoKod " +
+            "WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdKorisnik };
+        public string GetDeleteCondition() => "Id = @Id";
+
+        public string GetSearchCondition() =>
+            "Ime LIKE @kw OR Prezime LIKE @kw";
+
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = SearchKeyword + "%" };
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

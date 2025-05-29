@@ -9,10 +9,10 @@ namespace SystemOperations.LokacijaOperations
 {
     public class PretraziLokacijaSO : SystemOperationBase
     {
-        public Lokacija Result { get; private set; }
+        public List<Lokacija> Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
-            throw new NotImplementedException();
+            Result = repository.GetSpecific(entity).OfType<Lokacija>().ToList();
         }
     }
 }

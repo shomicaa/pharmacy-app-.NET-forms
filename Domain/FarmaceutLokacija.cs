@@ -15,15 +15,35 @@ namespace Domain
         public int IdLokacija { get; set; }
         public DateTime DatumIzdavanjaDozvole { get; set; }
 
-        public string TableName => throw new NotImplementedException();
+        public string TableName => "FarmaceutLokacija";
+        public object SelectValues => "*";
 
-        public string WhereCondition => throw new NotImplementedException();
+        public string SearchKeyword { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public object SelectValues => throw new NotImplementedException();
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@IdFarmaceut"] = IdFarmaceut,
+            ["@IdLokacija"] = IdLokacija,
+            ["@DatumIzdavanjaDozvole"] = DatumIzdavanjaDozvole
+        };
 
-        public string UpdateValues => throw new NotImplementedException();
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@IdFarmaceut"] = IdFarmaceut,
+            ["@IdLokacija"] = IdLokacija,
+            ["@DatumIzdavanjaDozvole"] = DatumIzdavanjaDozvole
+        };
 
-        public string InsertValues => throw new NotImplementedException();
+        public string GetUpdateQuery() =>
+            "SET DatumIzdavanjaDozvole = @DatumIzdavanjaDozvole WHERE IdFarmaceut = @IdFarmaceut AND IdLokacija = @IdLokacija";
+
+        public Dictionary<string, object> GetDeleteParameters() => new()
+        {
+            ["@IdFarmaceut"] = IdFarmaceut,
+            ["@IdLokacija"] = IdLokacija
+        };
+
+        public string GetDeleteCondition() => "IdFarmaceut = @IdFarmaceut AND IdLokacija = @IdLokacija";
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {
@@ -35,6 +55,16 @@ namespace Domain
             };
 
             return f;
+        }
+
+        public string GetSearchCondition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetSearchParameters()
+        {
+            throw new NotImplementedException();
         }
     }
 }

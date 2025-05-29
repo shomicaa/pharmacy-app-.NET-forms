@@ -9,9 +9,11 @@ namespace SystemOperations.KorisnikOperations
 {
     public class KreirajKorisnikSO : SystemOperationBase
     {
+        public int Result { get; set; }
+
         protected override void Execute(IEntity entity)
         {
-            throw new NotImplementedException();
+            Result = repository.Create(entity);
         }
     }
 }

@@ -18,14 +18,44 @@ namespace Domain
         public int IdLek { get; set; }
 
         public string TableName => "StavkaRacuna";
-
-        public string WhereCondition => $"IdRacun={IdRacun} AND RbStavke={RbStavke}";
-
         public object SelectValues => "*";
 
-        public string UpdateValues => "";
+        public string SearchKeyword { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-        public string InsertValues => $"{IdRacun}, {RbStavke}, {Kolicina}, {ProdajnaVrednost}, {IdLek}";
+        public string GetDeleteCondition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetDeleteParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetInsertParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetSearchCondition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetSearchParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetUpdateParameters()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetUpdateQuery()
+        {
+            throw new NotImplementedException();
+        }
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

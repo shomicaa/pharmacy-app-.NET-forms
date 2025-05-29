@@ -20,14 +20,41 @@ namespace Domain
         public int IdKorisnik { get; set; }
 
         public string TableName => "Racun";
-
-        public string WhereCondition => $"Id={IdRacun}";
-
         public object SelectValues => "*";
+        public string SearchKeyword { get; set; }
 
-        public string UpdateValues => $"UkupnaVrednost = {UkupnaVrednost}, IznosPoreza = {IznosPoreza}, UkupnaVrednostSaPorezom = {UkupnaVrednostSaPorezom}, DatumIzdavanja = '{DatumIzdavanja:ddMMyyyy}', IdFarmaceut = {IdFarmaceut}, IdKorisnik = {IdKorisnik}";
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@UkupnaVrednost"] = UkupnaVrednost,
+            ["@IznosPoreza"] = IznosPoreza,
+            ["@UkupnaVrednostSaPorezom"] = UkupnaVrednostSaPorezom,
+            ["@DatumIzdavanja"] = DatumIzdavanja,
+            ["@IdFarmaceut"] = IdFarmaceut,
+            ["@IdKorisnik"] = IdKorisnik
+        };
 
-        public string InsertValues => $"{UkupnaVrednost}, {IznosPoreza}, {UkupnaVrednostSaPorezom}, '{DatumIzdavanja:ddMMyyyy}', {IdFarmaceut}, {IdKorisnik}";
+        public Dictionary<string, object> GetUpdateParameters() => new()
+        {
+            ["@Id"] = IdRacun,
+            ["@UkupnaVrednost"] = UkupnaVrednost,
+            ["@IznosPoreza"] = IznosPoreza,
+            ["@UkupnaVrednostSaPorezom"] = UkupnaVrednostSaPorezom,
+            ["@DatumIzdavanja"] = DatumIzdavanja,
+            ["@IdFarmaceut"] = IdFarmaceut,
+            ["@IdKorisnik"] = IdKorisnik
+        };
+
+        public string GetUpdateQuery() =>
+            "SET UkupnaVrednost = @UkupnaVrednost, IznosPoreza = @IznosPoreza, UkupnaVrednostSaPorezom = @UkupnaVrednostSaPorezom, " +
+            "DatumIzdavanja = @DatumIzdavanja, IdFarmaceut = @IdFarmaceut, IdKorisnik = @IdKorisnik WHERE Id = @Id";
+
+        public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdRacun };
+        public string GetDeleteCondition() => "Id = @Id";
+
+        public string GetSearchCondition() => "Id = @kw";
+        public Dictionary<string, object> GetSearchParameters() =>
+            new() { ["@kw"] = int.Parse(SearchKeyword) };
+
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {

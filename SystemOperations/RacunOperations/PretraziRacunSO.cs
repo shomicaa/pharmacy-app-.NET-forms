@@ -9,10 +9,10 @@ namespace SystemOperations.RacunOperations
 {
     public class PretraziRacunSO : SystemOperationBase
     {
-        public Racun Result { get; private set; }
+        public List<Racun> Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
-            throw new NotImplementedException();
+            Result = repository.GetSpecific(entity).OfType<Racun>().ToList();
         }
     }
 }

@@ -51,5 +51,10 @@ namespace View.UserControls
             }
             else { korisniciController.UcitajKorisnike(); }
         }
+
+        private void btnPretrazi_Click(object sender, EventArgs e)
+        {
+            korisniciController.Pretrazi();
+        }
     }
 }

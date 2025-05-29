@@ -42,7 +42,7 @@
             // 
             // txtKontaktTelefon
             // 
-            txtKontaktTelefon.Location = new Point(248, 256);
+            txtKontaktTelefon.Location = new Point(216, 248);
             txtKontaktTelefon.Name = "txtKontaktTelefon";
             txtKontaktTelefon.Size = new Size(309, 31);
             txtKontaktTelefon.TabIndex = 15;
@@ -50,7 +50,7 @@
             // lblKontaktTelefon
             // 
             lblKontaktTelefon.AutoSize = true;
-            lblKontaktTelefon.Location = new Point(88, 259);
+            lblKontaktTelefon.Location = new Point(56, 251);
             lblKontaktTelefon.Name = "lblKontaktTelefon";
             lblKontaktTelefon.Size = new Size(138, 25);
             lblKontaktTelefon.TabIndex = 14;
@@ -58,7 +58,7 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(248, 204);
+            txtEmail.Location = new Point(216, 196);
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(309, 31);
             txtEmail.TabIndex = 13;
@@ -66,7 +66,7 @@
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(88, 207);
+            lblEmail.Location = new Point(56, 199);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(65, 25);
             lblEmail.TabIndex = 12;
@@ -74,7 +74,7 @@
             // 
             // txtPrezime
             // 
-            txtPrezime.Location = new Point(248, 152);
+            txtPrezime.Location = new Point(216, 144);
             txtPrezime.Name = "txtPrezime";
             txtPrezime.Size = new Size(309, 31);
             txtPrezime.TabIndex = 11;
@@ -82,7 +82,7 @@
             // lblPrezime
             // 
             lblPrezime.AutoSize = true;
-            lblPrezime.Location = new Point(88, 155);
+            lblPrezime.Location = new Point(56, 147);
             lblPrezime.Name = "lblPrezime";
             lblPrezime.Size = new Size(78, 25);
             lblPrezime.TabIndex = 10;
@@ -90,7 +90,7 @@
             // 
             // txtIme
             // 
-            txtIme.Location = new Point(248, 101);
+            txtIme.Location = new Point(216, 93);
             txtIme.Name = "txtIme";
             txtIme.Size = new Size(309, 31);
             txtIme.TabIndex = 9;
@@ -98,7 +98,7 @@
             // lblIme
             // 
             lblIme.AutoSize = true;
-            lblIme.Location = new Point(88, 104);
+            lblIme.Location = new Point(56, 96);
             lblIme.Name = "lblIme";
             lblIme.Size = new Size(46, 25);
             lblIme.TabIndex = 8;
@@ -108,7 +108,7 @@
             // 
             lblUnosNovogKorisnika.AutoSize = true;
             lblUnosNovogKorisnika.Font = new Font("Segoe UI", 14F);
-            lblUnosNovogKorisnika.Location = new Point(51, 26);
+            lblUnosNovogKorisnika.Location = new Point(19, 18);
             lblUnosNovogKorisnika.Name = "lblUnosNovogKorisnika";
             lblUnosNovogKorisnika.Size = new Size(198, 25);
             lblUnosNovogKorisnika.TabIndex = 16;
@@ -116,7 +116,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(238, 323);
+            button1.Location = new Point(206, 315);
             button1.Name = "button1";
             button1.Size = new Size(162, 39);
             button1.TabIndex = 17;

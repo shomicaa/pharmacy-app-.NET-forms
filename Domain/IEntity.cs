@@ -10,10 +10,19 @@ namespace Domain
     public interface IEntity
     {
         public string TableName { get; }
-        string WhereCondition { get; }
         object SelectValues { get; }
-        string UpdateValues { get; }
-        public string InsertValues { get; }
+        string SearchKeyword { get; set; }
+
+        Dictionary<string, object> GetInsertParameters();
+
+        Dictionary<string, object> GetUpdateParameters();
+        string GetUpdateQuery();
+
+        Dictionary<string, object> GetDeleteParameters(); 
+        string GetDeleteCondition();
+
+        string GetSearchCondition();
+        Dictionary<string, object> GetSearchParameters();
 
         IEntity ReadObjectRow(SqlDataReader reader);
     }

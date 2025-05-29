@@ -231,68 +231,68 @@ namespace View
 
         // gotta fix this
         #region pretrazi methods
-        internal Farmaceut PretraziFarmaceuta(Farmaceut farmaceut)
+        internal List<Farmaceut> PretraziFarmaceuta(Farmaceut farmaceut)
         {
             SendRequest<Farmaceut>(Operation.PretraziFarmaceuta, farmaceut);
-            return HandleResponse<Farmaceut>();
+            return HandleResponse<List<Farmaceut>>();
         }
-        internal Korisnik PretraziKorisnika(Korisnik korisnik)
+        internal List<Korisnik> PretraziKorisnika(Korisnik korisnik)
         {
             SendRequest<Korisnik>(Operation.PretraziKorisnika, korisnik);
-            return HandleResponse<Korisnik>();
+            return HandleResponse<List<Korisnik>>();
         }
-        internal Lek PretraziLek(Lek lek)
+        internal List<Lek> PretraziLek(Lek lek)
         {
             SendRequest<Lek>(Operation.PretraziLek, lek);
-            return HandleResponse<Lek>();
+            return HandleResponse<List<Lek>>();
         }
-        internal Lokacija PretraziLokaciju(Lokacija lokacija)
+        internal List<Lokacija> PretraziLokaciju(Lokacija lokacija)
         {
             SendRequest<Lokacija>(Operation.PretraziLokaciju, lokacija);
-            return HandleResponse<Lokacija>();
+            return HandleResponse<List<Lokacija>>();
         }
-        internal PromoKod PretraziPromoKod(PromoKod promoKod)
+        internal List<PromoKod> PretraziPromoKod(PromoKod kod)
         {
-            SendRequest<PromoKod>(Operation.PretraziPromoKod, promoKod);
-            return HandleResponse<PromoKod>();
+            SendRequest<PromoKod>(Operation.PretraziPromoKod, kod);
+            return HandleResponse<List<PromoKod>>();
         }
-        internal Racun PretraziRacun(Racun racun)
+        internal List<Racun> PretraziRacun(Racun racun)
         {
             SendRequest<Racun>(Operation.PretraziRacun, racun);
-            return HandleResponse<Racun>();
+            return HandleResponse<List<Racun>>();
         }
         #endregion
 
         #region kreiraj/ubaci methods
-        internal void KreirajFarmaceuta(Farmaceut farmaceut)
+        internal int KreirajFarmaceuta(Farmaceut farmaceut)
         {
             SendRequest<Farmaceut>(Operation.KreirajFarmaceuta, farmaceut);
-            HandleResponse<Farmaceut>();
+            return HandleResponse<int>();
         }
-        internal void KreirajKorisnika(Korisnik korisnik)
+        internal int KreirajKorisnika(Korisnik korisnik)
         {
             SendRequest<Korisnik>(Operation.KreirajKorisnika, korisnik);
-            HandleResponse<Korisnik>();
+            return HandleResponse<int>();
         }
-        internal void KreirajLek(Lek lek)
+        internal int KreirajLek(Lek lek)
         {
             SendRequest<Lek>(Operation.KreirajLek, lek);
-            HandleResponse<Lek>();
+            return HandleResponse<int>();
         }
         internal void UbaciLokaciju(Lokacija lokacija)
         {
             SendRequest<Lokacija>(Operation.UbaciLokaciju, lokacija);
             HandleResponse<Lokacija>();
         }
-        internal void KreirajPromoKod(PromoKod promoKod)
+        internal int KreirajPromoKod(PromoKod promoKod)
         {
             SendRequest<PromoKod>(Operation.KreirajPromoKod, promoKod);
-            HandleResponse<PromoKod>();
+            return HandleResponse<int>();
         }
-        internal void KreirajRacun(Racun racun)
+        internal int KreirajRacun(Racun racun)
         {
             SendRequest<Racun>(Operation.KreirajRacun, racun);
-            HandleResponse<Racun>();
+            return HandleResponse<int>();
         }
         #endregion
 

@@ -14,6 +14,7 @@ namespace Storage
         void Save(IEntity entity);
         void Update(IEntity entity);
         List<IEntity> GetAll(IEntity entity);
+        List<IEntity> GetSpecific(IEntity entity);
         void Delete(IEntity entity);
     }
 }
