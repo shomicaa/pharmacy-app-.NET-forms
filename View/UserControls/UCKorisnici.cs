@@ -44,11 +44,12 @@ namespace View.UserControls
 
         private void btnPrikaziKorisnike_Click(object sender, EventArgs e)
         {
-            if(dgvKorisnici.DataSource != null)
+            if (dgvKorisnici.DataSource != null)
             {
+                dgvKorisnici.DataSource = null;
                 dgvKorisnici.Refresh();
             }
-            korisniciController.UcitajKorisnike();
+            else { korisniciController.UcitajKorisnike(); }
         }
     }
 }

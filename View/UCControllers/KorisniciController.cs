@@ -33,26 +33,26 @@ namespace View.UCControllers
                     return;
                 }
 
-                uc.DgvKorisnici.DataSource = korisnici;
-                uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                        uc.DgvKorisnici.DataSource = korisnici;
+                        uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
-                uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
-                uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
+                        uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
+                        uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
+                        uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
 
-                uc.DgvKorisnici.Columns["TableName"].Visible = false;
-                uc.DgvKorisnici.Columns["WhereCondition"].Visible = false;
-                uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
-                uc.DgvKorisnici.Columns["UpdateValues"].Visible = false;
-                uc.DgvKorisnici.Columns["InsertValues"].Visible = false;
+                        uc.DgvKorisnici.Columns["TableName"].Visible = false;
+                        uc.DgvKorisnici.Columns["WhereCondition"].Visible = false;
+                        uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
+                        uc.DgvKorisnici.Columns["UpdateValues"].Visible = false;
+                        uc.DgvKorisnici.Columns["InsertValues"].Visible = false;
 
-                uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
-                uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
-                uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
+                        uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
+                        uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
+                        uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
 
-                uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
+                        uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                        uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; 
+                    }
             catch (NullReferenceException ex)
             {
                 MessageBox.Show(ex.Message);
