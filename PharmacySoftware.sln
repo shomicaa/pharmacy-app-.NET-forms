@@ -15,9 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{94AF8E41-5B1D-4066-AECA-E9417C34E451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Storage", "Storage\Storage.csproj", "{15B9365F-FF16-49F6-83A6-62A0194B27AC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Storage", "Storage\Storage.csproj", "{15B9365F-FF16-49F6-83A6-62A0194B27AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemOperations", "SystemOperations\SystemOperations.csproj", "{E7A55C59-4F99-4C77-8A09-E15F2F3F37EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SystemOperations", "SystemOperations\SystemOperations.csproj", "{E7A55C59-4F99-4C77-8A09-E15F2F3F37EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A8FBD0A9-450A-4B16-BC8F-2A279E486661}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

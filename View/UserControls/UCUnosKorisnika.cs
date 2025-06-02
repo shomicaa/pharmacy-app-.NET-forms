@@ -16,5 +16,10 @@ namespace View.UserControls
         {
             InitializeComponent();
         }
+
+        private void UCUnosKorisnika_Leave(object sender, EventArgs e)
+        {
+
+        }
     }
 }
