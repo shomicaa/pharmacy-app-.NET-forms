@@ -185,39 +185,93 @@ namespace ApplicationLogic
         #endregion
 
         #region pretrazi methods
-        public List<Farmaceut> PretraziFarmaceut(Farmaceut farmaceut)
+        public Farmaceut PretraziFarmaceut(Farmaceut farmaceut)
         {
             PretraziFarmaceutSO so = new PretraziFarmaceutSO();
             so.ExecuteTemplate(farmaceut);
             return so.Result;
         }
-        public List<Korisnik> PretraziKorisnik(Korisnik korisnik)
+        public Korisnik PretraziKorisnik(Korisnik korisnik)
         {
             PretraziKorisnikSO so = new PretraziKorisnikSO();
             so.ExecuteTemplate(korisnik);
             return so.Result;
         }
-        public List<Lek> PretraziLek(Lek lek)
+        public Lek PretraziLek(Lek lek)
         {
             PretraziLekSO so = new PretraziLekSO();
             so.ExecuteTemplate(lek);
             return so.Result;
         }
-        public List<Lokacija> PretraziLokacija(Lokacija lokacija)
+        public Lokacija PretraziLokacija(Lokacija lokacija)
         {
             PretraziLokacijaSO so = new PretraziLokacijaSO();
             so.ExecuteTemplate(lokacija);
             return so.Result;
         }
-        public List<PromoKod> PretraziPromoKod(PromoKod promoKod)
+        public PromoKod PretraziPromoKod(PromoKod promoKod)
         {
             PretraziPromoKodSO so = new PretraziPromoKodSO();
             so.ExecuteTemplate(promoKod);
             return so.Result;
         }
-        public List<Racun> PretraziRacun(Racun racun)
+        public Racun PretraziRacun(Racun racun)
         {
             PretraziRacunSO so = new PretraziRacunSO();
+            so.ExecuteTemplate(racun);
+            return so.Result;
+        }
+        #endregion
+
+        #region ucitajSpecific methods
+        public List<Farmaceut> UcitajSpecificFarmaceute(Farmaceut farmaceut)
+        {
+            UcitajSpecificFarmaceuteSO so = new UcitajSpecificFarmaceuteSO();
+            so.ExecuteTemplate(farmaceut);
+            return so.Result;
+        }
+        public List<Korisnik> UcitajSpecificKorisnike(Korisnik korisnik)
+        {
+            UcitajSpecificKorisnikeSO so = new UcitajSpecificKorisnikeSO();
+            so.ExecuteTemplate(korisnik);
+            return so.Result;
+        }
+        public List<Lek> UcitajSpecificLekove(Lek lek)
+        {
+            UcitajSpecificLekoveSO so = new UcitajSpecificLekoveSO();
+            so.ExecuteTemplate(lek);
+            return so.Result;
+        }
+        public List<Lokacija> UcitajSpecificLokacije(Lokacija lokacija)
+        {
+            UcitajSpecificLokacijeSO so = new UcitajSpecificLokacijeSO();
+            so.ExecuteTemplate(lokacija);
+            return so.Result;
+        }
+        public List<PromoKod> UcitajSpecificPromoKodove(PromoKod kod)
+        {
+            UcitajSpecificPromoKodoveSO so = new UcitajSpecificPromoKodoveSO();
+            so.ExecuteTemplate(kod);
+            return so.Result;
+        }
+        #endregion
+
+        #region ucitajJoin methods
+        public List<Farmaceut> UcitajFarmaceuteSaZahtevom(Farmaceut farmaceut)
+        {
+            UcitajFarmaceuteSaZahtevomSO so = new UcitajFarmaceuteSaZahtevomSO();
+            so.ExecuteTemplate(farmaceut);
+            return so.Result;
+        }
+        public List<Korisnik> UcitajKorisnikeSaZahtevom(Korisnik korisnik)
+        {
+            UcitajKorisnikeSaZahtevomSO so = new UcitajKorisnikeSaZahtevomSO();
+            so.ExecuteTemplate(korisnik);
+            return so.Result;
+        }
+        public List<Racun> UcitajRacuneSaZahtevom(Racun racun)
+        {
+            UcitajRacuneSaZahtevomSO so = new UcitajRacuneSaZahtevomSO();
             so.ExecuteTemplate(racun);
             return so.Result;
         }

@@ -135,7 +135,7 @@ namespace View
             return HandleResponse<Farmaceut>();
         }
 
-        #region ucitaj methods
+        #region getAll methods
         internal List<Farmaceut> UcitajFarmaceute()
         {
             SendRequest<List<Farmaceut>>(Operation.UcitajFarmaceute);
@@ -231,35 +231,35 @@ namespace View
 
         // gotta fix this
         #region pretrazi methods
-        internal List<Farmaceut> PretraziFarmaceuta(Farmaceut farmaceut)
+        internal Farmaceut PretraziFarmaceuta(Farmaceut farmaceut)
         {
             SendRequest<Farmaceut>(Operation.PretraziFarmaceuta, farmaceut);
-            return HandleResponse<List<Farmaceut>>();
+            return HandleResponse<Farmaceut>();
         }
-        internal List<Korisnik> PretraziKorisnika(Korisnik korisnik)
+        internal Korisnik PretraziKorisnika(Korisnik korisnik)
         {
             SendRequest<Korisnik>(Operation.PretraziKorisnika, korisnik);
-            return HandleResponse<List<Korisnik>>();
+            return HandleResponse<Korisnik>();
         }
-        internal List<Lek> PretraziLek(Lek lek)
+        internal Lek PretraziLek(Lek lek)
         {
             SendRequest<Lek>(Operation.PretraziLek, lek);
-            return HandleResponse<List<Lek>>();
+            return HandleResponse<Lek>();
         }
-        internal List<Lokacija> PretraziLokaciju(Lokacija lokacija)
+        internal Lokacija PretraziLokaciju(Lokacija lokacija)
         {
             SendRequest<Lokacija>(Operation.PretraziLokaciju, lokacija);
-            return HandleResponse<List<Lokacija>>();
+            return HandleResponse<Lokacija>();
         }
-        internal List<PromoKod> PretraziPromoKod(PromoKod kod)
+        internal PromoKod PretraziPromoKod(PromoKod kod)
         {
             SendRequest<PromoKod>(Operation.PretraziPromoKod, kod);
-            return HandleResponse<List<PromoKod>>();
+            return HandleResponse<PromoKod>();
         }
-        internal List<Racun> PretraziRacun(Racun racun)
+        internal Racun PretraziRacun(Racun racun)
         {
             SendRequest<Racun>(Operation.PretraziRacun, racun);
-            return HandleResponse<List<Racun>>();
+            return HandleResponse<Racun>();
         }
         #endregion
 
@@ -293,6 +293,52 @@ namespace View
         {
             SendRequest<Racun>(Operation.KreirajRacun, racun);
             return HandleResponse<int>();
+        }
+        #endregion
+
+        #region ucitajSpecific methods
+        internal List<Farmaceut> UcitajSpecificFarmaceute(Farmaceut farmaceut)
+        {
+            SendRequest<Farmaceut>(Operation.UcitajSpecificFarmaceute, farmaceut);
+            return HandleResponse<List<Farmaceut>>();
+        }
+        internal List<Korisnik> UcitajSpecificKorisnike(Korisnik korisnik)
+        {
+            SendRequest<Korisnik>(Operation.UcitajSpecificKorisnike, korisnik);
+            return HandleResponse<List<Korisnik>>();
+        }
+        internal List<Lek> UcitajSpecificLekove(Lek lek)
+        {
+            SendRequest<Lek>(Operation.UcitajSpecificLekove, lek);
+            return HandleResponse<List<Lek>>();
+        }
+        internal List<PromoKod> UcitajSpecificPromoKodove(PromoKod kod)
+        {
+            SendRequest<PromoKod>(Operation.UcitajSpecificPromoKodove, kod);
+            return HandleResponse<List<PromoKod>>();
+        }
+        internal List<Lokacija> UcitajSpecificLokacije(Lokacija lokacija)
+        {
+            SendRequest<Lokacija>(Operation.UcitajSpecificLokacije, lokacija);
+            return HandleResponse<List<Lokacija>>();
+        }
+        #endregion
+
+        #region ucitajJoin methods
+        internal List<Farmaceut> UcitajFarmaceuteSaZahtevom(Farmaceut farmaceut)
+        {
+            SendRequest<Farmaceut>(Operation.UcitajFarmaceuteSaZahtevom, farmaceut);
+            return HandleResponse<List<Farmaceut>>();
+        }
+        internal List<Racun> UcitajRacuneSaZahtevom(Racun racun)
+        {
+            SendRequest<Racun>(Operation.UcitajRacuneSaZahtevom, racun);
+            return HandleResponse<List<Racun>>();
+        }
+        internal List<Korisnik> UcitajKorisnikeSaZahtevom(Korisnik korisnik)
+        {
+            SendRequest<Korisnik>(Operation.UcitajKorisnikeSaZahtevom, korisnik);
+            return HandleResponse<List<Korisnik>>();
         }
         #endregion
 

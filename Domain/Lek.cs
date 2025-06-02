@@ -48,9 +48,11 @@ namespace Domain
         public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdLek };
         public string GetDeleteCondition() => "Id = @Id";
 
+        public string GetFindCondition() => "Id = @Id";
+        public Dictionary<string, object> GetFindParameters() =>
+            new() { ["@Id"] = IdLek };
 
         public string GetSearchCondition() => "Naziv LIKE @kw";
-
         public Dictionary<string, object> GetSearchParameters() =>
             new() { ["@kw"] = SearchKeyword + "%" };
 

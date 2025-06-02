@@ -9,10 +9,10 @@ namespace SystemOperations.KorisnikOperations
 {
     public class PretraziKorisnikSO : SystemOperationBase
     {
-        public List<Korisnik> Result { get; private set; }
+        public Korisnik Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
-            Result = repository.GetSpecific(entity).OfType<Korisnik>().ToList();
+            Result = (Korisnik)repository.Find(entity);
         }
     }
 }

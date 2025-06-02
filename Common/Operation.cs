@@ -23,6 +23,10 @@ namespace Common
 
         KreirajFarmaceuta, KreirajKorisnika, KreirajLek, UbaciLokaciju, KreirajPromoKod, KreirajRacun,
 
+        UcitajSpecificFarmaceute, UcitajSpecificKorisnike, UcitajSpecificLekove, UcitajSpecificLokacije, UcitajSpecificPromoKodove,
+
+        UcitajFarmaceuteSaZahtevom, UcitajKorisnikeSaZahtevom, UcitajRacuneSaZahtevom,
+
         End,
     }
 }

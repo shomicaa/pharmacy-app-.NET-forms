@@ -44,6 +44,9 @@ namespace View.UCControllers
                         uc.DgvKorisnici.Columns["TableName"].Visible = false;
                         uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
                         uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
+                        uc.DgvKorisnici.Columns["JoinClause"].Visible = false;
+                        uc.DgvKorisnici.Columns["WhereClause"].Visible = false;
+                        uc.DgvKorisnici.Columns["JoinParameters"].Visible = false;
 
                         uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
                         uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -165,7 +168,7 @@ namespace View.UCControllers
                     SearchKeyword = uc.TxtImePrezime.Text
                 };
 
-                List<Korisnik> korisnici = Communication.Instance.PretraziKorisnika(korisnik);
+                List<Korisnik> korisnici = Communication.Instance.UcitajSpecificKorisnike(korisnik);
 
                 if (korisnici == null || korisnici.Count == 0)
                 {
@@ -183,6 +186,11 @@ namespace View.UCControllers
 
                     uc.DgvKorisnici.Columns["TableName"].Visible = false;
                     uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
+                    uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
+                    uc.DgvKorisnici.Columns["JoinClause"].Visible = false;
+                    uc.DgvKorisnici.Columns["WhereClause"].Visible = false;
+                    uc.DgvKorisnici.Columns["JoinParameters"].Visible = false;
+
                     uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
 
                     uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";

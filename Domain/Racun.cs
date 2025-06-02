@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Racun : IEntity
+    public class Racun : IEntity, IJoinEntity
     {
         public int IdRacun { get; set; }
         public List<StavkaRacuna> Stavke { get; set; }
@@ -22,6 +22,10 @@ namespace Domain
         public string TableName => "Racun";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
+        public string JoinClause { get; set; } 
+        public string WhereClause { get; set; }
+        public Dictionary<string, object> JoinParameters { get; set; } = new();
+
 
         public Dictionary<string, object> GetInsertParameters() => new()
         {
@@ -51,6 +55,10 @@ namespace Domain
         public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdRacun };
         public string GetDeleteCondition() => "Id = @Id";
 
+        public string GetFindCondition() => "Id = @Id";
+        public Dictionary<string, object> GetFindParameters() =>
+            new() { ["@Id"] = IdRacun };
+
         public string GetSearchCondition() => "Id = @kw";
         public Dictionary<string, object> GetSearchParameters() =>
             new() { ["@kw"] = int.Parse(SearchKeyword) };
@@ -69,6 +77,16 @@ namespace Domain
                 IdKorisnik = reader.GetInt32("IdKorisnik")
             };
             return r;
+        }
+
+        public List<IEntity> ReadAll(SqlDataReader reader)
+        {
+            List<IEntity> racuni = new();
+            while (reader.Read())
+            {
+                racuni.Add(ReadObjectRow(reader));
+            }
+            return racuni;
         }
     }
 }

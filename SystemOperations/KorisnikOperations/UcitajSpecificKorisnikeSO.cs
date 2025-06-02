@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SystemOperations.FarmaceutOperations
 {
-    public class PretraziFarmaceutSO : SystemOperationBase
+    public class UcitajSpecificKorisnikeSO : SystemOperationBase
     {
-        public Farmaceut Result { get; private set; }
+        public List<Korisnik> Result { get; private set; }
         protected override void Execute(IEntity entity)
         {
-            Result = (Farmaceut)repository.Find(entity);
+            Result = repository.GetSpecific(entity).OfType<Korisnik>().ToList();
         }
     }
 }

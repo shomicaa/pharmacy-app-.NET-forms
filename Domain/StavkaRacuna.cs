@@ -32,6 +32,16 @@ namespace Domain
             throw new NotImplementedException();
         }
 
+        public string GetFindCondition()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Dictionary<string, object> GetFindParameters()
+        {
+            throw new NotImplementedException();
+        }
+
         public Dictionary<string, object> GetInsertParameters()
         {
             throw new NotImplementedException();

@@ -38,6 +38,10 @@ namespace Domain
         public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdLokacija };
         public string GetDeleteCondition() => "Id = @Id";
 
+        public string GetFindCondition() => "Id = @Id";
+        public Dictionary<string, object> GetFindParameters() =>
+            new() { ["@Id"] = IdLokacija };
+
         public string GetSearchCondition() => "Id = @kw";
         public Dictionary<string, object> GetSearchParameters() =>
             new() { ["@kw"] = int.Parse(SearchKeyword) };

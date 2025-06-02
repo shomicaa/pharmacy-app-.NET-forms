@@ -98,6 +98,29 @@ namespace DatabaseBroker
             }
         }
 
+        public IEntity Find(IEntity entity)
+        {
+            using SqlCommand command = new SqlCommand
+            {
+                Connection = connection,
+                Transaction = transaction,
+                CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetFindCondition()}"
+            };
+
+            foreach (var pair in entity.GetFindParameters())
+            {
+                command.Parameters.AddWithValue(pair.Key, pair.Value);
+            }
+
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                return entity.ReadObjectRow(reader);
+            }
+
+            return null;
+        }
+
         public List<IEntity> GetAll(IEntity entity)
         {
             List<IEntity> result = new List<IEntity>();
@@ -113,8 +136,7 @@ namespace DatabaseBroker
             }
             return result;
         }
-        
-        // search bar get method
+
         public List<IEntity> GetSpecific(IEntity entity)
         {
             List<IEntity> results = new List<IEntity>();
@@ -135,6 +157,23 @@ namespace DatabaseBroker
                 }
             }
             return results;
+        }
+
+        public List<IEntity> GetWithCondition(IJoinEntity entity)
+        {
+            List<IEntity> result = new();
+            string query = $"SELECT {entity.SelectValues} FROM {entity.TableName} {entity.JoinClause} WHERE {entity.WhereClause}";
+
+            using SqlCommand command = new SqlCommand(query, connection, transaction);
+
+            foreach (var param in entity.JoinParameters)
+            {
+                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+            }
+
+            using SqlDataReader reader = command.ExecuteReader();
+            result = entity.ReadAll(reader);
+            return result;
         }
 
     }

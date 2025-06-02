@@ -130,6 +130,12 @@ namespace Server
             funkcija(entity);
             SendResponse(response, errorMessage);
         }
+        public void MakeResponse<T>(Request request, Func<T,T> funkcija, string errorMessage)
+        {
+            (Response<T> response, T entity) = DeserializeTupleDomain<T>(request);
+            response.Result = funkcija(entity);
+            SendResponse(response, errorMessage);
+        }
 
         public void MakeResponse<T>(Func<T> pretraziFunkcija, string errorMessage)
         {
@@ -245,22 +251,48 @@ namespace Server
                     break;
                 // pretrazi cases
                 case Operation.PretraziFarmaceuta:
-                    MakeResponseList<Farmaceut>(request, Controller.Instance.PretraziFarmaceut, "Greska pri vracanju farmaceuta");
+                    MakeResponse<Farmaceut>(request, Controller.Instance.PretraziFarmaceut, "Greska pri vracanju farmaceuta");
                     break;
                 case Operation.PretraziKorisnika:
-                    MakeResponseList<Korisnik>(request, Controller.Instance.PretraziKorisnik, "Greska pri vracanju korisnika");
+                    MakeResponse<Korisnik>(request, Controller.Instance.PretraziKorisnik, "Greska pri vracanju korisnika");
                     break;
                 case Operation.PretraziLek:
-                    MakeResponseList<Lek>(request, Controller.Instance.PretraziLek, "Greska pri vracanju leka");
+                    MakeResponse<Lek>(request, Controller.Instance.PretraziLek, "Greska pri vracanju leka");
                     break;
                 case Operation.PretraziLokaciju:
-                    MakeResponseList<Lokacija>(request, Controller.Instance.PretraziLokacija, "Greska pri vracanju lokacije");
+                    MakeResponse<Lokacija>(request, Controller.Instance.PretraziLokacija, "Greska pri vracanju lokacije");
                     break;
                 case Operation.PretraziPromoKod:
-                    MakeResponseList<PromoKod>(request, Controller.Instance.PretraziPromoKod, "Greska pri vracanju promo koda");
+                    MakeResponse<PromoKod>(request, Controller.Instance.PretraziPromoKod, "Greska pri vracanju promo koda");
                     break;
                 case Operation.PretraziRacun:
-                    MakeResponseList<Racun>(request, Controller.Instance.PretraziRacun, "Greska pri vracanju racuna");
+                    MakeResponse<Racun>(request, Controller.Instance.PretraziRacun, "Greska pri vracanju racuna");
+                    break;
+                // ucitajSpecific cases
+                case Operation.UcitajSpecificFarmaceute:
+                    MakeResponseList<Farmaceut>(request, Controller.Instance.UcitajSpecificFarmaceute, "Greska pri vracanju farmaceuta");
+                    break;
+                case Operation.UcitajSpecificKorisnike:
+                    MakeResponseList<Korisnik>(request, Controller.Instance.UcitajSpecificKorisnike, "Greska pri vracanju korisnika");
+                    break;
+                case Operation.UcitajSpecificLekove:
+                    MakeResponseList<Lek>(request, Controller.Instance.UcitajSpecificLekove, "Greska pri vracanju leka");
+                    break;
+                case Operation.UcitajSpecificLokacije:
+                    MakeResponseList<Lokacija>(request, Controller.Instance.UcitajSpecificLokacije, "Greska pri vracanju lokacije");
+                    break;
+                case Operation.UcitajSpecificPromoKodove:
+                    MakeResponseList<PromoKod>(request, Controller.Instance.UcitajSpecificPromoKodove, "Greska pri vracanju promo koda");
+                    break;
+                // ucitajJoin cases
+                case Operation.UcitajFarmaceuteSaZahtevom:
+                    MakeResponseList<Farmaceut>(request, Controller.Instance.UcitajFarmaceuteSaZahtevom, "Greska pri vracanju liste farmaceuta");
+                    break;
+                case Operation.UcitajKorisnikeSaZahtevom:
+                    MakeResponseList<Korisnik>(request, Controller.Instance.UcitajKorisnikeSaZahtevom, "Greska pri vracanju liste korisnika");
+                    break;
+                case Operation.UcitajRacuneSaZahtevom:
+                    MakeResponseList<Racun>(request,Controller.Instance.UcitajRacuneSaZahtevom, "Greska pri vracanju liste racuna");
                     break;
                 default:
                     break;

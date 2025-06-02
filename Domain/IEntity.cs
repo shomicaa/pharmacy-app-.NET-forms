@@ -13,17 +13,26 @@ namespace Domain
         object SelectValues { get; }
         string SearchKeyword { get; set; }
 
+        // for regular insert operations
         Dictionary<string, object> GetInsertParameters();
 
+        // for regular update operations
         Dictionary<string, object> GetUpdateParameters();
         string GetUpdateQuery();
 
+        // for regular delete operations
         Dictionary<string, object> GetDeleteParameters(); 
         string GetDeleteCondition();
 
+        // for find operations (based on id) -> returns a single object
+        string GetFindCondition();
+        Dictionary<string, object> GetFindParameters();
+
+        // for complex get operations -> returns a list of objects
         string GetSearchCondition();
         Dictionary<string, object> GetSearchParameters();
 
+        // used to read an object row
         IEntity ReadObjectRow(SqlDataReader reader);
     }
 }
