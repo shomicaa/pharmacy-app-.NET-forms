@@ -141,6 +141,7 @@
             Margin = new Padding(4);
             Name = "UCUnosKorisnika";
             Size = new Size(1091, 605);
+            Leave += UCUnosKorisnika_Leave;
             ResumeLayout(false);
             PerformLayout();
         }
