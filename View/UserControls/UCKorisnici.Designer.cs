@@ -28,10 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelKorisnici = new Label();
+            labelFilter = new Label();
             dgvKorisnici = new DataGridView();
-            lblImePrezime = new Label();
-            txtImePrezime = new TextBox();
+            txtUserInput = new TextBox();
             btnPretrazi = new Button();
             btnPrikaziKorisnike = new Button();
             gbPodaciKorisnika = new GroupBox();
@@ -46,50 +45,42 @@
             btnPrikaziPodatke = new Button();
             btnObrisiKorisnika = new Button();
             btnIzmeniPodatke = new Button();
+            cmbFilter = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvKorisnici).BeginInit();
             gbPodaciKorisnika.SuspendLayout();
             SuspendLayout();
             // 
-            // labelKorisnici
+            // labelFilter
             // 
-            labelKorisnici.AutoSize = true;
-            labelKorisnici.Font = new Font("Constantia", 14F);
-            labelKorisnici.Location = new Point(16, 12);
-            labelKorisnici.Name = "labelKorisnici";
-            labelKorisnici.Size = new Size(83, 23);
-            labelKorisnici.TabIndex = 0;
-            labelKorisnici.Text = "Korisnici";
+            labelFilter.AutoSize = true;
+            labelFilter.Font = new Font("Constantia", 14F);
+            labelFilter.Location = new Point(13, 22);
+            labelFilter.Name = "labelFilter";
+            labelFilter.Size = new Size(101, 23);
+            labelFilter.TabIndex = 0;
+            labelFilter.Text = "Filtriraj po:";
             // 
             // dgvKorisnici
             // 
             dgvKorisnici.AllowUserToAddRows = false;
             dgvKorisnici.AllowUserToDeleteRows = false;
             dgvKorisnici.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKorisnici.Location = new Point(16, 167);
+            dgvKorisnici.Location = new Point(13, 167);
             dgvKorisnici.Name = "dgvKorisnici";
             dgvKorisnici.ReadOnly = true;
-            dgvKorisnici.Size = new Size(528, 411);
+            dgvKorisnici.Size = new Size(660, 411);
             dgvKorisnici.TabIndex = 1;
             // 
-            // lblImePrezime
+            // txtUserInput
             // 
-            lblImePrezime.AutoSize = true;
-            lblImePrezime.Location = new Point(14, 61);
-            lblImePrezime.Name = "lblImePrezime";
-            lblImePrezime.Size = new Size(181, 19);
-            lblImePrezime.TabIndex = 2;
-            lblImePrezime.Text = "Ime i prezime korisnika:";
-            // 
-            // txtImePrezime
-            // 
-            txtImePrezime.Location = new Point(201, 58);
-            txtImePrezime.Name = "txtImePrezime";
-            txtImePrezime.Size = new Size(212, 27);
-            txtImePrezime.TabIndex = 3;
+            txtUserInput.Location = new Point(186, 48);
+            txtUserInput.Name = "txtUserInput";
+            txtUserInput.Size = new Size(212, 27);
+            txtUserInput.TabIndex = 3;
             // 
             // btnPretrazi
             // 
-            btnPretrazi.Location = new Point(432, 52);
+            btnPretrazi.Location = new Point(404, 42);
             btnPretrazi.Name = "btnPretrazi";
             btnPretrazi.Size = new Size(112, 37);
             btnPretrazi.TabIndex = 4;
@@ -100,11 +91,11 @@
             // btnPrikaziKorisnike
             // 
             btnPrikaziKorisnike.ForeColor = SystemColors.ControlText;
-            btnPrikaziKorisnike.Location = new Point(16, 111);
+            btnPrikaziKorisnike.Location = new Point(13, 104);
             btnPrikaziKorisnike.Name = "btnPrikaziKorisnike";
-            btnPrikaziKorisnike.Size = new Size(528, 37);
+            btnPrikaziKorisnike.Size = new Size(350, 37);
             btnPrikaziKorisnike.TabIndex = 5;
-            btnPrikaziKorisnike.Text = "Prikaži Korisnike";
+            btnPrikaziKorisnike.Text = "Prikaži sve Korisnike";
             btnPrikaziKorisnike.UseVisualStyleBackColor = true;
             btnPrikaziKorisnike.Click += btnPrikaziKorisnike_Click;
             // 
@@ -118,24 +109,24 @@
             gbPodaciKorisnika.Controls.Add(lblPrezime);
             gbPodaciKorisnika.Controls.Add(txtIme);
             gbPodaciKorisnika.Controls.Add(lblIme);
-            gbPodaciKorisnika.Location = new Point(569, 52);
+            gbPodaciKorisnika.Location = new Point(687, 52);
             gbPodaciKorisnika.Name = "gbPodaciKorisnika";
-            gbPodaciKorisnika.Size = new Size(498, 345);
+            gbPodaciKorisnika.Size = new Size(385, 345);
             gbPodaciKorisnika.TabIndex = 6;
             gbPodaciKorisnika.TabStop = false;
             gbPodaciKorisnika.Text = "Podaci korisnika";
             // 
             // txtKontaktTelefon
             // 
-            txtKontaktTelefon.Location = new Point(163, 191);
+            txtKontaktTelefon.Location = new Point(151, 191);
             txtKontaktTelefon.Name = "txtKontaktTelefon";
-            txtKontaktTelefon.Size = new Size(309, 27);
+            txtKontaktTelefon.Size = new Size(211, 27);
             txtKontaktTelefon.TabIndex = 7;
             // 
             // lblKontaktTelefon
             // 
             lblKontaktTelefon.AutoSize = true;
-            lblKontaktTelefon.Location = new Point(29, 194);
+            lblKontaktTelefon.Location = new Point(17, 194);
             lblKontaktTelefon.Name = "lblKontaktTelefon";
             lblKontaktTelefon.Size = new Size(128, 19);
             lblKontaktTelefon.TabIndex = 6;
@@ -143,15 +134,15 @@
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(163, 143);
+            txtEmail.Location = new Point(151, 143);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(309, 27);
+            txtEmail.Size = new Size(211, 27);
             txtEmail.TabIndex = 5;
             // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
-            lblEmail.Location = new Point(29, 146);
+            lblEmail.Location = new Point(17, 146);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(60, 19);
             lblEmail.TabIndex = 4;
@@ -159,15 +150,15 @@
             // 
             // txtPrezime
             // 
-            txtPrezime.Location = new Point(163, 96);
+            txtPrezime.Location = new Point(151, 96);
             txtPrezime.Name = "txtPrezime";
-            txtPrezime.Size = new Size(309, 27);
+            txtPrezime.Size = new Size(211, 27);
             txtPrezime.TabIndex = 3;
             // 
             // lblPrezime
             // 
             lblPrezime.AutoSize = true;
-            lblPrezime.Location = new Point(29, 99);
+            lblPrezime.Location = new Point(17, 99);
             lblPrezime.Name = "lblPrezime";
             lblPrezime.Size = new Size(71, 19);
             lblPrezime.TabIndex = 2;
@@ -175,15 +166,15 @@
             // 
             // txtIme
             // 
-            txtIme.Location = new Point(163, 49);
+            txtIme.Location = new Point(151, 49);
             txtIme.Name = "txtIme";
-            txtIme.Size = new Size(309, 27);
+            txtIme.Size = new Size(211, 27);
             txtIme.TabIndex = 1;
             // 
             // lblIme
             // 
             lblIme.AutoSize = true;
-            lblIme.Location = new Point(29, 52);
+            lblIme.Location = new Point(17, 52);
             lblIme.Name = "lblIme";
             lblIme.Size = new Size(40, 19);
             lblIme.TabIndex = 0;
@@ -191,7 +182,7 @@
             // 
             // btnPrikaziPodatke
             // 
-            btnPrikaziPodatke.Location = new Point(569, 418);
+            btnPrikaziPodatke.Location = new Point(687, 416);
             btnPrikaziPodatke.Name = "btnPrikaziPodatke";
             btnPrikaziPodatke.Size = new Size(166, 35);
             btnPrikaziPodatke.TabIndex = 7;
@@ -201,7 +192,7 @@
             // 
             // btnObrisiKorisnika
             // 
-            btnObrisiKorisnika.Location = new Point(569, 533);
+            btnObrisiKorisnika.Location = new Point(687, 531);
             btnObrisiKorisnika.Name = "btnObrisiKorisnika";
             btnObrisiKorisnika.Size = new Size(166, 35);
             btnObrisiKorisnika.TabIndex = 8;
@@ -211,7 +202,7 @@
             // 
             // btnIzmeniPodatke
             // 
-            btnIzmeniPodatke.Location = new Point(569, 475);
+            btnIzmeniPodatke.Location = new Point(687, 473);
             btnIzmeniPodatke.Name = "btnIzmeniPodatke";
             btnIzmeniPodatke.Size = new Size(166, 35);
             btnIzmeniPodatke.TabIndex = 9;
@@ -219,20 +210,28 @@
             btnIzmeniPodatke.UseVisualStyleBackColor = true;
             btnIzmeniPodatke.Click += btnIzmeniPodatke_Click;
             // 
+            // cmbFilter
+            // 
+            cmbFilter.FormattingEnabled = true;
+            cmbFilter.Location = new Point(13, 48);
+            cmbFilter.Name = "cmbFilter";
+            cmbFilter.Size = new Size(167, 27);
+            cmbFilter.TabIndex = 10;
+            // 
             // UCKorisnici
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(cmbFilter);
             Controls.Add(btnIzmeniPodatke);
             Controls.Add(btnObrisiKorisnika);
             Controls.Add(btnPrikaziPodatke);
             Controls.Add(gbPodaciKorisnika);
             Controls.Add(btnPrikaziKorisnike);
             Controls.Add(btnPretrazi);
-            Controls.Add(txtImePrezime);
-            Controls.Add(lblImePrezime);
+            Controls.Add(txtUserInput);
             Controls.Add(dgvKorisnici);
-            Controls.Add(labelKorisnici);
+            Controls.Add(labelFilter);
             Font = new Font("Constantia", 12F);
             Margin = new Padding(4);
             Name = "UCKorisnici";
@@ -246,10 +245,9 @@
 
         #endregion
 
-        private Label labelKorisnici;
+        private Label labelFilter;
         private DataGridView dgvKorisnici;
-        private Label lblImePrezime;
-        private TextBox txtImePrezime;
+        private TextBox txtUserInput;
         private Button btnPretrazi;
         private Button btnPrikaziKorisnike;
         private GroupBox gbPodaciKorisnika;
@@ -264,11 +262,11 @@
         private TextBox txtEmail;
         private Label lblEmail;
         private Button btnIzmeniPodatke;
+        private ComboBox cmbFilter;
 
-        public Label LabelKorisnici { get => labelKorisnici; set => labelKorisnici = value; }
+        public Label LabelKorisnici { get => labelFilter; set => labelFilter = value; }
         public DataGridView DgvKorisnici { get => dgvKorisnici; set => dgvKorisnici = value; }
-        public Label LblImePrezime { get => lblImePrezime; set => lblImePrezime = value; }
-        public TextBox TxtImePrezime { get => txtImePrezime; set => txtImePrezime = value; }
+        public TextBox TxtUserInput { get => txtUserInput; set => txtUserInput = value; }
         public Button BtnPretrazi { get => btnPretrazi; set => btnPretrazi = value; }
         public Button BtnPrikaziKorisnike { get => btnPrikaziKorisnike; set => btnPrikaziKorisnike = value; }
         public GroupBox GbPodaciKorisnika { get => gbPodaciKorisnika; set => gbPodaciKorisnika = value; }
@@ -283,5 +281,6 @@
         public TextBox TxtEmail { get => txtEmail; set => txtEmail = value; }
         public Label LblEmail { get => lblEmail; set => lblEmail = value; }
         public Button BtnIzmeniPodatke { get => btnIzmeniPodatke; set => btnIzmeniPodatke = value; }
+        public ComboBox CmbFilter { get => cmbFilter; set => cmbFilter = value; }
     }
 }

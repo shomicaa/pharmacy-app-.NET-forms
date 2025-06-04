@@ -235,7 +235,8 @@ namespace View.FormControllers
                     SetPanel(new UCKorisnici());
                     break;
                 case 2:
-                    SetPanel(new UCUnosKorisnika());
+                    FrmUnosKorisnika frmUnosKorisnika = new FrmUnosKorisnika();
+                    frmUnosKorisnika.ShowDialog();
                     break;
             }
         }

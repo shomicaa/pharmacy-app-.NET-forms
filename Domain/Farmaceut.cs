@@ -16,6 +16,7 @@ namespace Domain
         public string Lozinka { get; set; }
 
         public string TableName => "Farmaceut";
+        public string TableAlias => "f";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
         public string JoinClause { get; set; }

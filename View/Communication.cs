@@ -229,7 +229,6 @@ namespace View
         }
         #endregion
 
-        // gotta fix this
         #region pretrazi methods
         internal Farmaceut PretraziFarmaceuta(Farmaceut farmaceut)
         {
@@ -284,9 +283,9 @@ namespace View
             SendRequest<Lokacija>(Operation.UbaciLokaciju, lokacija);
             HandleResponse<Lokacija>();
         }
-        internal int KreirajPromoKod(PromoKod promoKod)
+        internal int KreirajPromoKod(PromoKod kod)
         {
-            SendRequest<PromoKod>(Operation.KreirajPromoKod, promoKod);
+            SendRequest<PromoKod>(Operation.KreirajPromoKod, kod);
             return HandleResponse<int>();
         }
         internal int KreirajRacun(Racun racun)

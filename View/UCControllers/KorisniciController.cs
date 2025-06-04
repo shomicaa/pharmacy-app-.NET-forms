@@ -15,11 +15,13 @@ namespace View.UCControllers
     internal class KorisniciController
     {
         private UCKorisnici uc;
-        BindingList<Korisnik> korisnici;
+        private BindingList<Korisnik> korisnici;
+        private string[] filteri = new string[] { "rednom broju", "imenu", "max % popusta" };
         public KorisniciController(UCKorisnici uc)
         {
             this.uc = uc;
             korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
+            uc.CmbFilter.DataSource = filteri;
         }
         internal void UcitajKorisnike()
         {
@@ -34,27 +36,10 @@ namespace View.UCControllers
                     return;
                 }
 
-                        uc.DgvKorisnici.DataSource = korisnici;
-                        uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-
-                        uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
-                        uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
-                        uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
-
-                        uc.DgvKorisnici.Columns["TableName"].Visible = false;
-                        uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
-                        uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
-                        uc.DgvKorisnici.Columns["JoinClause"].Visible = false;
-                        uc.DgvKorisnici.Columns["WhereClause"].Visible = false;
-                        uc.DgvKorisnici.Columns["JoinParameters"].Visible = false;
-
-                        uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
-                        uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
-                        uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
-
-                        uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                        uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill; 
-                    }
+                uc.DgvKorisnici.DataSource = korisnici;
+                uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                LoadDgvSettings();             
+            }
             catch (NullReferenceException ex)
             {
                 MessageBox.Show(ex.Message);
@@ -65,6 +50,7 @@ namespace View.UCControllers
 
             }
         }
+
         internal void IzmeniKorisnika()
         {
             if (uc.DgvKorisnici.SelectedRows.Count == 0)
@@ -155,7 +141,7 @@ namespace View.UCControllers
 
         internal void Pretrazi()
         {
-            if (string.IsNullOrEmpty(uc.TxtImePrezime.Text))
+            if (string.IsNullOrEmpty(uc.TxtUserInput.Text))
             {
                 UcitajKorisnike();
                 return;
@@ -165,42 +151,62 @@ namespace View.UCControllers
             {
                 Korisnik korisnik = new Korisnik
                 {
-                    SearchKeyword = uc.TxtImePrezime.Text
+                    SearchKeyword = uc.TxtUserInput.Text
                 };
 
-                List<Korisnik> korisnici = Communication.Instance.UcitajSpecificKorisnike(korisnik);
+                if((string)uc.CmbFilter.SelectedItem == filteri[0])
+                {
+                    if (int.TryParse(uc.TxtUserInput.Text, out int id))
+                    {
+                        korisnik.IdKorisnik = id;
+                        Korisnik vraceniKorisnik = Communication.Instance.PretraziKorisnika(korisnik);
+                        korisnici = [vraceniKorisnik];
+                    }
+                    else
+                    {
+                        MessageBox.Show("Redni broj mora biti ceo broj!");
+                        return;
+                    }
+                }
+                else if((string)uc.CmbFilter.SelectedItem == filteri[1])
+                {
+                    List<Korisnik> lista = Communication.Instance.UcitajSpecificKorisnike(korisnik);
+                    korisnici = new BindingList<Korisnik>(lista);
+                }
+                else if((string)uc.CmbFilter.SelectedItem == filteri[2])
+                {
+                    if (!double.TryParse(uc.TxtUserInput.Text, out double maxPopust))
+                    {
+                        MessageBox.Show("Unesite brojčanu vrednost za maksimalan popust!");
+                        return;
+                    }
+
+                    korisnik.JoinClause = "JOIN PromoKod pk ON pk.Id = k.IdPromoKod";
+                    korisnik.WhereClause = "pk.IznosPopusta <= @max";
+                    korisnik.JoinParameters = new Dictionary<string, object>
+                    {
+                        ["@max"] = maxPopust
+                    };
+
+                    korisnici = new BindingList<Korisnik>(
+                        Communication.Instance.UcitajKorisnikeSaZahtevom(korisnik)
+                    );
+                }
+                
 
                 if (korisnici == null || korisnici.Count == 0)
                 {
                     MessageBox.Show("Sistem ne može da nađe korisnike po zadatoj vrednosti!");
-                    uc.TxtImePrezime.Text = "";
+                    uc.TxtUserInput.Text = "";
                 }
                 else
                 {
                     uc.DgvKorisnici.DataSource = new BindingList<Korisnik>(korisnici);
                     uc.DgvKorisnici.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-                    uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
-                    uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
-                    uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
+                    LoadDgvSettings();
 
-                    uc.DgvKorisnici.Columns["TableName"].Visible = false;
-                    uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
-                    uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
-                    uc.DgvKorisnici.Columns["JoinClause"].Visible = false;
-                    uc.DgvKorisnici.Columns["WhereClause"].Visible = false;
-                    uc.DgvKorisnici.Columns["JoinParameters"].Visible = false;
-
-                    uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
-
-                    uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
-                    uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
-                    uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
-
-                    uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-                    uc.TxtImePrezime.Text = "";
+                    uc.TxtUserInput.Text = "";
                 }
             }
             catch (NullReferenceException ex)
@@ -211,6 +217,28 @@ namespace View.UCControllers
             {
                 MessageBox.Show("Sistem ne može da pretraži korisnike.\n" + ex.Message);
             }
+        }
+
+        private void LoadDgvSettings()
+        {
+            uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
+            uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
+
+            uc.DgvKorisnici.Columns["TableName"].Visible = false;
+            uc.DgvKorisnici.Columns["TableAlias"].Visible = false;
+            uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
+            uc.DgvKorisnici.Columns["SearchKeyword"].Visible = false;
+            uc.DgvKorisnici.Columns["JoinClause"].Visible = false;
+            uc.DgvKorisnici.Columns["WhereClause"].Visible = false;
+            uc.DgvKorisnici.Columns["JoinParameters"].Visible = false;
+
+            uc.DgvKorisnici.Columns["DatumUclanjenja"].HeaderText = "Datum učlanjenja";
+            uc.DgvKorisnici.Columns["DatumUclanjenja"].DefaultCellStyle.Format = "dd.MM.yyyy";
+            uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
+            uc.DgvKorisnici.Columns["IdKorisnik"].HeaderText = "RB";
+
+            uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
     }
 }

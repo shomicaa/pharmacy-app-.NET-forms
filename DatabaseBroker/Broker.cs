@@ -161,8 +161,8 @@ namespace DatabaseBroker
 
         public List<IEntity> GetWithCondition(IJoinEntity entity)
         {
-            List<IEntity> result = new();
-            string query = $"SELECT {entity.SelectValues} FROM {entity.TableName} {entity.JoinClause} WHERE {entity.WhereClause}";
+            List<IEntity> results = new List<IEntity>();
+            string query = $"SELECT {entity.SelectValues} FROM {entity.TableName} {entity.TableAlias} {entity.JoinClause} WHERE {entity.WhereClause}";
 
             using SqlCommand command = new SqlCommand(query, connection, transaction);
 
@@ -171,9 +171,15 @@ namespace DatabaseBroker
                 command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
             }
 
-            using SqlDataReader reader = command.ExecuteReader();
-            result = entity.ReadAll(reader);
-            return result;
+            using (SqlDataReader reader = command.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    IEntity rowObject = entity.ReadObjectRow(reader);
+                    results.Add(rowObject);
+                }
+            }
+            return results;
         }
 
     }
