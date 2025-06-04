@@ -147,22 +147,22 @@ namespace ApplicationLogic
         #endregion
 
         #region kreiraj/ubaci methods
-        public int KreirajFarmaceut()
+        public int KreirajFarmaceut(Farmaceut farmaceut)
         {
             KreirajFarmaceutSO so = new KreirajFarmaceutSO();
-            so.ExecuteTemplate(new Farmaceut());
+            so.ExecuteTemplate(farmaceut);
             return so.Result;
         }
-        public int KreirajKorisnik()
+        public int KreirajKorisnik(Korisnik korisnik)
         {
             KreirajKorisnikSO so = new KreirajKorisnikSO();
-            so.ExecuteTemplate(new Korisnik());
+            so.ExecuteTemplate(korisnik);
             return so.Result;
         }
-        public int KreirajLek()
+        public int KreirajLek(Lek lek)
         {
             KreirajLekSO so = new KreirajLekSO();
-            so.ExecuteTemplate(new Lek());
+            so.ExecuteTemplate(lek);
             return so.Result;
         }
         public void UbaciLokacija(Lokacija lokacija)
@@ -170,16 +170,16 @@ namespace ApplicationLogic
             UbaciLokacijaSO so = new UbaciLokacijaSO();
             so.ExecuteTemplate(lokacija);
         }
-        public int KreirajPromoKod()
+        public int KreirajPromoKod(PromoKod promoKod)
         {
             KreirajPromoKodSO so = new KreirajPromoKodSO();
-            so.ExecuteTemplate(new PromoKod());
+            so.ExecuteTemplate(promoKod);
             return so.Result;
         }
-        public int KreirajRacun()
+        public int KreirajRacun(Racun racun)
         {
             KreirajRacunSO so = new KreirajRacunSO();
-            so.ExecuteTemplate(new Racun());
+            so.ExecuteTemplate(racun);
             return so.Result;
         }
         #endregion

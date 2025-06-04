@@ -20,6 +20,7 @@ namespace Domain
         public int IdKorisnik { get; set; }
 
         public string TableName => "Racun";
+        public string TableAlias => "r";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
         public string JoinClause { get; set; } 

@@ -16,12 +16,13 @@ namespace Domain
         public string Ime { get; set; }
         public string Prezime { get; set; }
         public string Email { get; set; }
-        public string KontaktTelefon { get; set; }
+        public string KontaktTelefon { get; set; } 
         public DateTime DatumUclanjenja { get; set; }
         public int GodineClanstva { get; set; }
         public int IdPromoKod { get; set; }
 
         public string TableName => "Korisnik";
+        public string TableAlias => "k";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
         public string JoinClause { get; set; } 
@@ -99,6 +100,5 @@ namespace Domain
             }
             return korisnici;
         }
-
     }
 }

@@ -130,6 +130,17 @@ namespace Server
             funkcija(entity);
             SendResponse(response, errorMessage);
         }
+
+        public void MakeResponseKreiraj<T>(Request request, Func<T, int> funkcija, string errorMessage)
+        {
+            Response<int> response = new Response<int>();
+            var element = (JsonElement)request.RequestObject;
+            T requestObj = JsonSerializer.Deserialize<T>(element);
+
+            response.Result = funkcija(requestObj);
+            SendResponse(response, errorMessage);
+        }
+
         public void MakeResponse<T>(Request request, Func<T,T> funkcija, string errorMessage)
         {
             (Response<T> response, T entity) = DeserializeTupleDomain<T>(request);
@@ -154,6 +165,12 @@ namespace Server
         public void MakeResponseList<T>(Request request, Func<T,List<T>> ucitajFunkcija, string errorMessage)
         {
             (Response<List<T>> response, T entity) = DeserializeTupleListDomain<T>(request);
+
+            if (entity is IJoinEntity joinEntity && joinEntity.JoinParameters != null)
+            {
+                joinEntity.JoinParameters = FixJoinParameters(joinEntity.JoinParameters);
+            }
+
             response.Result = ucitajFunkcija(entity);
             SendResponse(response, errorMessage);
         }
@@ -230,13 +247,13 @@ namespace Server
                     break;             
                 // kreiraj/ubaci cases
                 case Operation.KreirajFarmaceuta:
-                    MakeResponse<int>(Controller.Instance.KreirajFarmaceut, "Greska pri kreiranju farmaceuta");
+                    MakeResponseKreiraj<Farmaceut>(request, Controller.Instance.KreirajFarmaceut, "Greska pri kreiranju farmaceuta");
                     break;
                 case Operation.KreirajKorisnika:
-                    MakeResponse<int>(Controller.Instance.KreirajKorisnik, "Greska pri kreiranju korisnika");
+                    MakeResponseKreiraj<Korisnik>(request, Controller.Instance.KreirajKorisnik, "Greska pri kreiranju korisnika");
                     break;
                 case Operation.KreirajLek:
-                    MakeResponse<int>(Controller.Instance.KreirajLek, "Greska pri kreiranju leka");
+                    MakeResponseKreiraj<Lek>(request, Controller.Instance.KreirajLek, "Greska pri kreiranju leka");
                     break;
                 case Operation.UbaciLokaciju:
                     Response<Lek> response = new Response<Lek>();
@@ -244,10 +261,10 @@ namespace Server
                     SendResponse(response, "Greska pri ubacivanju lokacije u bazu");
                     break;
                 case Operation.KreirajPromoKod:
-                    MakeResponse<int>(Controller.Instance.KreirajPromoKod, "Greska pri kreiranju promo koda");
+                    MakeResponseKreiraj<PromoKod>(request, Controller.Instance.KreirajPromoKod, "Greska pri kreiranju racuna");
                     break;
                 case Operation.KreirajRacun:
-                    MakeResponse<int>(Controller.Instance.KreirajRacun, "Greska pri kreiranju racuna");
+                    MakeResponseKreiraj<Racun>(request, Controller.Instance.KreirajRacun, "Greska pri kreiranju racuna");
                     break;
                 // pretrazi cases
                 case Operation.PretraziFarmaceuta:
@@ -317,5 +334,34 @@ namespace Server
                 }
             }
         }
+        public static Dictionary<string, object> FixJoinParameters(Dictionary<string, object> original)
+        {
+            var fixedDict = new Dictionary<string, object>();
+
+            foreach (var kvp in original)
+            {
+                if (kvp.Value is JsonElement je)
+                {
+                    // Try to guess the actual type
+                    if (je.ValueKind == JsonValueKind.Number && je.TryGetInt32(out int intVal))
+                        fixedDict[kvp.Key] = intVal;
+                    else if (je.ValueKind == JsonValueKind.String)
+                        fixedDict[kvp.Key] = je.GetString();
+                    else if (je.ValueKind == JsonValueKind.True || je.ValueKind == JsonValueKind.False)
+                        fixedDict[kvp.Key] = je.GetBoolean();
+                    else if (je.ValueKind == JsonValueKind.Null)
+                        fixedDict[kvp.Key] = DBNull.Value;
+                    else
+                        throw new Exception($"Unhandled JsonElement value kind: {je.ValueKind}");
+                }
+                else
+                {
+                    fixedDict[kvp.Key] = kvp.Value;
+                }
+            }
+
+            return fixedDict;
+        }
+
     }
 }

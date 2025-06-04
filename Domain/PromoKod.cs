@@ -12,8 +12,8 @@ namespace Domain
     public class PromoKod : IEntity
     {
         public int IdPromoKod { get; set; }
-        public double IznosPopusta { get; set; }
-        public DateTime DatumIsteka { get; set; }
+        public double IznosPopusta { get; set; } = 0;
+        public DateTime DatumNastanka { get; set; } = DateTime.Today;
 
         public string TableName => "PromoKod";
         public object SelectValues => "*";
@@ -22,18 +22,18 @@ namespace Domain
         public Dictionary<string, object> GetInsertParameters() => new()
         {
             ["@IznosPopusta"] = IznosPopusta,
-            ["@DatumIsteka"] = DatumIsteka
+            ["@DatumNastanka"] = DatumNastanka
         };
 
         public Dictionary<string, object> GetUpdateParameters() => new()
         {
             ["@Id"] = IdPromoKod,
             ["@IznosPopusta"] = IznosPopusta,
-            ["@DatumIsteka"] = DatumIsteka
+            ["@DatumNastanka"] = DatumNastanka
         };
 
         public string GetUpdateQuery() =>
-            "SET IznosPopusta = @IznosPopusta, DatumIsteka = @DatumIsteka WHERE Id = @Id";
+            "SET IznosPopusta = @IznosPopusta, DatumNastanka = @DatumNastanka WHERE Id = @Id";
 
         public Dictionary<string, object> GetDeleteParameters() => new() { ["@Id"] = IdPromoKod };
         public string GetDeleteCondition() => "Id = @Id";
@@ -52,7 +52,7 @@ namespace Domain
             {
                 IdPromoKod = reader.GetInt32("Id"),
                 IznosPopusta = reader.GetDouble("IznosPopusta"),
-                DatumIsteka = reader.GetDateTime("DatumIsteka"),
+                DatumNastanka = reader.GetDateTime("DatumNastanka"),
             };
             return p;
         }
