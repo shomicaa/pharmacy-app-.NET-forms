@@ -23,7 +23,12 @@ namespace View.UserControls
 
         private void btnSacuvajKorisnika_Click(object sender, EventArgs e)
         {
-            controller.SaveUser();         
+            controller.SaveUser();
+            if (Success)
+            {
+                this.Close();
+            }
+            
         }
 
         private void btnOtkazi_Click(object sender, EventArgs e)
