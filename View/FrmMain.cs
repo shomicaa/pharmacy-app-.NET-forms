@@ -18,8 +18,6 @@ namespace View
         public bool IsKorisnikActive { get; set; }
         public bool IsRacunActive { get; set; }
         public bool IsLekActive { get; set; }
-        public bool IsLokacijaActive { get; set; }
-        public bool IsPromoKodActive { get; set; }
 
         public FrmMain()
         {
@@ -31,5 +29,11 @@ namespace View
         private void Init() => mainController.Init();
 
         public void SetPanel(UserControl userControl) => mainController.SetPanel(userControl);
+
+        private void lblExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            mainController.Close();
+        }
     }
 }

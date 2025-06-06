@@ -88,5 +88,10 @@ namespace Domain
             }
             return farmaceuti;
         }
+
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
     }
 }

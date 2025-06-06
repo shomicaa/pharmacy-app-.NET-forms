@@ -14,31 +14,31 @@ namespace View.UserControls
 {
     public partial class UCKorisnici : UserControl
     {
-        private KorisniciController korisniciController;
+        private KorisniciController controller;
         public UCKorisnici()
         {
             InitializeComponent();
-            korisniciController = new KorisniciController(this);
+            controller = new KorisniciController(this);
         }
 
         private void btnPrikaziPodatke_Click(object sender, EventArgs e)
         {
-            korisniciController.PrikaziPodatke();
+            controller.PrikaziPodatke();
         }
 
         private void btnIzmeniPodatke_Click(object sender, EventArgs e)
         {
-            korisniciController.IzmeniKorisnika();
+            controller.IzmeniKorisnika();
             dgvKorisnici.DataSource = null;
-            korisniciController.UcitajKorisnike();
+            controller.UcitajKorisnike();
             dgvKorisnici.Refresh();
         }
 
         private void btnObrisiKorisnika_Click(object sender, EventArgs e)
         {
-            korisniciController.ObrisiKorisnika();
+            controller.ObrisiKorisnika();
             dgvKorisnici.DataSource = null;
-            korisniciController.UcitajKorisnike();
+            controller.UcitajKorisnike();
             dgvKorisnici.Refresh();
         }
 
@@ -49,12 +49,12 @@ namespace View.UserControls
                 dgvKorisnici.DataSource = null;
                 dgvKorisnici.Refresh();
             }
-            else { korisniciController.UcitajKorisnike(); }
+            else { controller.UcitajKorisnike(); }
         }
 
         private void btnPretrazi_Click(object sender, EventArgs e)
         {
-            korisniciController.Pretrazi();
+            controller.Pretrazi();
         }
     }
 }

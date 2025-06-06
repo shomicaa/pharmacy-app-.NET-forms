@@ -34,8 +34,6 @@
             lbl1 = new Label();
             lblExit = new Label();
             pictureBox1 = new PictureBox();
-            lblPromoKod = new Label();
-            lblLokacija = new Label();
             lblLek = new Label();
             lblRacun = new Label();
             lblKorisnik = new Label();
@@ -96,13 +94,14 @@
             // lblExit
             // 
             lblExit.Cursor = Cursors.Hand;
-            lblExit.Font = new Font("Constantia", 14F);
+            lblExit.Font = new Font("Constantia", 20F);
             lblExit.ForeColor = Color.FromArgb(41, 41, 58);
-            lblExit.Location = new Point(3, 576);
+            lblExit.Location = new Point(3, 558);
             lblExit.Name = "lblExit";
-            lblExit.Size = new Size(87, 19);
+            lblExit.Size = new Size(105, 51);
             lblExit.TabIndex = 6;
             lblExit.Text = "Exit";
+            lblExit.Click += lblExit_Click;
             // 
             // pictureBox1
             // 
@@ -113,28 +112,6 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
-            // 
-            // lblPromoKod
-            // 
-            lblPromoKod.Cursor = Cursors.Hand;
-            lblPromoKod.Font = new Font("Constantia", 14F);
-            lblPromoKod.ForeColor = Color.White;
-            lblPromoKod.Location = new Point(310, 19);
-            lblPromoKod.Name = "lblPromoKod";
-            lblPromoKod.Size = new Size(99, 24);
-            lblPromoKod.TabIndex = 5;
-            lblPromoKod.Text = "PromoKod";
-            // 
-            // lblLokacija
-            // 
-            lblLokacija.Cursor = Cursors.Hand;
-            lblLokacija.Font = new Font("Constantia", 14F);
-            lblLokacija.ForeColor = Color.White;
-            lblLokacija.Location = new Point(226, 19);
-            lblLokacija.Name = "lblLokacija";
-            lblLokacija.Size = new Size(78, 24);
-            lblLokacija.TabIndex = 4;
-            lblLokacija.Text = "Lokacija";
             // 
             // lblLek
             // 
@@ -173,10 +150,8 @@
             // 
             panelHeader.BackColor = Color.FromArgb(39, 68, 112);
             panelHeader.Controls.Add(lblKorisnik);
-            panelHeader.Controls.Add(lblPromoKod);
             panelHeader.Controls.Add(lblRacun);
             panelHeader.Controls.Add(lblLek);
-            panelHeader.Controls.Add(lblLokacija);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(143, 0);
             panelHeader.Name = "panelHeader";
@@ -196,10 +171,12 @@
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1234, 659);
+            ControlBox = false;
             Controls.Add(panelMain);
             Controls.Add(panelHeader);
             Controls.Add(panelBoard);
             Font = new Font("Segoe UI", 12F);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
             Name = "FrmMain";
             StartPosition = FormStartPosition.CenterScreen;
@@ -216,10 +193,8 @@
         private PictureBox pictureBox1;
         private Panel panelHeader;
         private Label lblKorisnik;
-        private Label lblLokacija;
         private Label lblLek;
         private Label lblRacun;
-        private Label lblPromoKod;
         private Label lblExit;
         private Label lbl2;
         private Label lbl1;
@@ -230,10 +205,8 @@
         public PictureBox PictureBox1 { get => pictureBox1; set => pictureBox1 = value; }
         public Panel PanelHeader { get => panelHeader; set => panelHeader = value; }
         public Label LblKorisnik { get => lblKorisnik; set => lblKorisnik = value; }
-        public Label LblLokacija { get => lblLokacija; set => lblLokacija = value; }
         public Label LblLek { get => lblLek; set => lblLek = value; }
         public Label LblRacun { get => lblRacun; set => lblRacun = value; }
-        public Label LblPromoKod { get => lblPromoKod; set => lblPromoKod = value; }
         public Label LblExit { get => lblExit; set => lblExit = value; }
         public Label Lbl2 { get => lbl2; set => lbl2 = value; }
         public Label Lbl1 { get => lbl1; set => lbl1 = value; }

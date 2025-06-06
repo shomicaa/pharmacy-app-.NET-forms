@@ -34,9 +34,7 @@
             btnPretrazi = new Button();
             btnPrikaziKorisnike = new Button();
             gbPodaciKorisnika = new GroupBox();
-            txtKontaktTelefon = new TextBox();
             lblKontaktTelefon = new Label();
-            txtEmail = new TextBox();
             lblEmail = new Label();
             txtPrezime = new TextBox();
             lblPrezime = new Label();
@@ -46,6 +44,8 @@
             btnObrisiKorisnika = new Button();
             btnIzmeniPodatke = new Button();
             cmbFilter = new ComboBox();
+            txtKontaktTelefon = new TextBox();
+            txtEmail = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvKorisnici).BeginInit();
             gbPodaciKorisnika.SuspendLayout();
             SuspendLayout();
@@ -116,13 +116,6 @@
             gbPodaciKorisnika.TabStop = false;
             gbPodaciKorisnika.Text = "Podaci korisnika";
             // 
-            // txtKontaktTelefon
-            // 
-            txtKontaktTelefon.Location = new Point(151, 191);
-            txtKontaktTelefon.Name = "txtKontaktTelefon";
-            txtKontaktTelefon.Size = new Size(211, 27);
-            txtKontaktTelefon.TabIndex = 7;
-            // 
             // lblKontaktTelefon
             // 
             lblKontaktTelefon.AutoSize = true;
@@ -131,13 +124,6 @@
             lblKontaktTelefon.Size = new Size(128, 19);
             lblKontaktTelefon.TabIndex = 6;
             lblKontaktTelefon.Text = "Kontakt Telefon:";
-            // 
-            // txtEmail
-            // 
-            txtEmail.Location = new Point(151, 143);
-            txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(211, 27);
-            txtEmail.TabIndex = 5;
             // 
             // lblEmail
             // 
@@ -218,6 +204,20 @@
             cmbFilter.Size = new Size(167, 27);
             cmbFilter.TabIndex = 10;
             // 
+            // txtKontaktTelefon
+            // 
+            txtKontaktTelefon.Location = new Point(151, 191);
+            txtKontaktTelefon.Name = "txtKontaktTelefon";
+            txtKontaktTelefon.Size = new Size(211, 27);
+            txtKontaktTelefon.TabIndex = 7;
+            // 
+            // txtEmail
+            // 
+            txtEmail.Location = new Point(151, 143);
+            txtEmail.Name = "txtEmail";
+            txtEmail.Size = new Size(211, 27);
+            txtEmail.TabIndex = 5;
+            // 
             // UCKorisnici
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
@@ -257,12 +257,12 @@
         private Label lblPrezime;
         private TextBox txtIme;
         private Label lblIme;
-        private TextBox txtKontaktTelefon;
         private Label lblKontaktTelefon;
-        private TextBox txtEmail;
         private Label lblEmail;
         private Button btnIzmeniPodatke;
         private ComboBox cmbFilter;
+        private TextBox txtKontaktTelefon;
+        private TextBox txtEmail;
 
         public Label LabelKorisnici { get => labelFilter; set => labelFilter = value; }
         public DataGridView DgvKorisnici { get => dgvKorisnici; set => dgvKorisnici = value; }
