@@ -28,45 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmServer));
             btnStart = new Button();
             btnStop = new Button();
             lblServerStatus = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btnStart
             // 
-            btnStart.Location = new Point(12, 12);
+            btnStart.BackColor = Color.FromArgb(87, 125, 181);
+            btnStart.Location = new Point(63, 144);
             btnStart.Name = "btnStart";
             btnStart.Size = new Size(109, 42);
             btnStart.TabIndex = 0;
             btnStart.Text = "Start";
-            btnStart.UseVisualStyleBackColor = true;
+            btnStart.UseVisualStyleBackColor = false;
             btnStart.Click += btnStart_Click;
             // 
             // btnStop
             // 
-            btnStop.Location = new Point(127, 12);
+            btnStop.BackColor = Color.FromArgb(87, 125, 181);
+            btnStop.Location = new Point(188, 144);
             btnStop.Name = "btnStop";
             btnStop.Size = new Size(109, 42);
             btnStop.TabIndex = 1;
             btnStop.Text = "Stop";
-            btnStop.UseVisualStyleBackColor = true;
+            btnStop.UseVisualStyleBackColor = false;
             btnStop.Click += btnStop_Click;
             // 
             // lblServerStatus
             // 
             lblServerStatus.AutoSize = true;
-            lblServerStatus.Location = new Point(98, 70);
+            lblServerStatus.Location = new Point(129, 203);
             lblServerStatus.Name = "lblServerStatus";
             lblServerStatus.Size = new Size(52, 21);
             lblServerStatus.TabIndex = 2;
             lblServerStatus.Text = "label1";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(129, 12);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(108, 108);
+            pictureBox1.TabIndex = 3;
+            pictureBox1.TabStop = false;
+            // 
             // FrmServer
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(249, 100);
+            BackColor = Color.White;
+            ClientSize = new Size(358, 266);
+            Controls.Add(pictureBox1);
             Controls.Add(lblServerStatus);
             Controls.Add(btnStop);
             Controls.Add(btnStart);
@@ -74,6 +90,7 @@
             Margin = new Padding(4);
             Name = "FrmServer";
             Text = "FrmServer";
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -83,6 +100,7 @@
         private Button btnStart;
         private Button btnStop;
         private Label lblServerStatus;
+        private PictureBox pictureBox1;
 
         public Button BtnStart { get => btnStart; set => btnStart = value; }
         public Button BtnStop { get => btnStop; set => btnStop = value; }

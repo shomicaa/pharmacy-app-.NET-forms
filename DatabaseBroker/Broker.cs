@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Domain;
+using System.Diagnostics;
 
 namespace DatabaseBroker
 {
@@ -100,22 +101,29 @@ namespace DatabaseBroker
 
         public IEntity Find(IEntity entity)
         {
-            using SqlCommand command = new SqlCommand
+            try
             {
-                Connection = connection,
-                Transaction = transaction,
-                CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetFindCondition()}"
-            };
+                using SqlCommand command = new SqlCommand
+                {
+                    Connection = connection,
+                    Transaction = transaction,
+                    CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetFindCondition()}"
+                };
 
-            foreach (var pair in entity.GetFindParameters())
-            {
-                command.Parameters.AddWithValue(pair.Key, pair.Value);
+                foreach (var pair in entity.GetFindParameters())
+                {
+                    command.Parameters.AddWithValue(pair.Key, pair.Value);
+                }
+
+                using SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    return entity.ReadObjectRow(reader);
+                }
             }
-
-            using SqlDataReader reader = command.ExecuteReader();
-            if (reader.Read())
+            catch (Exception ex)
             {
-                return entity.ReadObjectRow(reader);
+                Debug.WriteLine(">>>>>> Broker - Database error: "+ex.Message);
             }
 
             return null;
@@ -123,63 +131,87 @@ namespace DatabaseBroker
 
         public List<IEntity> GetAll(IEntity entity)
         {
-            List<IEntity> result = new List<IEntity>();
-            SqlCommand command = new SqlCommand("", connection, transaction);
-            command.CommandText = $"select {entity.SelectValues} from {entity.TableName}";
-            using (SqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                List<IEntity> result = new List<IEntity>();
+                SqlCommand command = new SqlCommand("", connection, transaction);
+                command.CommandText = $"select {entity.SelectValues} from {entity.TableName}";
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    IEntity rowObject = entity.ReadObjectRow(reader);
-                    result.Add(rowObject);
+                    while (reader.Read())
+                    {
+                        IEntity rowObject = entity.ReadObjectRow(reader);
+                        result.Add(rowObject);
+                    }
                 }
+                return result;
             }
-            return result;
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>>>> Broker - Database error: " + ex.Message);
+                throw;
+            }
         }
 
         public List<IEntity> GetSpecific(IEntity entity)
         {
-            List<IEntity> results = new List<IEntity>();
-            SqlCommand command = new SqlCommand("", connection, transaction);
-            command.CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetSearchCondition()}";
-
-            foreach (var pair in entity.GetSearchParameters())
+            try
             {
-                command.Parameters.AddWithValue(pair.Key, pair.Value);
-            }
+                List<IEntity> results = new List<IEntity>();
+                SqlCommand command = new SqlCommand("", connection, transaction);
+                command.CommandText = $"SELECT {entity.SelectValues} FROM {entity.TableName} WHERE {entity.GetSearchCondition()}";
 
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                foreach (var pair in entity.GetSearchParameters())
                 {
-                    IEntity rowObject = entity.ReadObjectRow(reader);
-                    results.Add(rowObject);
+                    command.Parameters.AddWithValue(pair.Key, pair.Value);
                 }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        IEntity rowObject = entity.ReadObjectRow(reader);
+                        results.Add(rowObject);
+                    }
+                }
+                return results;
             }
-            return results;
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>>>> Broker - Database error: " + ex.Message);
+                throw;
+            }
         }
 
         public List<IEntity> GetWithCondition(IJoinEntity entity)
         {
-            List<IEntity> results = new List<IEntity>();
-            string query = $"SELECT {entity.SelectValues} FROM {entity.TableName} {entity.TableAlias} {entity.JoinClause} WHERE {entity.WhereClause}";
-
-            using SqlCommand command = new SqlCommand(query, connection, transaction);
-
-            foreach (var param in entity.JoinParameters)
+            try
             {
-                command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
-            }
+                List<IEntity> results = new List<IEntity>();
+                string query = $"SELECT {entity.SelectValues} FROM {entity.TableName} {entity.TableAlias} {entity.JoinClause} WHERE {entity.WhereClause}";
 
-            using (SqlDataReader reader = command.ExecuteReader())
-            {
-                while (reader.Read())
+                using SqlCommand command = new SqlCommand(query, connection, transaction);
+
+                foreach (var param in entity.JoinParameters)
                 {
-                    IEntity rowObject = entity.ReadObjectRow(reader);
-                    results.Add(rowObject);
+                    command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
                 }
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        IEntity rowObject = entity.ReadObjectRow(reader);
+                        results.Add(rowObject);
+                    }
+                }
+                return results;
             }
-            return results;
+            catch (Exception ex)
+            {
+                Debug.WriteLine(">>>>>> Broker - Database error: " + ex.Message);
+                throw;
+            }
         }
 
     }

@@ -28,16 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             btnLogin = new Button();
             lblUsername = new Label();
             txtUsername = new TextBox();
             txtPassword = new TextBox();
             lblPassword = new Label();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // btnLogin
             // 
-            btnLogin.Location = new Point(391, 290);
+            btnLogin.Location = new Point(198, 261);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(112, 43);
             btnLogin.TabIndex = 0;
@@ -48,7 +51,7 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
-            lblUsername.Location = new Point(264, 118);
+            lblUsername.Location = new Point(60, 152);
             lblUsername.Name = "lblUsername";
             lblUsername.Size = new Size(84, 21);
             lblUsername.TabIndex = 1;
@@ -56,14 +59,14 @@
             // 
             // txtUsername
             // 
-            txtUsername.Location = new Point(363, 115);
+            txtUsername.Location = new Point(159, 149);
             txtUsername.Name = "txtUsername";
             txtUsername.Size = new Size(261, 29);
             txtUsername.TabIndex = 2;
             // 
             // txtPassword
             // 
-            txtPassword.Location = new Point(363, 165);
+            txtPassword.Location = new Point(159, 199);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
             txtPassword.Size = new Size(261, 29);
@@ -72,17 +75,28 @@
             // lblPassword
             // 
             lblPassword.AutoSize = true;
-            lblPassword.Location = new Point(264, 168);
+            lblPassword.Location = new Point(60, 202);
             lblPassword.Name = "lblPassword";
             lblPassword.Size = new Size(79, 21);
             lblPassword.TabIndex = 3;
             lblPassword.Text = "Password:";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(508, 36);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(398, 379);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
             // 
             // FrmLogin
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(918, 512);
+            Controls.Add(pictureBox1);
             Controls.Add(txtPassword);
             Controls.Add(lblPassword);
             Controls.Add(txtUsername);
@@ -93,6 +107,7 @@
             Name = "FrmLogin";
             Text = "FrmLogin";
             FormClosed += FrmLogin_FormClosed;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -104,6 +119,7 @@
         private TextBox txtUsername;
         private TextBox txtPassword;
         private Label lblPassword;
+        private PictureBox pictureBox1;
 
         public Button BtnLogin { get => btnLogin; set => btnLogin = value; }
         public Label LblUsername { get => lblUsername; set => lblUsername = value; }

@@ -22,7 +22,7 @@ namespace Server
         {
             form.BtnStart.Enabled = true;
             form.BtnStop.Enabled = false;
-            form.LblServerStatus.BackColor = Color.Red;
+            form.LblServerStatus.BackColor = Color.LightYellow;
             form.LblServerStatus.Text = "Server Closed";
         }
 
@@ -53,14 +53,14 @@ namespace Server
         {
             form.BtnStart.Enabled = !form.BtnStart.Enabled;
             form.BtnStop.Enabled = !form.BtnStop.Enabled;
-            if(form.LblServerStatus.BackColor == Color.Red)
+            if(form.LblServerStatus.BackColor == Color.LightYellow)
             {
-                form.LblServerStatus.BackColor = Color.Green;
+                form.LblServerStatus.BackColor = Color.LightBlue;
                 form.LblServerStatus.Text = "Server Open";
             }
             else
             {
-                form.LblServerStatus.BackColor = Color.Red;
+                form.LblServerStatus.BackColor = Color.LightYellow;
                 form.LblServerStatus.Text = "Server Closed";
             }
         }

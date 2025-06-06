@@ -9,8 +9,6 @@ namespace View
         {
             InitializeComponent();
             loginController = new LoginController();
-            txtUsername.Text = "shomica";
-            txtPassword.Text = "milos123";
         }
 
         private void btnLogin_Click(object sender, EventArgs e)
