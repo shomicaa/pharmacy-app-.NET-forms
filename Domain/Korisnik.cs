@@ -100,5 +100,10 @@ namespace Domain
             }
             return korisnici;
         }
+
+        public override string ToString()
+        {
+            return Ime + " " + Prezime;
+        }
     }
 }

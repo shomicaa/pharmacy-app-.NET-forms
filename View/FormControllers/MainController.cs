@@ -20,14 +20,17 @@ namespace View.FormControllers
             this.form = frmMain;
             AttachEventHandlers();
         }
+
+        internal void Close()
+        {
+            Communication.Instance.Close();
+        }
         private void AttachEventHandlers()
         {
             // attaching hover events for every label
             AttachHoverEvents(form.LblKorisnik);
             AttachHoverEvents(form.LblRacun);
             AttachHoverEvents(form.LblLek);
-            AttachHoverEvents(form.LblLokacija);
-            AttachHoverEvents(form.LblPromoKod);
             AttachHoverEvents(form.Lbl1);
             AttachHoverEvents(form.Lbl2);
             AttachHoverEvents(form.Lbl3);
@@ -36,8 +39,6 @@ namespace View.FormControllers
             form.LblKorisnik.Click += (s, e) => HandleHeaderLabelClick("Korisnik");
             form.LblRacun.Click += (s, e) => HandleHeaderLabelClick("Racun");
             form.LblLek.Click += (s, e) => HandleHeaderLabelClick("Lek");
-            form.LblLokacija.Click += (s, e) => HandleHeaderLabelClick("Lokacija");
-            form.LblPromoKod.Click += (s, e) => HandleHeaderLabelClick("PromoKod");
 
             // attaching click events for labels on the board panel
             form.Lbl1.Click += (s, e) => HandleBoardLabelClick(1);
@@ -58,9 +59,7 @@ namespace View.FormControllers
                     // reset text color ONLY if not active
                     if (!(label == form.LblKorisnik && form.IsKorisnikActive) &&
                         !(label == form.LblRacun && form.IsRacunActive) &&
-                        !(label == form.LblLek && form.IsLekActive) &&
-                        !(label == form.LblLokacija && form.IsLokacijaActive) &&
-                        !(label == form.LblPromoKod && form.IsPromoKodActive))
+                        !(label == form.LblLek && form.IsLekActive))
                     {
                         label.ForeColor = NormalTextColor;
                     }
@@ -81,12 +80,6 @@ namespace View.FormControllers
 
             form.LblLek.ForeColor = NormalTextColor;
             form.LblLek.BackColor = Color.Transparent;
-
-            form.LblLokacija.ForeColor = NormalTextColor;
-            form.LblLokacija.BackColor = Color.Transparent;
-
-            form.LblPromoKod.ForeColor = NormalTextColor;
-            form.LblPromoKod.BackColor = Color.Transparent;
         }
 
         private void HandleHeaderLabelClick(string labelType)
@@ -95,8 +88,6 @@ namespace View.FormControllers
             form.IsKorisnikActive = false;
             form.IsRacunActive = false;
             form.IsLekActive = false;
-            form.IsLokacijaActive = false;
-            form.IsPromoKodActive = false;
 
             ResetLabelNames();
             ResetHeaderLabelsAppearance();
@@ -131,24 +122,6 @@ namespace View.FormControllers
                         UpdateLekBoardLabels();
                     }
                     break;
-                case "Lokacija":
-                    form.IsLokacijaActive = !form.IsLokacijaActive;
-                    if (form.IsLokacijaActive)
-                    {
-                        form.LblLokacija.ForeColor = ActiveTextColor;
-                        form.LblLokacija.BackColor = Color.White;
-                        UpdateLokacijaBoardLabels();
-                    }
-                    break;
-                case "PromoKod":
-                    form.IsPromoKodActive = !form.IsPromoKodActive;
-                    if (form.IsPromoKodActive)
-                    {
-                        form.LblPromoKod.ForeColor = ActiveTextColor;
-                        form.LblPromoKod.BackColor = Color.White;
-                        UpdatePromoKodBoardLabels();
-                    }
-                    break;
             }
 
             // turning visibility for labels on
@@ -166,11 +139,11 @@ namespace View.FormControllers
 
         private bool GetActiveState(Label label)
         {
-            // returns true if there is an active headerPanel label AND if the labels name is default
+            // returns true if there is an active headerPanel label AND if the labels name is not default
             // (if label's name is default - for that Entity type there is no implementation for more SO in that way)
 
-            return (form.IsKorisnikActive || form.IsRacunActive || form.IsLekActive ||
-                   form.IsLokacijaActive || form.IsPromoKodActive) && !(label.Text == "label1" || label.Text == "label2" || label.Text == "label3");
+            return (form.IsKorisnikActive || form.IsRacunActive || form.IsLekActive) && 
+                !(label.Text == "label1" || label.Text == "label2" || label.Text == "label3");
         }
 
         private void UpdateKorisnikBoardLabels()
@@ -181,26 +154,12 @@ namespace View.FormControllers
         private void UpdateRacunBoardLabels()
         {
             form.Lbl1.Text = "Svi Računi";
-            form.Lbl2.Text = "Kreiraj Račun";
-            form.Lbl3.Text = "Pretraži Račun";
+            form.Lbl2.Text = "Dodaj Račun";
         }
         private void UpdateLekBoardLabels()
         {
             form.Lbl1.Text = "Svi Lekovi";
             form.Lbl2.Text = "Dodaj Lek";
-            form.Lbl3.Text = "Pretraži Lek";
-        }
-        private void UpdateLokacijaBoardLabels()
-        {
-            form.Lbl1.Text = "Sve Lokacije";
-            //form.Lbl2.Text = "Dodaj Lokaciju";
-            //form.Lbl3.Text = "Pretraži Lokaciju";
-        }
-        private void UpdatePromoKodBoardLabels()
-        {
-            form.Lbl1.Text = "Svi Promo Kodovi";
-            form.Lbl2.Text = "Kreiraj Promo Kod";
-            form.Lbl3.Text = "Pretraži Promo Kod";
         }
 
         private void HandleBoardLabelClick(int labelNumber)
@@ -216,14 +175,6 @@ namespace View.FormControllers
             else if (form.IsLekActive)
             {
                 HandleLekOperation(labelNumber);
-            }
-            else if (form.IsLokacijaActive)
-            {
-                HandleLokacijaOperation(labelNumber);
-            }
-            else if (form.IsPromoKodActive)
-            {
-                HandlePromoKodOperation(labelNumber);
             }
         }
 
@@ -242,10 +193,32 @@ namespace View.FormControllers
         }
 
         // Implement similar methods for other entities (Racun, Lek, Lokacija, PromoKod)
-        private void HandleRacunOperation(int labelNumber) { /* ... */ }
-        private void HandleLekOperation(int labelNumber) { /* ... */ }
-        private void HandleLokacijaOperation(int labelNumber) { /* ... */ }
-        private void HandlePromoKodOperation(int labelNumber) { /* ... */ }
+        private void HandleRacunOperation(int labelNumber) 
+        {
+            switch (labelNumber)
+            {
+                case 1:
+                    SetPanel(new UCRacuni());
+                    break;
+                case 2:
+                    FrmUnosRacuna frmUnosRacuna = new FrmUnosRacuna();
+                    frmUnosRacuna.ShowDialog();
+                    break;
+            }
+        }
+        private void HandleLekOperation(int labelNumber) 
+        {
+            switch (labelNumber)
+            {
+                case 1:
+                    SetPanel(new UCLekovi());
+                    break;
+                case 2:
+                    FrmUnosLeka frmUnosLeka = new FrmUnosLeka();
+                    frmUnosLeka.ShowDialog();
+                    break;
+            }
+        }
 
         internal void Init()
         {
@@ -256,8 +229,6 @@ namespace View.FormControllers
             form.IsKorisnikActive = false;
             form.IsRacunActive = false;
             form.IsLekActive = false;
-            form.IsLokacijaActive = false;
-            form.IsPromoKodActive = false;
         }
 
         public void SetPanel(UserControl userControl)

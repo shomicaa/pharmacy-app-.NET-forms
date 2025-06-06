@@ -85,26 +85,6 @@ namespace View.UCControllers
             }
             MessageBox.Show("Korisnik uspesno sacuvan!", ":)", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
-        public int IzracunajBrojGodina(DateTime fromDate)
-        {
-            DateTime today = DateTime.Today;
-
-            int yearDifference = today.Year - fromDate.Year;
-
-            bool hasHadAnniversaryThisYear =
-                (today.Month > fromDate.Month) ||
-                (today.Month == fromDate.Month && today.Day >= fromDate.Day);
-
-            if (!hasHadAnniversaryThisYear)
-            {
-                yearDifference--;
-            }
-
-            return yearDifference;
-        }
-
-
         private bool ValidateInputs()
         {
             if(string.IsNullOrWhiteSpace(form.TxtIme.Text) || string.IsNullOrWhiteSpace(form.TxtPrezime.Text) 

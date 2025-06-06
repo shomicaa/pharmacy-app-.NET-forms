@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Domain
 {
     [Serializable]
-    public class Lek : IEntity
+    public class Lek : IEntity, IJoinEntity
     {
         public int IdLek { get; set; }
         public string Naziv { get; set; }
@@ -21,6 +21,14 @@ namespace Domain
         public string TableName => "Lek";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
+
+        public string TableAlias => "l";
+
+        public string JoinClause {get;set;}
+
+        public string WhereClause { get; set; }
+
+        public Dictionary<string, object> JoinParameters { get; set; }
 
         public Dictionary<string, object> GetInsertParameters() => new()
         {
@@ -66,9 +74,14 @@ namespace Domain
                 RokTrajanja = reader.GetDateTime("RokTrajanja"),
                 Kolicina = reader.GetInt32("Kolicina"),
                 ZemljaPorekla = (ZemljaPorekla)reader.GetInt32("ZemljaPorekla"),
-                Cena = reader.GetInt32("Cena"),
+                Cena = reader.GetDouble("Cena"),
             };
             return l;
+        }
+
+        public List<IEntity> ReadAll(SqlDataReader reader)
+        {
+            throw new NotImplementedException();
         }
     }
 }
