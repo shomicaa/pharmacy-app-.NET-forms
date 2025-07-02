@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public class Racun : IEntity, IJoinEntity
+    public class RacunFK : IEntity, IJoinEntity
     {
         public int IdRacun { get; set; }
         public List<StavkaRacuna> Stavke { get; set; }
@@ -17,13 +17,15 @@ namespace Domain
         public double UkupnaVrednostSaPorezom { get; set; }
         public DateTime DatumIzdavanja { get; set; }
         public int IdFarmaceut { get; set; }
+        public Farmaceut Farmaceut { get; set; }
         public int IdKorisnik { get; set; }
+        public Korisnik Korisnik { get; set; }
 
         public string TableName => "Racun";
         public string TableAlias => "r";
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
-        public string JoinClause { get; set; } 
+        public string JoinClause { get; set; }
         public string WhereClause { get; set; }
         public Dictionary<string, object> JoinParameters { get; set; } = new();
 
@@ -89,7 +91,6 @@ namespace Domain
             }
             return racuni;
         }
-
-        
     }
 }
+

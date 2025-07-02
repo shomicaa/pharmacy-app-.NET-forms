@@ -31,7 +31,7 @@ namespace View.UCControllers
             {
                 lekovi = new BindingList<Lek>(Communication.Instance.UcitajLekove());
 
-                if (lekovi == null | lekovi.Count == 0)
+                if (lekovi == null || lekovi.Count == 0)
                 {
                     MessageBox.Show("Trenutno nema unetih lekova.");
                     uc.DgvLekovi.DataSource = null;

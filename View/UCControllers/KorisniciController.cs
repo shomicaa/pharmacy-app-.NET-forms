@@ -29,7 +29,7 @@ namespace View.UCControllers
             {
                 korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
 
-                if (korisnici == null | korisnici.Count == 0)
+                if (korisnici == null || korisnici.Count == 0)
                 {
                     MessageBox.Show("Trenutno nema unetih korisnika.");
                     uc.DgvKorisnici.DataSource = null;

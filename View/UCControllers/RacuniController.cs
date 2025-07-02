@@ -14,6 +14,7 @@ namespace View.UCControllers
     {
         private UCRacuni uc;
         private BindingList<Racun> racuni;
+        private BindingList<RacunFK> racuniFK;
         private BindingList<Farmaceut> farmaceuti;
         private BindingList<Korisnik> korisnici;
 
@@ -46,15 +47,21 @@ namespace View.UCControllers
             try
             {
                 racuni = new BindingList<Racun>(Communication.Instance.UcitajRacune());
+                racuniFK = new BindingList<RacunFK>();
 
-                if (racuni == null | racuni.Count == 0)
+                if (racuni == null || racuni.Count == 0)
                 {
                     MessageBox.Show("Trenutno nema unetih računa.");
                     uc.DgvRacuni.DataSource = null;
                     return;
                 }
 
-                uc.DgvRacuni.DataSource = racuni;
+                foreach (Racun racun in racuni) {
+                    RacunFK displayRacun = ConvertToRacunFK(racun);
+                    racuniFK.Add(displayRacun);
+                }
+
+                uc.DgvRacuni.DataSource = racuniFK;
                 uc.DgvRacuni.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 LoadDgvSettings();
             }
@@ -95,9 +102,10 @@ namespace View.UCControllers
             try
             {
                 DataGridViewRow red = uc.DgvRacuni.SelectedRows[0];
-                Racun racunIzDgv = (Racun)red.DataBoundItem;
+                RacunFK racunIzDgv = (RacunFK)red.DataBoundItem;
+                Racun racunConverted = ConvertToRacun(racunIzDgv);
 
-                Racun racun = Communication.Instance.PretraziRacun(racunIzDgv);
+                Racun racun = Communication.Instance.PretraziRacun(racunConverted);
 
                 racun.UkupnaVrednost = double.Parse(uc.TxtIznos.Text);
                 racun.IznosPoreza = double.Parse(uc.TxtStopaPoreza.Text);
@@ -131,8 +139,9 @@ namespace View.UCControllers
             {
                 DataGridViewRow red = uc.DgvRacuni.SelectedRows[0];
 
-                Racun racunIzDgv = (Racun)red.DataBoundItem;
-                Racun racun = Communication.Instance.PretraziRacun(racunIzDgv);
+                RacunFK racunIzDgv = (RacunFK)red.DataBoundItem;
+                Racun racunConverted = ConvertToRacun(racunIzDgv);
+                Racun racun = Communication.Instance.PretraziRacun(racunConverted);
 
                 uc.TxtIznos.Text = racun.UkupnaVrednost.ToString();
                 uc.TxtStopaPoreza.Text = racun.IznosPoreza.ToString();
@@ -159,6 +168,8 @@ namespace View.UCControllers
                 Racun racunFarmaceut = new Racun();
                 Racun racunKorisnik = new Racun();
 
+                // filtering by selected farmaceut and selected korisnik
+
                 if (uc.CmbFarmaceutFilter.SelectedItem != null && uc.CmbKorisnikFilter.SelectedItem != null)
                 {
                     Farmaceut farmaceut = (Farmaceut)uc.CmbFarmaceutFilter.SelectedItem;
@@ -170,7 +181,12 @@ namespace View.UCControllers
                     };
 
                     racuniFarmaceutFilter = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunFarmaceut));
-
+                    var listRacuniFarmaceutFK = new BindingList<RacunFK>();
+                    foreach (Racun racun in racuniFarmaceutFilter)
+                    {
+                        RacunFK racunFK = ConvertToRacunFK(racun);
+                        listRacuniFarmaceutFK.Add(racunFK);
+                    }
 
                     Korisnik korisnik = (Korisnik)uc.CmbKorisnikFilter.SelectedItem;
                     racunKorisnik.JoinClause = "JOIN Korisnik k ON r.IdKorisnik = k.Id";
@@ -180,13 +196,28 @@ namespace View.UCControllers
                         ["@id"] = korisnik.IdKorisnik
                     };
                     racuniKorisnikFilter = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunKorisnik));
+                    var listRacuniKorisnikFK = new BindingList<RacunFK>();
+                    foreach (Racun racun in racuniKorisnikFilter)
+                    {
+                        RacunFK racunFK = ConvertToRacunFK(racun);
+                        listRacuniKorisnikFK.Add(racunFK);
+                    }
 
-                    uc.DgvRacuni.DataSource = new BindingList<Racun>(racuniFarmaceutFilter
+                    var filteredRacuni = new BindingList<Racun>(racuniFarmaceutFilter
                                         .Where(rf => racuniKorisnikFilter.Any(rk => rk.IdRacun == rf.IdRacun))
                                         .ToList());
 
+                    BindingList<RacunFK> filteredRacuniFK = new BindingList<RacunFK>();
+                    foreach(Racun racun in filteredRacuni)
+                    {
+                        RacunFK racunFK = ConvertToRacunFK(racun);
+                        filteredRacuniFK.Add(racunFK);
+                    }
+
+                    uc.DgvRacuni.DataSource = filteredRacuniFK;
 
 
+                // filtering by selected farmaceut
                 }
                 else if(uc.CmbFarmaceutFilter.SelectedItem != null && uc.CmbKorisnikFilter.SelectedItem == null)
                 {
@@ -198,8 +229,10 @@ namespace View.UCControllers
                         ["@id"] = farmaceut.IdFarmaceut
                     };
 
-                    uc.DgvRacuni.DataSource = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunFarmaceut));
+                    var listRacuni = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunFarmaceut));
+                    uc.DgvRacuni.DataSource = ConvertToListRacunFK(listRacuni);
                 }
+                // filtering by selected korisnik
                 else
                 {
                     Korisnik korisnik = (Korisnik)uc.CmbKorisnikFilter.SelectedItem;
@@ -209,7 +242,8 @@ namespace View.UCControllers
                     {
                         ["@id"] = korisnik.IdKorisnik
                     };
-                    uc.DgvRacuni.DataSource = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunKorisnik));
+                    var listRacuni = new BindingList<Racun>(Communication.Instance.UcitajRacuneSaZahtevom(racunKorisnik));
+                    uc.DgvRacuni.DataSource = ConvertToListRacunFK(listRacuni);
                 }
             }
             catch (NullReferenceException ex)
@@ -225,7 +259,9 @@ namespace View.UCControllers
         internal void PonistiFilter()
         {
             uc.CmbFarmaceutFilter.SelectedItem = null;
+            uc.CmbFarmaceutFilter.Text = "--farmaceutu--";
             uc.CmbKorisnikFilter.SelectedItem = null;
+            uc.CmbKorisnikFilter.Text = "--korisniku--";
         }
 
         private void LoadDgvSettings()
@@ -238,6 +274,9 @@ namespace View.UCControllers
             uc.DgvRacuni.Columns["WhereClause"].Visible = false;
             uc.DgvRacuni.Columns["JoinParameters"].Visible = false;
 
+            uc.DgvRacuni.Columns["IdKorisnik"].Visible = false;
+            uc.DgvRacuni.Columns["IdFarmaceut"].Visible = false;
+
             uc.DgvRacuni.Columns["UkupnaVrednost"].Visible = false;
             uc.DgvRacuni.Columns["IznosPoreza"].Visible = false;
 
@@ -245,6 +284,63 @@ namespace View.UCControllers
             uc.DgvRacuni.Columns["DatumIzdavanja"].HeaderText = "Datum izdavanja";
             uc.DgvRacuni.Columns["IdRacun"].HeaderText = "ID";
 
+        }
+
+        public RacunFK ConvertToRacunFK(Racun racun)
+        {
+            RacunFK displayRacun = new RacunFK()
+            {
+                IdRacun = racun.IdRacun,
+                Stavke = racun.Stavke,
+                UkupnaVrednost = racun.UkupnaVrednost,
+                IznosPoreza = racun.IznosPoreza,
+                UkupnaVrednostSaPorezom = racun.UkupnaVrednostSaPorezom,
+                DatumIzdavanja = racun.DatumIzdavanja,
+                Farmaceut = Communication.Instance.PretraziFarmaceuta(new Farmaceut { IdFarmaceut = racun.IdFarmaceut }),
+                Korisnik = Communication.Instance.PretraziKorisnika(new Korisnik { IdKorisnik = racun.IdKorisnik }),
+            };
+
+            return displayRacun;
+        }
+        public BindingList<RacunFK> ConvertToListRacunFK(BindingList<Racun> racuni)
+        {
+            BindingList<RacunFK> racuniFK = new BindingList<RacunFK>();
+            foreach (var racun in racuni)
+            {
+                RacunFK displayRacun = ConvertToRacunFK(racun);
+                racuniFK.Add(displayRacun);
+            }
+
+            return racuniFK;
+        }
+
+        public Racun ConvertToRacun(RacunFK racunFK)
+        {
+            Racun racun = new Racun()
+            {
+                IdRacun = racunFK.IdRacun,
+                Stavke = racunFK.Stavke,
+                UkupnaVrednost = racunFK.UkupnaVrednost,
+                IznosPoreza = racunFK.IznosPoreza,
+                UkupnaVrednostSaPorezom = racunFK.UkupnaVrednostSaPorezom,
+                DatumIzdavanja = racunFK.DatumIzdavanja,
+                IdFarmaceut = racunFK.Farmaceut.IdFarmaceut,
+                IdKorisnik = racunFK.Korisnik.IdKorisnik
+            };
+
+            return racun;
+        }
+
+        public BindingList<Racun> ConvertToListRacun(BindingList<RacunFK> racuniFK)
+        {
+            BindingList<Racun> racuni = new BindingList<Racun>();
+            foreach (var racunFK in racuniFK)
+            {
+                Racun racun = ConvertToRacun(racunFK);
+                racuni.Add(racun);
+            }
+
+            return racuni;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -65,10 +66,10 @@ namespace View.UCControllers
                 Korisnik korisnik = new Korisnik
                 {
                     IdKorisnik = idNewKorisnik,
-                    Ime = form.TxtIme.Text,
-                    Prezime = form.TxtPrezime.Text,
-                    Email = form.TxtEmail.Text,
-                    KontaktTelefon = form.TxtKontaktTelefon.Text,
+                    Ime = form.TxtIme.Text.Trim(),
+                    Prezime = form.TxtPrezime.Text.Trim(),
+                    Email = form.TxtEmail.Text.Trim(),
+                    KontaktTelefon = form.TxtKontaktTelefon.Text.Trim(),
                     DatumUclanjenja = DateTime.Today,
                     GodineClanstva = 0,
                     IdPromoKod = idPromoKod,
@@ -88,7 +89,8 @@ namespace View.UCControllers
         private bool ValidateInputs()
         {
             if(string.IsNullOrWhiteSpace(form.TxtIme.Text) || string.IsNullOrWhiteSpace(form.TxtPrezime.Text) 
-                || string.IsNullOrWhiteSpace(form.TxtEmail.Text) || string.IsNullOrWhiteSpace(form.TxtKontaktTelefon.Text))
+                || string.IsNullOrWhiteSpace(form.TxtEmail.Text) || string.IsNullOrWhiteSpace(form.TxtKontaktTelefon.Text) 
+                || !IsValidEmail(form.TxtEmail.Text) || !IsValidPhoneNumber(form.TxtKontaktTelefon.Text))
             {
                 if (string.IsNullOrEmpty(form.TxtIme.Text))
                 {
@@ -105,11 +107,21 @@ namespace View.UCControllers
                     form.TxtEmail.BackColor = Color.Salmon;
                 }
                 else { form.TxtEmail.BackColor = default; }
+                if (!IsValidEmail(form.TxtEmail.Text)){
+                    form.TxtEmail.BackColor = Color.Salmon;
+                    MessageBox.Show("Molimo unesite ispravnu mejl adresu!", "Greska!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else { form.TxtEmail.BackColor = default; }
                 if (string.IsNullOrEmpty(form.TxtKontaktTelefon.Text))
                 {
                     form.TxtKontaktTelefon.BackColor = Color.Salmon;
                 }
                 else { form.TxtKontaktTelefon.BackColor = default; }
+                if (!IsValidPhoneNumber(form.TxtKontaktTelefon.Text.Trim()))
+                {
+                    form.TxtKontaktTelefon.BackColor = Color.Salmon;
+                    MessageBox.Show("Pri unosu su dozvoljene samo cifre, i '+' kao znak regi!", "Greska!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return false;
             }
             else
@@ -120,6 +132,40 @@ namespace View.UCControllers
                 form.TxtKontaktTelefon.BackColor = default;
                 return true;
             }
+        }
+
+        public static bool IsValidEmail(string email)
+        {
+            if (!email.Contains('@'))
+                return false;
+
+            if (email.Any(char.IsWhiteSpace))
+                return false;
+
+            int atIndex = email.LastIndexOf('@');
+            int lastDotIndex = email.LastIndexOf('.');
+
+            if (lastDotIndex < atIndex || lastDotIndex >= email.Length - 1)
+                return false;
+
+            string afterDot = email.Substring(lastDotIndex + 1);
+
+            if (afterDot.Length < 2 || afterDot.Length > 10 || !afterDot.All(char.IsLetter))
+                return false;
+
+            return true;
+        }
+
+        public static bool IsValidPhoneNumber(string phone)
+        {
+            phone = phone.Trim();
+
+            if (phone.StartsWith("+"))
+            {
+                phone = phone.Substring(1);
+            }
+
+            return phone.All(char.IsDigit);
         }
 
         internal void HandleOtkaziButton()
