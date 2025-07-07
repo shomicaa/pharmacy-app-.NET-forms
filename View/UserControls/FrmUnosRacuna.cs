@@ -42,5 +42,15 @@ namespace View.UserControls
                 controller.Leave();
             }
         }
+
+        private void btnDodajStavku_Click(object sender, EventArgs e)
+        {
+            controller.DodajStavku();
+        }
+
+        private void btnUkloniStavku_Click(object sender, EventArgs e)
+        {
+            controller.UkloniStavku();
+        }
     }
 }

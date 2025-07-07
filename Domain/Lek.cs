@@ -83,5 +83,10 @@ namespace Domain
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            return Naziv;
+        }
     }
 }

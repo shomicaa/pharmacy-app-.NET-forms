@@ -187,7 +187,6 @@
             Name = "FrmUnosLeka";
             StartPosition = FormStartPosition.WindowsDefaultBounds;
             Text = "Unos Leka";
-            FormClosing += FrmUnosLeka_FormClosing;
             ResumeLayout(false);
             PerformLayout();
         }

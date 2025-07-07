@@ -15,6 +15,8 @@ namespace View.UCControllers
         private UCLekovi uc;
         private BindingList<Lek> lekovi;
         private string[] filteri = new string[] { "rednom broju", "nazivu"};
+        private UCLokacije uCLokacije;
+
         public LekoviController(UCLekovi uc)
         {
             this.uc = uc;
@@ -23,6 +25,11 @@ namespace View.UCControllers
             uc.CmbZemljaPorekla.Text = "--izaberite zemlju porekla--";
             lekovi = new BindingList<Lek>(Communication.Instance.UcitajLekove());
             uc.CmbFilter.DataSource = filteri;
+        }
+
+        public LekoviController(UCLokacije uCLokacije)
+        {
+            this.uCLokacije = uCLokacije;
         }
 
         internal void UcitajLekove()

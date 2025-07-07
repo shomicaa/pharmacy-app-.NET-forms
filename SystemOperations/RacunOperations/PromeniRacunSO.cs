@@ -11,7 +11,20 @@ namespace SystemOperations.RacunOperations
     {
         protected override void Execute(IEntity entity)
         {
-            repository.Update(entity);
+            Racun racun = entity as Racun;
+            if (racun.Stavke == null)
+            {
+                repository.Update(entity);
+            }
+            else
+            {
+                foreach(var stavka in racun.Stavke)
+                {
+                    repository.Save(stavka);
+                }
+                repository.Update(entity);
+            }
+            
         }
     }
 }

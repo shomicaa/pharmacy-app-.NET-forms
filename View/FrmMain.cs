@@ -18,6 +18,7 @@ namespace View
         public bool IsKorisnikActive { get; set; }
         public bool IsRacunActive { get; set; }
         public bool IsLekActive { get; set; }
+        public bool IsLokacijaActive { get; set; }
 
         public FrmMain()
         {

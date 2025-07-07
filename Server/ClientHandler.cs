@@ -256,8 +256,11 @@ namespace Server
                     MakeResponseKreiraj<Lek>(request, Controller.Instance.KreirajLek, "Greska pri kreiranju leka");
                     break;
                 case Operation.UbaciLokaciju:
-                    Response<Lek> response = new Response<Lek>();
-                    Controller.Instance.UbaciLokacija((Lokacija)request.RequestObject);
+                    Response<object> response = new Response<object>();
+                    var element = (JsonElement)request.RequestObject;
+                    Lokacija lokacija = JsonSerializer.Deserialize<Lokacija>(element);
+
+                    Controller.Instance.UbaciLokacija(lokacija);
                     SendResponse(response, "Greska pri ubacivanju lokacije u bazu");
                     break;
                 case Operation.KreirajPromoKod:

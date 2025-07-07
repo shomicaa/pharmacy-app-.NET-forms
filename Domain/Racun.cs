@@ -24,7 +24,7 @@ namespace Domain
         public object SelectValues => "*";
         public string SearchKeyword { get; set; }
         public string JoinClause { get; set; } 
-        public string WhereClause { get; set; }
+        public string WhereClause { get; set; } 
         public Dictionary<string, object> JoinParameters { get; set; } = new();
 
 

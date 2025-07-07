@@ -24,15 +24,16 @@ namespace View.UCControllers
         public RacuniController(UCRacuni uc)
         {
             this.uc = uc;
-            racuni = new BindingList<Racun>(Communication.Instance.UcitajRacune());
-            farmaceuti = new BindingList<Farmaceut>(Communication.Instance.UcitajFarmaceute());
-            korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
+            racuni = VratiRacune();
+            farmaceuti = VratiFarmaceute();
+            korisnici = VratiKorisnike();
             uc.CmbFarmaceut.DataSource = farmaceuti;
             uc.CmbFarmaceut.SelectedItem = null;
             uc.CmbKorisnik.DataSource = korisnici;
             uc.CmbKorisnik.SelectedItem = null;
             uc.CmbFarmaceut.Enabled = false;
             uc.CmbKorisnik.Enabled = false;
+            uc.TxtIznos.Enabled = false;
 
             uc.CmbFarmaceutFilter.DataSource = farmaceuti;
             uc.CmbFarmaceutFilter.SelectedItem = null;
@@ -46,7 +47,7 @@ namespace View.UCControllers
         {
             try
             {
-                racuni = new BindingList<Racun>(Communication.Instance.UcitajRacune());
+                racuni = VratiRacune();
                 racuniFK = new BindingList<RacunFK>();
 
                 if (racuni == null || racuni.Count == 0)
@@ -58,6 +59,8 @@ namespace View.UCControllers
 
                 foreach (Racun racun in racuni) {
                     RacunFK displayRacun = ConvertToRacunFK(racun);
+                    if(displayRacun.IdFarmaceut ==2 || displayRacun.IdKorisnik == 4003)
+                        continue;
                     racuniFK.Add(displayRacun);
                 }
 
@@ -284,6 +287,9 @@ namespace View.UCControllers
             uc.DgvRacuni.Columns["DatumIzdavanja"].HeaderText = "Datum izdavanja";
             uc.DgvRacuni.Columns["IdRacun"].HeaderText = "ID";
 
+            uc.DgvRacuni.Columns["Farmaceut"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            uc.DgvRacuni.Columns["Korisnik"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+
         }
 
         public RacunFK ConvertToRacunFK(Racun racun)
@@ -341,6 +347,40 @@ namespace View.UCControllers
             }
 
             return racuni;
+        }
+
+        private BindingList<Farmaceut> VratiFarmaceute()
+        {
+            BindingList<Farmaceut> farmaceuti = new BindingList<Farmaceut>(Communication.Instance.UcitajFarmaceute());
+            BindingList<Farmaceut> farmaceutiFiltered = new BindingList<Farmaceut>();
+            foreach (var farmaceut in farmaceuti)
+            {
+                if (farmaceut.IdFarmaceut != 2)
+                    farmaceutiFiltered.Add(farmaceut);
+            }
+            return farmaceutiFiltered;
+        }
+        private BindingList<Korisnik> VratiKorisnike()
+        {
+            BindingList<Korisnik> korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
+            BindingList<Korisnik> korisniciFiltered = new BindingList<Korisnik>();
+            foreach (var korisnik in korisnici)
+            {
+                if (korisnik.IdKorisnik != 4003)
+                    korisniciFiltered.Add(korisnik);
+            }
+            return korisniciFiltered;
+        }
+        private BindingList<Racun> VratiRacune()
+        {
+            BindingList<Racun> racuni = new BindingList<Racun>(Communication.Instance.UcitajRacune());
+            BindingList<Racun> racuniFiltered = new BindingList<Racun>();
+            foreach (var racun in racuni)
+            {
+                if (racun.IdKorisnik != 4003 && racun.IdFarmaceut != 2)
+                    racuniFiltered.Add(racun);
+            }
+            return racuniFiltered;
         }
     }
 }

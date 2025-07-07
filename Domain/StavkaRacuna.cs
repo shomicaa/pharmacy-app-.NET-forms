@@ -16,11 +16,22 @@ namespace Domain
         public int Kolicina { get; set; }
         public double ProdajnaVrednost{ get; set; }
         public int IdLek { get; set; }
+        public Lek Lek { get; set; }
 
         public string TableName => "StavkaRacuna";
         public object SelectValues => "*";
 
-        public string SearchKeyword { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string SearchKeyword { get; set; }
+
+        public Dictionary<string, object> GetInsertParameters() => new()
+        {
+            ["@IdRacun"] = IdRacun,
+            ["@RbStavke"] = RbStavke,
+            ["@Kolicina"] = Kolicina,
+            ["@ProdajnaVrednost"] = ProdajnaVrednost,
+            ["@IdLek"] = IdLek
+        };
+
 
         public string GetDeleteCondition()
         {
@@ -42,10 +53,7 @@ namespace Domain
             throw new NotImplementedException();
         }
 
-        public Dictionary<string, object> GetInsertParameters()
-        {
-            throw new NotImplementedException();
-        }
+
 
         public string GetSearchCondition()
         {

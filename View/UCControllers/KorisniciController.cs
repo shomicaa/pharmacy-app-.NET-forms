@@ -27,7 +27,7 @@ namespace View.UCControllers
         {
             try
             {
-                korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
+                korisnici = VratiKorisnike();
 
                 if (korisnici == null || korisnici.Count == 0)
                 {
@@ -231,6 +231,7 @@ namespace View.UCControllers
             uc.DgvKorisnici.Columns["GodineClanstva"].Visible = false;
             uc.DgvKorisnici.Columns["IdPromoKod"].Visible = false;
 
+            //uc.DgvKorisnici.Columns["IdKorisnik"].Visible = false;
             uc.DgvKorisnici.Columns["TableName"].Visible = false;
             uc.DgvKorisnici.Columns["TableAlias"].Visible = false;
             uc.DgvKorisnici.Columns["SelectValues"].Visible = false;
@@ -244,8 +245,20 @@ namespace View.UCControllers
             uc.DgvKorisnici.Columns["KontaktTelefon"].HeaderText = "Kontakt Telefon";
             uc.DgvKorisnici.Columns["IdKorisnik"].HeaderText = "RB";
 
-            uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            //uc.DgvKorisnici.Columns["Ime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             uc.DgvKorisnici.Columns["Prezime"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            uc.DgvKorisnici.Columns["Email"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+        }
+        private BindingList<Korisnik> VratiKorisnike()
+        {
+            BindingList<Korisnik> korisnici = new BindingList<Korisnik>(Communication.Instance.UcitajKorisnike());
+            BindingList<Korisnik> korisniciFiltered = new BindingList<Korisnik>();
+            foreach (var korisnik in korisnici)
+            {
+                if (korisnik.IdKorisnik != 4003)
+                    korisniciFiltered.Add(korisnik);
+            }
+            return korisniciFiltered;
         }
     }
 }

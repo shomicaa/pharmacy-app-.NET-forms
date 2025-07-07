@@ -29,47 +29,36 @@
         private void InitializeComponent()
         {
             cmbFarmaceut1 = new ComboBox();
-            txtUkupnaVrednost = new TextBox();
-            lblUkupnaVrednost = new Label();
             btnOtkazi = new Button();
             btnSacuvajRacun = new Button();
-            lblUnosNovogRacuna = new Label();
             lblKorisnik = new Label();
             cmbFarmaceut = new Label();
-            txtIznosPoreza = new TextBox();
-            lblIznosPoreza = new Label();
             cmbKorisnik = new ComboBox();
+            groupBox1 = new GroupBox();
+            txtKolicina = new TextBox();
+            lblKolicina = new Label();
+            lblLek = new Label();
+            cmbLek = new ComboBox();
+            dgvStavkeRacuna = new DataGridView();
+            btnDodajStavku = new Button();
+            btnUkloniStavku = new Button();
+            lblStavkeRacuna = new Label();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvStavkeRacuna).BeginInit();
             SuspendLayout();
             // 
             // cmbFarmaceut1
             // 
             cmbFarmaceut1.FormattingEnabled = true;
-            cmbFarmaceut1.Location = new Point(321, 222);
+            cmbFarmaceut1.Location = new Point(110, 37);
             cmbFarmaceut1.Name = "cmbFarmaceut1";
-            cmbFarmaceut1.Size = new Size(309, 23);
+            cmbFarmaceut1.Size = new Size(309, 31);
             cmbFarmaceut1.TabIndex = 55;
-            // 
-            // txtUkupnaVrednost
-            // 
-            txtUkupnaVrednost.Location = new Point(321, 123);
-            txtUkupnaVrednost.Name = "txtUkupnaVrednost";
-            txtUkupnaVrednost.Size = new Size(309, 23);
-            txtUkupnaVrednost.TabIndex = 54;
-            // 
-            // lblUkupnaVrednost
-            // 
-            lblUkupnaVrednost.AutoSize = true;
-            lblUkupnaVrednost.Font = new Font("Constantia", 13F);
-            lblUkupnaVrednost.Location = new Point(161, 126);
-            lblUkupnaVrednost.Name = "lblUkupnaVrednost";
-            lblUkupnaVrednost.Size = new Size(152, 22);
-            lblUkupnaVrednost.TabIndex = 53;
-            lblUkupnaVrednost.Text = "Ukupna Vrednost:";
             // 
             // btnOtkazi
             // 
             btnOtkazi.Font = new Font("Constantia", 13F);
-            btnOtkazi.Location = new Point(405, 343);
+            btnOtkazi.Location = new Point(466, 571);
             btnOtkazi.Name = "btnOtkazi";
             btnOtkazi.Size = new Size(162, 39);
             btnOtkazi.TabIndex = 52;
@@ -80,7 +69,7 @@
             // btnSacuvajRacun
             // 
             btnSacuvajRacun.Font = new Font("Constantia", 13F);
-            btnSacuvajRacun.Location = new Point(216, 343);
+            btnSacuvajRacun.Location = new Point(298, 571);
             btnSacuvajRacun.Name = "btnSacuvajRacun";
             btnSacuvajRacun.Size = new Size(162, 39);
             btnSacuvajRacun.TabIndex = 51;
@@ -88,21 +77,11 @@
             btnSacuvajRacun.UseVisualStyleBackColor = true;
             btnSacuvajRacun.Click += btnSacuvajRacun_Click;
             // 
-            // lblUnosNovogRacuna
-            // 
-            lblUnosNovogRacuna.AutoSize = true;
-            lblUnosNovogRacuna.Font = new Font("Constantia", 14F);
-            lblUnosNovogRacuna.Location = new Point(85, 48);
-            lblUnosNovogRacuna.Name = "lblUnosNovogRacuna";
-            lblUnosNovogRacuna.Size = new Size(177, 23);
-            lblUnosNovogRacuna.TabIndex = 50;
-            lblUnosNovogRacuna.Text = "Unos Novog Računa";
-            // 
             // lblKorisnik
             // 
             lblKorisnik.AutoSize = true;
             lblKorisnik.Font = new Font("Constantia", 13F);
-            lblKorisnik.Location = new Point(161, 273);
+            lblKorisnik.Location = new Point(495, 42);
             lblKorisnik.Name = "lblKorisnik";
             lblKorisnik.Size = new Size(81, 22);
             lblKorisnik.TabIndex = 48;
@@ -112,83 +91,167 @@
             // 
             cmbFarmaceut.AutoSize = true;
             cmbFarmaceut.Font = new Font("Constantia", 13F);
-            cmbFarmaceut.Location = new Point(161, 223);
+            cmbFarmaceut.Location = new Point(6, 42);
             cmbFarmaceut.Name = "cmbFarmaceut";
             cmbFarmaceut.Size = new Size(98, 22);
             cmbFarmaceut.TabIndex = 47;
             cmbFarmaceut.Text = "Farmaceut:";
             // 
-            // txtIznosPoreza
-            // 
-            txtIznosPoreza.Location = new Point(321, 173);
-            txtIznosPoreza.Name = "txtIznosPoreza";
-            txtIznosPoreza.Size = new Size(309, 23);
-            txtIznosPoreza.TabIndex = 46;
-            // 
-            // lblIznosPoreza
-            // 
-            lblIznosPoreza.AutoSize = true;
-            lblIznosPoreza.Font = new Font("Constantia", 13F);
-            lblIznosPoreza.Location = new Point(161, 176);
-            lblIznosPoreza.Name = "lblIznosPoreza";
-            lblIznosPoreza.Size = new Size(116, 22);
-            lblIznosPoreza.TabIndex = 45;
-            lblIznosPoreza.Text = "Iznos poreza:";
-            // 
             // cmbKorisnik
             // 
             cmbKorisnik.FormattingEnabled = true;
-            cmbKorisnik.Location = new Point(321, 272);
+            cmbKorisnik.Location = new Point(593, 37);
             cmbKorisnik.Name = "cmbKorisnik";
-            cmbKorisnik.Size = new Size(309, 23);
+            cmbKorisnik.Size = new Size(309, 31);
             cmbKorisnik.TabIndex = 57;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(lblStavkeRacuna);
+            groupBox1.Controls.Add(btnUkloniStavku);
+            groupBox1.Controls.Add(btnDodajStavku);
+            groupBox1.Controls.Add(dgvStavkeRacuna);
+            groupBox1.Controls.Add(txtKolicina);
+            groupBox1.Controls.Add(lblKolicina);
+            groupBox1.Controls.Add(lblLek);
+            groupBox1.Controls.Add(cmbLek);
+            groupBox1.Controls.Add(cmbFarmaceut);
+            groupBox1.Controls.Add(cmbKorisnik);
+            groupBox1.Controls.Add(lblKorisnik);
+            groupBox1.Controls.Add(cmbFarmaceut1);
+            groupBox1.Font = new Font("Constantia", 14F);
+            groupBox1.Location = new Point(12, 12);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(908, 553);
+            groupBox1.TabIndex = 58;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Unos Novog Računa";
+            // 
+            // txtKolicina
+            // 
+            txtKolicina.Location = new Point(593, 90);
+            txtKolicina.Name = "txtKolicina";
+            txtKolicina.Size = new Size(309, 30);
+            txtKolicina.TabIndex = 61;
+            // 
+            // lblKolicina
+            // 
+            lblKolicina.AutoSize = true;
+            lblKolicina.Font = new Font("Constantia", 13F);
+            lblKolicina.Location = new Point(495, 94);
+            lblKolicina.Name = "lblKolicina";
+            lblKolicina.Size = new Size(79, 22);
+            lblKolicina.TabIndex = 60;
+            lblKolicina.Text = "Kolicina:";
+            // 
+            // lblLek
+            // 
+            lblLek.AutoSize = true;
+            lblLek.Font = new Font("Constantia", 13F);
+            lblLek.Location = new Point(6, 94);
+            lblLek.Name = "lblLek";
+            lblLek.Size = new Size(44, 22);
+            lblLek.TabIndex = 58;
+            lblLek.Text = "Lek:";
+            // 
+            // cmbLek
+            // 
+            cmbLek.FormattingEnabled = true;
+            cmbLek.Location = new Point(110, 89);
+            cmbLek.Name = "cmbLek";
+            cmbLek.Size = new Size(309, 31);
+            cmbLek.TabIndex = 59;
+            // 
+            // dgvStavkeRacuna
+            // 
+            dgvStavkeRacuna.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStavkeRacuna.Location = new Point(12, 200);
+            dgvStavkeRacuna.Name = "dgvStavkeRacuna";
+            dgvStavkeRacuna.Size = new Size(896, 347);
+            dgvStavkeRacuna.TabIndex = 62;
+            // 
+            // btnDodajStavku
+            // 
+            btnDodajStavku.Font = new Font("Constantia", 13F);
+            btnDodajStavku.Location = new Point(568, 155);
+            btnDodajStavku.Name = "btnDodajStavku";
+            btnDodajStavku.Size = new Size(162, 39);
+            btnDodajStavku.TabIndex = 63;
+            btnDodajStavku.Text = "Dodaj Stavku";
+            btnDodajStavku.UseVisualStyleBackColor = true;
+            btnDodajStavku.Click += btnDodajStavku_Click;
+            // 
+            // btnUkloniStavku
+            // 
+            btnUkloniStavku.Font = new Font("Constantia", 13F);
+            btnUkloniStavku.Location = new Point(736, 155);
+            btnUkloniStavku.Name = "btnUkloniStavku";
+            btnUkloniStavku.Size = new Size(162, 39);
+            btnUkloniStavku.TabIndex = 64;
+            btnUkloniStavku.Text = "Ukloni Stavku";
+            btnUkloniStavku.UseVisualStyleBackColor = true;
+            btnUkloniStavku.Click += btnUkloniStavku_Click;
+            // 
+            // lblStavkeRacuna
+            // 
+            lblStavkeRacuna.AutoSize = true;
+            lblStavkeRacuna.Font = new Font("Constantia", 13F);
+            lblStavkeRacuna.Location = new Point(8, 164);
+            lblStavkeRacuna.Name = "lblStavkeRacuna";
+            lblStavkeRacuna.Size = new Size(125, 22);
+            lblStavkeRacuna.TabIndex = 65;
+            lblStavkeRacuna.Text = "Stavke računa:";
             // 
             // FrmUnosRacuna
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(760, 497);
+            ClientSize = new Size(932, 622);
             ControlBox = false;
-            Controls.Add(cmbKorisnik);
-            Controls.Add(cmbFarmaceut1);
-            Controls.Add(txtUkupnaVrednost);
-            Controls.Add(lblUkupnaVrednost);
+            Controls.Add(groupBox1);
             Controls.Add(btnOtkazi);
             Controls.Add(btnSacuvajRacun);
-            Controls.Add(lblUnosNovogRacuna);
-            Controls.Add(lblKorisnik);
-            Controls.Add(cmbFarmaceut);
-            Controls.Add(txtIznosPoreza);
-            Controls.Add(lblIznosPoreza);
             Name = "FrmUnosRacuna";
             Text = "FrmUnosRacuna";
             FormClosing += FrmUnosRacuna_FormClosing;
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvStavkeRacuna).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private ComboBox cmbFarmaceut1;
-        private TextBox txtUkupnaVrednost;
-        private Label lblUkupnaVrednost;
         private Button btnOtkazi;
         private Button btnSacuvajRacun;
-        private Label lblUnosNovogRacuna;
         private Label lblKorisnik;
         private Label cmbFarmaceut;
-        private TextBox txtIznosPoreza;
-        private Label lblIznosPoreza;
         private ComboBox cmbKorisnik;
+        private GroupBox groupBox1;
+        private Label lblLek;
+        private ComboBox cmbLek;
+        private TextBox txtKolicina;
+        private Label lblKolicina;
+        private Label lblStavkeRacuna;
+        private Button btnUkloniStavku;
+        private Button btnDodajStavku;
+        private DataGridView dgvStavkeRacuna;
+
         public ComboBox CmbFarmaceut1 { get => cmbFarmaceut1; set => cmbFarmaceut1 = value; }
-        public TextBox TxtUkupnaVrednost { get => txtUkupnaVrednost; set => txtUkupnaVrednost = value; }
-        public Label LblUkupnaVrednost { get => lblUkupnaVrednost; set => lblUkupnaVrednost = value; }
         public Button BtnOtkazi { get => btnOtkazi; set => btnOtkazi = value; }
         public Button BtnSacuvajRacun { get => btnSacuvajRacun; set => btnSacuvajRacun = value; }
-        public Label LblUnosNovogRacuna { get => lblUnosNovogRacuna; set => lblUnosNovogRacuna = value; }
         public Label LblKorisnik { get => lblKorisnik; set => lblKorisnik = value; }
         public Label CmbFarmaceut { get => cmbFarmaceut; set => cmbFarmaceut = value; }
-        public TextBox TxtIznosPoreza { get => txtIznosPoreza; set => txtIznosPoreza = value; }
-        public Label LblIznosPoreza { get => lblIznosPoreza; set => lblIznosPoreza = value; }
         public ComboBox CmbKorisnik { get => cmbKorisnik; set => cmbKorisnik = value; }
+        public ComboBox CmbKorisnik1 { get => cmbKorisnik; set => cmbKorisnik = value; }
+        public GroupBox GroupBox1 { get => groupBox1; set => groupBox1 = value; }
+        public Label LblLek { get => lblLek; set => lblLek = value; }
+        public ComboBox CmbLek { get => cmbLek; set => cmbLek = value; }
+        public TextBox TxtKolicina { get => txtKolicina; set => txtKolicina = value; }
+        public Label LblKolicina { get => lblKolicina; set => lblKolicina = value; }
+        public Label LblStavkeRacuna { get => lblStavkeRacuna; set => lblStavkeRacuna = value; }
+        public Button BtnUkloniStavku { get => btnUkloniStavku; set => btnUkloniStavku = value; }
+        public Button BtnDodajStavku { get => btnDodajStavku; set => btnDodajStavku = value; }
+        public DataGridView DgvStavkeRacuna { get => dgvStavkeRacuna; set => dgvStavkeRacuna = value; }
     }
 }

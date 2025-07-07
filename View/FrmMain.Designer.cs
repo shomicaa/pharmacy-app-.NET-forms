@@ -39,6 +39,7 @@
             lblKorisnik = new Label();
             panelHeader = new Panel();
             panelMain = new Panel();
+            lblLokacija = new Label();
             panelBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panelHeader.SuspendLayout();
@@ -149,6 +150,7 @@
             // panelHeader
             // 
             panelHeader.BackColor = Color.FromArgb(39, 68, 112);
+            panelHeader.Controls.Add(lblLokacija);
             panelHeader.Controls.Add(lblKorisnik);
             panelHeader.Controls.Add(lblRacun);
             panelHeader.Controls.Add(lblLek);
@@ -165,6 +167,17 @@
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(1091, 605);
             panelMain.TabIndex = 2;
+            // 
+            // lblLokacija
+            // 
+            lblLokacija.Cursor = Cursors.Hand;
+            lblLokacija.Font = new Font("Constantia", 14F);
+            lblLokacija.ForeColor = Color.White;
+            lblLokacija.Location = new Point(226, 19);
+            lblLokacija.Name = "lblLokacija";
+            lblLokacija.Size = new Size(84, 24);
+            lblLokacija.TabIndex = 4;
+            lblLokacija.Text = "Lokacija";
             // 
             // FrmMain
             // 
@@ -200,6 +213,7 @@
         private Label lbl1;
         private Label lbl3;
         private Panel panelMain;
+        private Label lblLokacija;
 
         public Panel PanelBoard { get => panelBoard; set => panelBoard = value; }
         public PictureBox PictureBox1 { get => pictureBox1; set => pictureBox1 = value; }
@@ -207,6 +221,7 @@
         public Label LblKorisnik { get => lblKorisnik; set => lblKorisnik = value; }
         public Label LblLek { get => lblLek; set => lblLek = value; }
         public Label LblRacun { get => lblRacun; set => lblRacun = value; }
+        public Label LblLokacija { get => lblLokacija; set => lblLokacija = value; }
         public Label LblExit { get => lblExit; set => lblExit = value; }
         public Label Lbl2 { get => lbl2; set => lbl2 = value; }
         public Label Lbl1 { get => lbl1; set => lbl1 = value; }

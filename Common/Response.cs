@@ -7,7 +7,7 @@ namespace Common
     {
         public string Message { get; set; } = "Success!";
         public bool IsSuccessful { get; set; } = true;
-        public object Result { get; set; }
+        public object? Result { get; set; }
 
         public T GetResult<T>()
         {
