@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Domain
     public class Racun : IEntity, IJoinEntity
     {
         public int IdRacun { get; set; }
-        public List<StavkaRacuna> Stavke { get; set; }
+        public BindingList<StavkaRacuna> Stavke { get; set; }
         public double UkupnaVrednost { get; set; }
         public double IznosPoreza { get; set; }
         public double UkupnaVrednostSaPorezom { get; set; }

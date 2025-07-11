@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -33,15 +34,13 @@ namespace Domain
         };
 
 
-        public string GetDeleteCondition()
-        {
-            throw new NotImplementedException();
-        }
+        public string GetDeleteCondition() => "IdRacun = @IdRacun AND RbStavke = @RbStavke";
 
-        public Dictionary<string, object> GetDeleteParameters()
+        public Dictionary<string, object> GetDeleteParameters() => new()
         {
-            throw new NotImplementedException();
-        }
+            ["@IdRacun"] = IdRacun,
+            ["@RbStavke"] = RbStavke
+        };
 
         public string GetFindCondition()
         {
@@ -55,25 +54,24 @@ namespace Domain
 
 
 
-        public string GetSearchCondition()
-        {
-            throw new NotImplementedException();
-        }
+        public string GetSearchCondition() => "IdRacun = @kw";
 
-        public Dictionary<string, object> GetSearchParameters()
+        public Dictionary<string, object> GetSearchParameters() => new()
         {
-            throw new NotImplementedException();
-        }
+            ["@kw"] = int.Parse(SearchKeyword)
+        };
 
-        public Dictionary<string, object> GetUpdateParameters()
+        public Dictionary<string, object> GetUpdateParameters() => new()
         {
-            throw new NotImplementedException();
-        }
+            ["@IdRacun"] = IdRacun,
+            ["@RbStavke"] = RbStavke,
+            ["@Kolicina"] = Kolicina,
+            ["@ProdajnaVrednost"] = ProdajnaVrednost,
+            ["@IdLek"] = IdLek
+        };
 
-        public string GetUpdateQuery()
-        {
-            throw new NotImplementedException();
-        }
+        public string GetUpdateQuery() =>
+            "SET Kolicina = @Kolicina, ProdajnaVrednost = @ProdajnaVrednost, IdLek = @IdLek WHERE IdRacun = @IdRacun AND RbStavke = @RbStavke";
 
         public IEntity ReadObjectRow(SqlDataReader reader)
         {
@@ -87,5 +85,12 @@ namespace Domain
             };
             return sr;
         }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(IdRacun, RbStavke, Kolicina, ProdajnaVrednost, IdLek);
+        }
+
+
     }
 }

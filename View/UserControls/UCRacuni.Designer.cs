@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnIzmeniPodatke = new Button();
             btnPrikaziPodatke = new Button();
             gbPodaciRacuna = new GroupBox();
             cmbKorisnik = new ComboBox();
@@ -51,16 +50,6 @@
             gbPodaciRacuna.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRacuni).BeginInit();
             SuspendLayout();
-            // 
-            // btnIzmeniPodatke
-            // 
-            btnIzmeniPodatke.Location = new Point(690, 475);
-            btnIzmeniPodatke.Name = "btnIzmeniPodatke";
-            btnIzmeniPodatke.Size = new Size(166, 35);
-            btnIzmeniPodatke.TabIndex = 19;
-            btnIzmeniPodatke.Text = "Izmeni podatke";
-            btnIzmeniPodatke.UseVisualStyleBackColor = true;
-            btnIzmeniPodatke.Click += btnIzmeniPodatke_Click;
             // 
             // btnPrikaziPodatke
             // 
@@ -250,7 +239,6 @@
             Controls.Add(btnPonistiFilter);
             Controls.Add(cmbKorisnikFilter);
             Controls.Add(cmbFarmaceutFilter);
-            Controls.Add(btnIzmeniPodatke);
             Controls.Add(btnPrikaziPodatke);
             Controls.Add(gbPodaciRacuna);
             Controls.Add(btnPrikaziRacune);
@@ -269,7 +257,6 @@
         }
 
         #endregion
-        private Button btnIzmeniPodatke;
         private Button btnPrikaziPodatke;
         private GroupBox gbPodaciRacuna;
         private Button btnPrikaziRacune;
@@ -289,8 +276,6 @@
         private ComboBox cmbFarmaceutFilter;
         private ComboBox cmbKorisnikFilter;
         private Button btnPonistiFilter;
-
-        public Button BtnIzmeniPodatke { get => btnIzmeniPodatke; set => btnIzmeniPodatke = value; }
         public Button BtnPrikaziPodatke { get => btnPrikaziPodatke; set => btnPrikaziPodatke = value; }
         public GroupBox GbPodaciRacuna { get => gbPodaciRacuna; set => gbPodaciRacuna = value; }
         public Button BtnPrikaziRacune { get => btnPrikaziRacune; set => btnPrikaziRacune = value; }

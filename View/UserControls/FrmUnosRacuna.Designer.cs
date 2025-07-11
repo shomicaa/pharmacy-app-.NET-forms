@@ -35,14 +35,15 @@
             cmbFarmaceut = new Label();
             cmbKorisnik = new ComboBox();
             groupBox1 = new GroupBox();
+            lblStavkeRacuna = new Label();
+            btnUkloniStavku = new Button();
+            btnDodajStavku = new Button();
+            dgvStavkeRacuna = new DataGridView();
             txtKolicina = new TextBox();
             lblKolicina = new Label();
             lblLek = new Label();
             cmbLek = new ComboBox();
-            dgvStavkeRacuna = new DataGridView();
-            btnDodajStavku = new Button();
-            btnUkloniStavku = new Button();
-            lblStavkeRacuna = new Label();
+            lblIDRacun = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvStavkeRacuna).BeginInit();
             SuspendLayout();
@@ -50,7 +51,7 @@
             // cmbFarmaceut1
             // 
             cmbFarmaceut1.FormattingEnabled = true;
-            cmbFarmaceut1.Location = new Point(110, 37);
+            cmbFarmaceut1.Location = new Point(110, 72);
             cmbFarmaceut1.Name = "cmbFarmaceut1";
             cmbFarmaceut1.Size = new Size(309, 31);
             cmbFarmaceut1.TabIndex = 55;
@@ -81,7 +82,7 @@
             // 
             lblKorisnik.AutoSize = true;
             lblKorisnik.Font = new Font("Constantia", 13F);
-            lblKorisnik.Location = new Point(495, 42);
+            lblKorisnik.Location = new Point(495, 77);
             lblKorisnik.Name = "lblKorisnik";
             lblKorisnik.Size = new Size(81, 22);
             lblKorisnik.TabIndex = 48;
@@ -91,7 +92,7 @@
             // 
             cmbFarmaceut.AutoSize = true;
             cmbFarmaceut.Font = new Font("Constantia", 13F);
-            cmbFarmaceut.Location = new Point(6, 42);
+            cmbFarmaceut.Location = new Point(6, 77);
             cmbFarmaceut.Name = "cmbFarmaceut";
             cmbFarmaceut.Size = new Size(98, 22);
             cmbFarmaceut.TabIndex = 47;
@@ -100,13 +101,14 @@
             // cmbKorisnik
             // 
             cmbKorisnik.FormattingEnabled = true;
-            cmbKorisnik.Location = new Point(593, 37);
+            cmbKorisnik.Location = new Point(593, 72);
             cmbKorisnik.Name = "cmbKorisnik";
             cmbKorisnik.Size = new Size(309, 31);
             cmbKorisnik.TabIndex = 57;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(lblIDRacun);
             groupBox1.Controls.Add(lblStavkeRacuna);
             groupBox1.Controls.Add(btnUkloniStavku);
             groupBox1.Controls.Add(btnDodajStavku);
@@ -127,9 +129,49 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Unos Novog Računa";
             // 
+            // lblStavkeRacuna
+            // 
+            lblStavkeRacuna.AutoSize = true;
+            lblStavkeRacuna.Font = new Font("Constantia", 13F);
+            lblStavkeRacuna.Location = new Point(8, 183);
+            lblStavkeRacuna.Name = "lblStavkeRacuna";
+            lblStavkeRacuna.Size = new Size(125, 22);
+            lblStavkeRacuna.TabIndex = 65;
+            lblStavkeRacuna.Text = "Stavke računa:";
+            // 
+            // btnUkloniStavku
+            // 
+            btnUkloniStavku.Font = new Font("Constantia", 13F);
+            btnUkloniStavku.Location = new Point(736, 174);
+            btnUkloniStavku.Name = "btnUkloniStavku";
+            btnUkloniStavku.Size = new Size(162, 39);
+            btnUkloniStavku.TabIndex = 64;
+            btnUkloniStavku.Text = "Ukloni Stavku";
+            btnUkloniStavku.UseVisualStyleBackColor = true;
+            btnUkloniStavku.Click += btnUkloniStavku_Click;
+            // 
+            // btnDodajStavku
+            // 
+            btnDodajStavku.Font = new Font("Constantia", 13F);
+            btnDodajStavku.Location = new Point(568, 174);
+            btnDodajStavku.Name = "btnDodajStavku";
+            btnDodajStavku.Size = new Size(162, 39);
+            btnDodajStavku.TabIndex = 63;
+            btnDodajStavku.Text = "Dodaj Stavku";
+            btnDodajStavku.UseVisualStyleBackColor = true;
+            btnDodajStavku.Click += btnDodajStavku_Click;
+            // 
+            // dgvStavkeRacuna
+            // 
+            dgvStavkeRacuna.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStavkeRacuna.Location = new Point(12, 221);
+            dgvStavkeRacuna.Name = "dgvStavkeRacuna";
+            dgvStavkeRacuna.Size = new Size(896, 326);
+            dgvStavkeRacuna.TabIndex = 62;
+            // 
             // txtKolicina
             // 
-            txtKolicina.Location = new Point(593, 90);
+            txtKolicina.Location = new Point(593, 125);
             txtKolicina.Name = "txtKolicina";
             txtKolicina.Size = new Size(309, 30);
             txtKolicina.TabIndex = 61;
@@ -138,7 +180,7 @@
             // 
             lblKolicina.AutoSize = true;
             lblKolicina.Font = new Font("Constantia", 13F);
-            lblKolicina.Location = new Point(495, 94);
+            lblKolicina.Location = new Point(495, 129);
             lblKolicina.Name = "lblKolicina";
             lblKolicina.Size = new Size(79, 22);
             lblKolicina.TabIndex = 60;
@@ -148,7 +190,7 @@
             // 
             lblLek.AutoSize = true;
             lblLek.Font = new Font("Constantia", 13F);
-            lblLek.Location = new Point(6, 94);
+            lblLek.Location = new Point(6, 129);
             lblLek.Name = "lblLek";
             lblLek.Size = new Size(44, 22);
             lblLek.TabIndex = 58;
@@ -157,50 +199,19 @@
             // cmbLek
             // 
             cmbLek.FormattingEnabled = true;
-            cmbLek.Location = new Point(110, 89);
+            cmbLek.Location = new Point(110, 124);
             cmbLek.Name = "cmbLek";
             cmbLek.Size = new Size(309, 31);
             cmbLek.TabIndex = 59;
             // 
-            // dgvStavkeRacuna
+            // lblIDRacun
             // 
-            dgvStavkeRacuna.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvStavkeRacuna.Location = new Point(12, 200);
-            dgvStavkeRacuna.Name = "dgvStavkeRacuna";
-            dgvStavkeRacuna.Size = new Size(896, 347);
-            dgvStavkeRacuna.TabIndex = 62;
-            // 
-            // btnDodajStavku
-            // 
-            btnDodajStavku.Font = new Font("Constantia", 13F);
-            btnDodajStavku.Location = new Point(568, 155);
-            btnDodajStavku.Name = "btnDodajStavku";
-            btnDodajStavku.Size = new Size(162, 39);
-            btnDodajStavku.TabIndex = 63;
-            btnDodajStavku.Text = "Dodaj Stavku";
-            btnDodajStavku.UseVisualStyleBackColor = true;
-            btnDodajStavku.Click += btnDodajStavku_Click;
-            // 
-            // btnUkloniStavku
-            // 
-            btnUkloniStavku.Font = new Font("Constantia", 13F);
-            btnUkloniStavku.Location = new Point(736, 155);
-            btnUkloniStavku.Name = "btnUkloniStavku";
-            btnUkloniStavku.Size = new Size(162, 39);
-            btnUkloniStavku.TabIndex = 64;
-            btnUkloniStavku.Text = "Ukloni Stavku";
-            btnUkloniStavku.UseVisualStyleBackColor = true;
-            btnUkloniStavku.Click += btnUkloniStavku_Click;
-            // 
-            // lblStavkeRacuna
-            // 
-            lblStavkeRacuna.AutoSize = true;
-            lblStavkeRacuna.Font = new Font("Constantia", 13F);
-            lblStavkeRacuna.Location = new Point(8, 164);
-            lblStavkeRacuna.Name = "lblStavkeRacuna";
-            lblStavkeRacuna.Size = new Size(125, 22);
-            lblStavkeRacuna.TabIndex = 65;
-            lblStavkeRacuna.Text = "Stavke računa:";
+            lblIDRacun.AutoSize = true;
+            lblIDRacun.Location = new Point(357, 26);
+            lblIDRacun.Name = "lblIDRacun";
+            lblIDRacun.Size = new Size(101, 23);
+            lblIDRacun.TabIndex = 66;
+            lblIDRacun.Text = "ID Računa:";
             // 
             // FrmUnosRacuna
             // 
@@ -236,6 +247,7 @@
         private Button btnUkloniStavku;
         private Button btnDodajStavku;
         private DataGridView dgvStavkeRacuna;
+        private Label lblIDRacun;
 
         public ComboBox CmbFarmaceut1 { get => cmbFarmaceut1; set => cmbFarmaceut1 = value; }
         public Button BtnOtkazi { get => btnOtkazi; set => btnOtkazi = value; }
@@ -253,5 +265,6 @@
         public Button BtnUkloniStavku { get => btnUkloniStavku; set => btnUkloniStavku = value; }
         public Button BtnDodajStavku { get => btnDodajStavku; set => btnDodajStavku = value; }
         public DataGridView DgvStavkeRacuna { get => dgvStavkeRacuna; set => dgvStavkeRacuna = value; }
+        public Label LblIDRacun { get => lblIDRacun; set => lblIDRacun = value; }
     }
 }

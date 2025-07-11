@@ -12,19 +12,21 @@ namespace SystemOperations.RacunOperations
         protected override void Execute(IEntity entity)
         {
             Racun racun = entity as Racun;
-            if (racun.Stavke == null)
+            List<StavkaRacuna> oldStavke = repository.GetSpecific(new StavkaRacuna { SearchKeyword = racun.IdRacun.ToString() }).Cast<StavkaRacuna>().ToList();
+
+
+            foreach(var oldStavka in oldStavke)
             {
-                repository.Update(entity);
-            }
-            else
-            {
-                foreach(var stavka in racun.Stavke)
-                {
-                    repository.Save(stavka);
-                }
-                repository.Update(entity);
+                repository.Delete(oldStavka);
             }
             
+            foreach(var newStavka in racun.Stavke)
+            {
+                repository.Save(newStavka);
+            }
+
+            repository.Update(racun);
+
         }
     }
 }

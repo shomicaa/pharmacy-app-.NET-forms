@@ -25,14 +25,6 @@ namespace View.UserControls
             controller.PrikaziPodatke();
         }
 
-        private void btnIzmeniPodatke_Click(object sender, EventArgs e)
-        {
-            controller.IzmeniRacun();
-            dgvRacuni.DataSource = null;
-            controller.UcitajRacune();
-            dgvRacuni.Refresh();
-        }
-
         private void btnPrikaziRacune_Click(object sender, EventArgs e)
         {
             if (dgvRacuni.DataSource != null)

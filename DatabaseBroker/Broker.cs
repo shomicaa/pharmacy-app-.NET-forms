@@ -1,6 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Domain;
 using System.Diagnostics;
+//using Microsoft.Extensions.Configuration;
+using System.Configuration;
 
 namespace DatabaseBroker
 {
@@ -11,7 +13,8 @@ namespace DatabaseBroker
 
         public Broker()
         {
-            connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PharmacyApp;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            string config = ConfigurationManager.ConnectionStrings["PharmacyApp"].ConnectionString;
+            connection = new SqlConnection(config);
         }
         public void OpenConnection() => connection?.Open();
 

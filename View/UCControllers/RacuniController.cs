@@ -79,57 +79,57 @@ namespace View.UCControllers
             }
         }
 
-        internal void IzmeniRacun()
-        {
-            if (uc.DgvRacuni.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Niste odabrali račun za menjanje!");
-                return;
-            }
-            if (string.IsNullOrEmpty(uc.TxtIznos.Text) || string.IsNullOrEmpty(uc.TxtStopaPoreza.Text) 
-                || uc.CmbFarmaceut.SelectedItem == null || uc.CmbKorisnik.SelectedItem == null)
-            {
-                MessageBox.Show("Polja ne smeju ostati prazna!");
-                return;
-            }
-            double iznos, stopaPoreza;
+        //internal void IzmeniRacun()
+        //{
+        //    if (uc.DgvRacuni.SelectedRows.Count == 0)
+        //    {
+        //        MessageBox.Show("Niste odabrali račun za menjanje!");
+        //        return;
+        //    }
+        //    if (string.IsNullOrEmpty(uc.TxtIznos.Text) || string.IsNullOrEmpty(uc.TxtStopaPoreza.Text) 
+        //        || uc.CmbFarmaceut.SelectedItem == null || uc.CmbKorisnik.SelectedItem == null)
+        //    {
+        //        MessageBox.Show("Polja ne smeju ostati prazna!");
+        //        return;
+        //    }
+        //    double iznos, stopaPoreza;
 
-            bool isIznosValid = double.TryParse(uc.TxtIznos.Text, out iznos);
-            bool isStopaPorezaValid = double.TryParse(uc.TxtStopaPoreza.Text, out stopaPoreza);
+        //    bool isIznosValid = double.TryParse(uc.TxtIznos.Text, out iznos);
+        //    bool isStopaPorezaValid = double.TryParse(uc.TxtStopaPoreza.Text, out stopaPoreza);
 
-            if (!isIznosValid || !isStopaPorezaValid)
-            {
-                MessageBox.Show("Polja Iznos i Stopa Poreza moraju biti validni brojevi.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;  // Stop further processing
-            }
-            try
-            {
-                DataGridViewRow red = uc.DgvRacuni.SelectedRows[0];
-                RacunFK racunIzDgv = (RacunFK)red.DataBoundItem;
-                Racun racunConverted = ConvertToRacun(racunIzDgv);
+        //    if (!isIznosValid || !isStopaPorezaValid)
+        //    {
+        //        MessageBox.Show("Polja Iznos i Stopa Poreza moraju biti validni brojevi.", "Greška", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;  // Stop further processing
+        //    }
+        //    try
+        //    {
+        //        DataGridViewRow red = uc.DgvRacuni.SelectedRows[0];
+        //        RacunFK racunIzDgv = (RacunFK)red.DataBoundItem;
+        //        Racun racunConverted = ConvertToRacun(racunIzDgv);
 
-                Racun racun = Communication.Instance.PretraziRacun(racunConverted);
+        //        Racun racun = Communication.Instance.PretraziRacun(racunConverted);
 
-                racun.UkupnaVrednost = double.Parse(uc.TxtIznos.Text);
-                racun.IznosPoreza = double.Parse(uc.TxtStopaPoreza.Text);
-                racun.UkupnaVrednostSaPorezom = racun.UkupnaVrednost + (racun.UkupnaVrednost * (racun.IznosPoreza / 100));
-                racun.DatumIzdavanja = uc.DtPickerDatumIzdavanja.Value;
-                racun.IdFarmaceut = ((Farmaceut)uc.CmbFarmaceut.SelectedItem).IdFarmaceut;
-                racun.IdKorisnik = ((Korisnik)uc.CmbKorisnik.SelectedItem).IdKorisnik;
+        //        racun.UkupnaVrednost = double.Parse(uc.TxtIznos.Text);
+        //        racun.IznosPoreza = double.Parse(uc.TxtStopaPoreza.Text);
+        //        racun.UkupnaVrednostSaPorezom = racun.UkupnaVrednost + (racun.UkupnaVrednost * (racun.IznosPoreza / 100));
+        //        racun.DatumIzdavanja = uc.DtPickerDatumIzdavanja.Value;
+        //        racun.IdFarmaceut = ((Farmaceut)uc.CmbFarmaceut.SelectedItem).IdFarmaceut;
+        //        racun.IdKorisnik = ((Korisnik)uc.CmbKorisnik.SelectedItem).IdKorisnik;
 
-                Communication.Instance.PromeniRacun(racun);
-                MessageBox.Show("Sistem je promenio odabrani račun!", "Operacija uspesno izvršena!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            catch (SystemOperationException ex)
-            {
-                MessageBox.Show("Sistem ne može da promeni odabrani račun.\n" + ex.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Sistem ne može da promeni odabrani račun.\n" + ex.Message);
+        //        Communication.Instance.PromeniRacun(racun);
+        //        MessageBox.Show("Sistem je promenio odabrani račun!", "Operacija uspesno izvršena!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //    }
+        //    catch (SystemOperationException ex)
+        //    {
+        //        MessageBox.Show("Sistem ne može da promeni odabrani račun.\n" + ex.Message);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Sistem ne može da promeni odabrani račun.\n" + ex.Message);
 
-            }
-        }
+        //    }
+        //}
 
         internal void PrikaziPodatke()
         {
@@ -146,15 +146,19 @@ namespace View.UCControllers
                 Racun racunConverted = ConvertToRacun(racunIzDgv);
                 Racun racun = Communication.Instance.PretraziRacun(racunConverted);
 
-                uc.TxtIznos.Text = racun.UkupnaVrednost.ToString();
-                uc.TxtStopaPoreza.Text = racun.IznosPoreza.ToString();
-                uc.DtPickerDatumIzdavanja.Value = racun.DatumIzdavanja;
-                uc.CmbFarmaceut.SelectedItem = farmaceuti.FirstOrDefault(f => f.IdFarmaceut == racun.IdFarmaceut);
-                uc.CmbKorisnik.SelectedItem = korisnici.FirstOrDefault(k => k.IdKorisnik == racun.IdKorisnik);
+                FrmPrikazRacuna frmPrikazRacuna= new FrmPrikazRacuna(racun);
+                DialogResult result = frmPrikazRacuna.ShowDialog();
+                frmPrikazRacuna.Dispose();
+
+                //uc.TxtIznos.Text = racun.UkupnaVrednost.ToString();
+                //uc.TxtStopaPoreza.Text = racun.IznosPoreza.ToString();
+                //uc.DtPickerDatumIzdavanja.Value = racun.DatumIzdavanja;
+                //uc.CmbFarmaceut.SelectedItem = farmaceuti.FirstOrDefault(f => f.IdFarmaceut == racun.IdFarmaceut);
+                //uc.CmbKorisnik.SelectedItem = korisnici.FirstOrDefault(k => k.IdKorisnik == racun.IdKorisnik);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Sistem ne može da promeni odabrani račun.\n" + ex.Message);
+                MessageBox.Show("Došlo je do greške prilikom prikaza računa.\n" + ex.Message);
 
             }
         }

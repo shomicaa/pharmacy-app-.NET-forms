@@ -53,6 +53,7 @@ namespace View.UCControllers
             };
 
             int idNewRacun = Communication.Instance.KreirajRacun(racun);
+            form.LblIDRacun.Text += idNewRacun;
             racun.IdRacun = idNewRacun;
         }
 
@@ -63,6 +64,7 @@ namespace View.UCControllers
             form.DgvStavkeRacuna.Columns["SearchKeyword"].Visible = false;
             form.DgvStavkeRacuna.Columns["IdRacun"].Visible = false;
             form.DgvStavkeRacuna.Columns["IdLek"].Visible = false;
+            form.DgvStavkeRacuna.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         internal void Leave()
@@ -96,7 +98,7 @@ namespace View.UCControllers
                 racun.DatumIzdavanja = DateTime.Today;
                 racun.IdFarmaceut = ((Farmaceut)form.CmbFarmaceut1.SelectedItem).IdFarmaceut;
                 racun.IdKorisnik = ((Korisnik)form.CmbKorisnik.SelectedItem).IdKorisnik;
-                racun.Stavke = stavkeRacuna.ToList();
+                racun.Stavke = stavkeRacuna;
                 
                 Communication.Instance.PromeniRacun(racun);
                 form.Success = true;
